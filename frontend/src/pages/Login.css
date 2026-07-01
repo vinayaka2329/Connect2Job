@@ -1,0 +1,237 @@
+/* ===========================
+   LOGIN PAGE
+=========================== */
+
+.auth-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:0px;
+
+    background:
+    radial-gradient(circle at top right,
+    rgba(236,72,153,.12),
+    transparent 35%),
+
+    radial-gradient(circle at bottom left,
+    rgba(124,58,237,.12),
+    transparent 35%),
+
+    #fafaff;
+
+}
+
+/* ===========================
+   CARD
+=========================== */
+
+.auth-card{
+
+    width:100%;
+
+    max-width:470px;
+
+    background:#fff;
+
+    border-radius:28px;
+
+    padding:45px;
+
+    box-shadow:
+    0 25px 60px rgba(0,0,0,.08);
+
+    border:1px solid rgba(124,58,237,.08);
+
+}
+
+/* ===========================
+   TITLE
+=========================== */
+
+.auth-card h1{
+
+    text-align:center;
+
+    font-size:42px;
+
+    margin-bottom:10px;
+
+    color:#1f2937;
+
+    font-weight:800;
+
+}
+
+.auth-card h1::after{
+
+    content:"";
+
+    display:block;
+
+    width:70px;
+
+    height:4px;
+
+    margin:15px auto 0;
+
+    border-radius:20px;
+
+    background:linear-gradient(90deg,#7c3aed,#ec4899);
+
+}
+
+/* ===========================
+   FORM
+=========================== */
+
+.auth-card form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:22px;
+
+    margin-top:40px;
+
+}
+
+/* ===========================
+   INPUTS
+=========================== */
+
+.auth-card input{
+
+    width:100%;
+
+    padding:16px 18px;
+
+    border-radius:14px;
+
+    border:2px solid #ececec;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    background:#fff;
+
+}
+
+.auth-card input:focus{
+
+    border-color:#7c3aed;
+
+    box-shadow:
+    0 0 0 5px rgba(124,58,237,.12);
+
+}
+
+/* ===========================
+   BUTTON
+=========================== */
+
+.auth-card button{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#7c3aed,#ec4899);
+
+    color:#fff;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+.auth-card button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 18px 35px rgba(124,58,237,.35);
+
+}
+
+/* ===========================
+   DISABLED
+=========================== */
+
+.auth-card button:disabled{
+
+    opacity:.7;
+
+    cursor:not-allowed;
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:768px){
+
+.auth-card{
+
+    padding:35px 25px;
+
+}
+
+.auth-card h1{
+
+    font-size:34px;
+
+}
+
+}
+
+.auth-subtitle{
+
+    text-align:center;
+
+    color:#6b7280;
+
+    margin-top:10px;
+
+    margin-bottom:25px;
+
+    font-size:15px;
+
+}
+
+.auth-footer{
+    margin-top:25px;
+    text-align:center;
+    color:#6b7280;
+    font-size:15px;
+}
+
+.auth-footer span{
+    color:#7c3aed;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.auth-footer span:hover{
+    color:#ec4899;
+}

@@ -1,0 +1,159 @@
+// src/services/api.js
+export const API_URL =
+  import.meta.env.VITE_API_URL ||
+  'http://localhost:5000/api';
+
+const handleResponse = async (response) => {
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Something went wrong');
+  }
+
+  return response.json();
+};
+
+export const api = {
+  // =========================
+  // CONTACTS
+  // =========================
+  getContacts: async () => {
+    const response = await fetch(`${API_URL}/contacts`);
+    return handleResponse(response);
+  },
+
+  sendContact: async (contactData) => {
+    const response = await fetch(`${API_URL}/contacts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(contactData),
+    });
+
+    return handleResponse(response);
+  },
+
+  // =========================
+  // SUBSCRIBERS
+  // =========================
+  getSubscribers: async () => {
+    const response = await fetch(`${API_URL}/subscribers`);
+    return handleResponse(response);
+  },
+
+  // =========================
+  // JOBS
+  // =========================
+  getJobs: async () => {
+    const response = await fetch(`${API_URL}/jobs`);
+    return handleResponse(response);
+  },
+
+  createJob: async (jobData) => {
+
+  const response = await fetch(`${API_URL}/jobs`, {
+    method: "POST",
+    body: jobData,
+  });
+
+  return handleResponse(response);
+
+},
+
+  updateJob: async (id, jobData) => {
+    const response = await fetch(`${API_URL}/jobs/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(jobData),
+    });
+
+    return handleResponse(response);
+  },
+
+  deleteJob: async (id) => {
+    const response = await fetch(`${API_URL}/jobs/${id}`, {
+      method: 'DELETE',
+    });
+
+    return handleResponse(response);
+  },
+
+  approveJob: async (id) => {
+    const response = await fetch(
+      `${API_URL}/jobs/${id}/approve`,
+      {
+        method: 'PUT',
+      }
+    );
+
+    return handleResponse(response);
+  },
+
+  // =========================
+  // APPLICATIONS
+  // =========================
+  getApplications: async () => {
+    const response = await fetch(`${API_URL}/applications`);
+    return handleResponse(response);
+  },
+
+  deleteApplication: async (id) => {
+  const response = await fetch(
+    `${API_URL}/applications/${id}`,
+    {
+      method: 'DELETE',
+    }
+  );
+
+  return handleResponse(response);
+},
+
+  applyForJob: async (applicationData) => {
+  const response = await fetch(
+    `${API_URL}/applications`,
+    {
+      method: 'POST',
+      body: applicationData,
+    }
+  );
+
+  return handleResponse(response);
+},
+
+updateApplicationStatus: async (id, status) => {
+  const response = await fetch(
+    `${API_URL}/applications/${id}/status`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status }),
+    }
+  );
+
+  return handleResponse(response);
+},
+
+deleteContact: async (id) => {
+  const response = await fetch(
+    `${API_URL}/contacts/${id}`,
+    {
+      method: 'DELETE',
+    }
+  );
+
+  return handleResponse(response);
+},
+
+getApplicationStatus: async (email) => {
+  const response = await fetch(
+    `${API_URL}/applications/status/${encodeURIComponent(email)}`
+  );
+
+  return handleResponse(response);
+},
+
+};
