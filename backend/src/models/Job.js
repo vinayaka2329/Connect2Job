@@ -48,6 +48,10 @@ const jobSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    logoPublicId: {
+      type: String,
+      default: "",
+    },
     logoUrl: {
       type: String,
       default: "",

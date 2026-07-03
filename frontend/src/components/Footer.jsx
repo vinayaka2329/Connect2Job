@@ -14,6 +14,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 import { useAppContext } from "../context/AppContext";
+import { api } from "../services/api";
 import footerLogo from "../../images/image.png";
 import "./Footer.css";
 
@@ -29,14 +30,23 @@ export default function Footer() {
   const { showToast } = useAppContext();
   const [email, setEmail] = useState("");
 
-  const handleSubscribe = (event) => {
+  const handleSubscribe = async (event) => {
     event.preventDefault();
+
     if (!email.trim()) {
       showToast("Please enter an email address", "error");
       return;
     }
-    setEmail("");
-    showToast("Subscribed successfully!");
+
+    try {
+      await api.subscribe(email);
+
+      showToast("Subscribed successfully!");
+
+      setEmail("");
+    } catch (error) {
+      showToast(error.message || "Subscription failed", "error");
+    }
   };
 
   return (

@@ -381,13 +381,13 @@
 ========================= */
 
 .cta-section {
-  margin: 60px 0 20px;
+  margin: 40px 0 20px;
 }
 
 .cta-container {
-  padding: 70px 60px;
+  padding: 40px 50px;
   background: linear-gradient(135deg, #1a0a2e, #2d1b4e);
-  border-radius: 30px;
+  border-radius: 24px;
   text-align: center;
   color: #ffffff;
   position: relative;
@@ -435,18 +435,18 @@
 }
 
 .cta-container h2 {
-  font-size: 34px;
+  font-size: 30px;
   font-weight: 700;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   position: relative;
   z-index: 1;
 }
 
 .cta-container p {
-  font-size: 17px;
+  font-size: 16px;
   color: #c4b5d4;
   max-width: 520px;
-  margin: 0 auto 30px;
+  margin: 0 auto 24px;
   position: relative;
   z-index: 1;
 }
@@ -460,10 +460,10 @@
 }
 
 .cta-btn-primary {
-  padding: 16px 36px;
+  padding: 14px 28px;
   border: none;
   border-radius: 50px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   transition: 0.35s ease;
@@ -482,10 +482,10 @@
 }
 
 .cta-btn-secondary {
-  padding: 16px 36px;
+  padding: 14px 28px;
   border: 2px solid rgba(255, 255, 255, 0.25);
   border-radius: 50px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   transition: 0.35s ease;
@@ -567,7 +567,7 @@
   }
   
   .cta-container {
-    padding: 45px 25px;
+    padding: 35px 25px;
   }
   
   .cta-container h2 {
@@ -609,6 +609,6 @@
   }
   
   .cta-container {
-    padding: 35px 18px;
+    padding: 30px 18px;
   }
 }

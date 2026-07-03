@@ -33,9 +33,32 @@ export const api = {
     return handleResponse(response);
   },
 
+  deleteContact: async (id) => {
+    const response = await fetch(
+      `${API_URL}/contacts/${id}`,
+      {
+        method: 'DELETE',
+      }
+    );
+
+    return handleResponse(response);
+  },
+
   // =========================
   // SUBSCRIBERS
   // =========================
+  subscribe: async (email) => {
+    const response = await fetch(`${API_URL}/subscribers`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    return handleResponse(response);
+  },
+
   getSubscribers: async () => {
     const response = await fetch(`${API_URL}/subscribers`);
     return handleResponse(response);
@@ -50,23 +73,18 @@ export const api = {
   },
 
   createJob: async (jobData) => {
+    const response = await fetch(`${API_URL}/jobs`, {
+      method: "POST",
+      body: jobData,
+    });
 
-  const response = await fetch(`${API_URL}/jobs`, {
-    method: "POST",
-    body: jobData,
-  });
-
-  return handleResponse(response);
-
-},
+    return handleResponse(response);
+  },
 
   updateJob: async (id, jobData) => {
     const response = await fetch(`${API_URL}/jobs/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(jobData),
+      method: "PUT",
+      body: jobData,
     });
 
     return handleResponse(response);
@@ -100,60 +118,48 @@ export const api = {
   },
 
   deleteApplication: async (id) => {
-  const response = await fetch(
-    `${API_URL}/applications/${id}`,
-    {
-      method: 'DELETE',
-    }
-  );
+    const response = await fetch(
+      `${API_URL}/applications/${id}`,
+      {
+        method: 'DELETE',
+      }
+    );
 
-  return handleResponse(response);
-},
+    return handleResponse(response);
+  },
 
   applyForJob: async (applicationData) => {
-  const response = await fetch(
-    `${API_URL}/applications`,
-    {
-      method: 'POST',
-      body: applicationData,
-    }
-  );
+    const response = await fetch(
+      `${API_URL}/applications`,
+      {
+        method: 'POST',
+        body: applicationData,
+      }
+    );
 
-  return handleResponse(response);
-},
+    return handleResponse(response);
+  },
 
-updateApplicationStatus: async (id, status) => {
-  const response = await fetch(
-    `${API_URL}/applications/${id}/status`,
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ status }),
-    }
-  );
+  updateApplicationStatus: async (id, status) => {
+    const response = await fetch(
+      `${API_URL}/applications/${id}/status`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status }),
+      }
+    );
 
-  return handleResponse(response);
-},
+    return handleResponse(response);
+  },
 
-deleteContact: async (id) => {
-  const response = await fetch(
-    `${API_URL}/contacts/${id}`,
-    {
-      method: 'DELETE',
-    }
-  );
+  getApplicationStatus: async (email) => {
+    const response = await fetch(
+      `${API_URL}/applications/status/${encodeURIComponent(email)}`
+    );
 
-  return handleResponse(response);
-},
-
-getApplicationStatus: async (email) => {
-  const response = await fetch(
-    `${API_URL}/applications/status/${encodeURIComponent(email)}`
-  );
-
-  return handleResponse(response);
-},
-
+    return handleResponse(response);
+  },
 };

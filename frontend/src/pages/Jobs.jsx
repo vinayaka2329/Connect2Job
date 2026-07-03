@@ -124,6 +124,10 @@ export default function Jobs() {
   const [myApplications, setMyApplications] = useState([]);
   const [showAllApplications, setShowAllApplications] = useState(false);
 
+  // ✅ NEW: Add submitting state
+  const [submitting, setSubmitting] = useState(false);
+  const [postJobSubmitting, setPostJobSubmitting] = useState(false);
+
   // Modal states
   const [showApplyModal, setShowApplyModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -139,6 +143,7 @@ export default function Jobs() {
   const [applicationForm, setApplicationForm] = useState({
     name: '',
     email: '',
+    alternativeEmail: '',
     phone: '',
     resume: null,
     cover: ''
@@ -228,18 +233,37 @@ export default function Jobs() {
   }, [searchTerm, locationTerm, category, typeFilter, sortOrder]);
 
   // Fetch user applications
-  useEffect(() => {
-    if (!user?.email) return;
-
-    const loadApplications = async () => {
-      try {
-        const response = await api.getApplicationStatus(user.email);
-        setMyApplications(response.data || []);
-      } catch (err) {
-        console.error("Error fetching applications:", err);
+  const loadApplications = async () => {
+    if (!user) return;
+    try {
+      // ✅ NEW: Use userId if available, otherwise fall back to email
+      let response;
+      if (user?._id) {
+        response = await api.get(`/applications/user/${user._id}`);
+      } else if (user?.email) {
+        response = await api.getApplicationStatus(user.email);
+      } else {
+        return;
       }
-    };
+      // ✅ ENHANCED: Enrich applications with current job data (logo/logoUrl)
+      const applicationsWithCurrentJobData = (response.data || []).map((app) => {
+        const currentJob = jobs.find(
+          (job) => job.title === app.jobTitle && job.company === app.company
+        );
+        return {
+          ...app,
+          // Override with current job logo/logoUrl if available
+          logo: currentJob?.logo || app.logo,
+          logoUrl: currentJob?.logoUrl || app.logoUrl,
+        };
+      });
+      setMyApplications(applicationsWithCurrentJobData);
+    } catch (err) {
+      console.error("Error fetching applications:", err);
+    }
+  };
 
+  useEffect(() => {
     loadApplications();
   }, [user]);
 
@@ -295,7 +319,14 @@ export default function Jobs() {
   // ===== MODAL FUNCTIONS =====
   const selectJobForApply = (job) => {
     setSelectedJob(job);
-    setApplicationForm({ name: '', email: '', phone: '', resume: null, cover: '' });
+    setApplicationForm({
+      name: user?.name || '',
+      email: user?.email || '',
+      alternativeEmail: '',
+      phone: '',
+      resume: null,
+      cover: ''
+    });
     setApplicationStatus('');
     setApplicationMessage('');
     setShowApplyModal(true);
@@ -317,27 +348,47 @@ export default function Jobs() {
   // ===== SUBMIT APPLICATION =====
   const submitApplication = async (event) => {
     event.preventDefault();
-    const { name, email, phone, resume, cover } = applicationForm;
+
+    // ✅ NEW: Prevent duplicate submissions
+    if (submitting) return;
+
+    // ✅ NEW: Set submitting to true
+    setSubmitting(true);
+
+    const { name, email, alternativeEmail, phone, resume, cover } = applicationForm;
 
     // Validation
-    if (!name.trim() || !email.trim() || !phone.trim() || !resume) {
+    if (!name.trim() || !phone.trim() || !resume) {
       setApplicationStatus('error');
       setApplicationMessage('Please fill in all required fields and upload your resume.');
+      setSubmitting(false);
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[0-9]{10}$/;
 
-    if (!emailRegex.test(email)) {
+    // Validate alternative email if provided, otherwise use logged-in email
+    let finalEmail = alternativeEmail.trim() || email;
+
+    if (alternativeEmail.trim() && !emailRegex.test(alternativeEmail)) {
+      setApplicationStatus('error');
+      setApplicationMessage('Please enter a valid alternative email address.');
+      setSubmitting(false);
+      return;
+    }
+
+    if (!emailRegex.test(finalEmail)) {
       setApplicationStatus('error');
       setApplicationMessage('Please enter a valid email address.');
+      setSubmitting(false);
       return;
     }
 
     if (!phoneRegex.test(phone.replace(/[^0-9]/g, ''))) {
       setApplicationStatus('error');
       setApplicationMessage('Please enter a valid 10-digit phone number.');
+      setSubmitting(false);
       return;
     }
 
@@ -371,7 +422,7 @@ export default function Jobs() {
 
     formData.append(
       'applicantEmail',
-      email.trim()
+      finalEmail
     );
 
     formData.append(
@@ -389,10 +440,16 @@ export default function Jobs() {
       resume
     );
 
+    // ✅ NEW: Include userId if user is logged in
+    if (user?._id) {
+      formData.append('userId', user._id);
+    }
+
     try {
       await api.applyForJob(formData);
 
       setShowApplyModal(false);
+      await loadApplications();
 
       showToast(
         `✅ Application submitted for ${selectedJob.title} at ${selectedJob.company}!`,
@@ -401,10 +458,21 @@ export default function Jobs() {
     } catch (err) {
       console.error(err);
 
-      showToast(
-        '❌ Failed to submit application',
-        'error'
-      );
+      // ✅ FIXED: Handle duplicate application error with status code 409
+      if (err.response?.status === 409) {
+        showToast(
+          err.response?.data?.message || 'You have already applied for this job with this email.',
+          'warning'
+        );
+      } else {
+        showToast(
+          err.response?.data?.message || ' Application already submitted',
+          'error'
+        );
+      }
+    } finally {
+      // ✅ NEW: Reset submitting state
+      setSubmitting(false);
     }
   };
 
@@ -412,6 +480,10 @@ export default function Jobs() {
   // ===== SUBMIT POST JOB =====
   const submitPostJob = async (event) => {
     event.preventDefault();
+    
+    // ✅ NEW: Prevent duplicate submissions
+    if (postJobSubmitting) return;
+    setPostJobSubmitting(true);
 
     const {
       title,
@@ -526,6 +598,9 @@ export default function Jobs() {
         "Failed to post job",
         "error"
       );
+    } finally {
+      // ✅ NEW: Reset submitting state
+      setPostJobSubmitting(false);
     }
   };
 
@@ -555,7 +630,7 @@ export default function Jobs() {
           <div className="job-card-image">
             {job.logo ? (
               <img
-                src={`${API_URL.replace("/api", "")}${job.logo}`}
+                src={job.logo}
                 alt={job.company}
                 className="company-logo"
               />
@@ -953,7 +1028,7 @@ export default function Jobs() {
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => {
-                 setCurrentPage((prev) => prev + 1);
+                  setCurrentPage((prev) => prev + 1);
                   window.scrollTo({
                     top: 0,
                     behavior: "smooth",
@@ -968,64 +1043,72 @@ export default function Jobs() {
       )}
 
       {/* ===== MY APPLICATIONS ===== */}
-{user && myApplications.length > 0 && (
-  <section className="my-applications-section">
-    <h2>📄 My Applications</h2>
-    
-    <div className="applications-table-wrapper">
-      <table className="applications-table">
-        <thead>
-          <tr>
-            <th>Job Title</th>
-            <th>Company</th>
-            <th>Applied Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {(showAllApplications
-            ? myApplications
-            : myApplications.slice(0, 3)
-          ).map((app) => (
-            <tr key={app._id}>
-              <td>{app.jobTitle}</td>
-              <td>{app.company}</td>
-              <td>
-                {new Date(app.createdAt).toLocaleDateString()}
-              </td>
-              <td>
-                <button
-                  className="view-application-btn"
-                  onClick={() => {
-                    setSelectedApplication(app);
-                    setShowApplicationModal(true);
-                  }}
-                >
-                  View Details
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+      {user && myApplications.length > 0 && (
+        <section className="my-applications-section">
+          <h2>📄 My Applications</h2>
 
-    {myApplications.length > 3 && (
-      <div className="view-more-container">
-        <button
-          className="view-more-btn"
-          onClick={() =>
-            setShowAllApplications(!showAllApplications)
-          }
-        >
-          {showAllApplications
-            ? "Show Less"
-            : "View More"}
-        </button>
-      </div>
-    )}
-  </section>
-)}
+          <div className="applications-table-wrapper">
+            <table className="applications-table">
+              <thead>
+                <tr>
+                  <th>Logo</th>
+                  <th>Job Title</th>
+                  <th>Company</th>
+                  <th>Applied Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(showAllApplications
+                  ? myApplications
+                  : myApplications.slice(0, 3)
+                ).map((app) => (
+                  <tr key={app._id}>
+                    <td>
+                      <img
+                        src={app.logo || app.logoUrl || "/images/default-company.png"}
+                        alt={app.company}
+                        style={{ width: '40px', height: '40px', borderRadius: '4px', objectFit: 'cover' }}
+                      />
+                    </td>
+                    <td>{app.jobTitle}</td>
+                    <td>{app.company}</td>
+                    <td>
+                      {new Date(app.createdAt).toLocaleDateString()}
+                    </td>
+                    <td>
+                      <button
+                        className="view-application-btn"
+                        onClick={() => {
+                          setSelectedApplication(app);
+                          setShowApplicationModal(true);
+                        }}
+                      >
+                        View Details
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {myApplications.length > 3 && (
+            <div className="view-more-container">
+              <button
+                className="view-more-btn"
+                onClick={() =>
+                  setShowAllApplications(!showAllApplications)
+                }
+              >
+                {showAllApplications
+                  ? "Show Less"
+                  : "View More"}
+              </button>
+            </div>
+          )}
+        </section>
+      )}
 
       {/* ============================================
           MODALS
@@ -1063,8 +1146,20 @@ export default function Jobs() {
                   <input
                     type="email"
                     value={applicationForm.email}
-                    onChange={(e) => setApplicationForm({ ...applicationForm, email: e.target.value })}
+                    readOnly
+                    style={{ backgroundColor: '#f1f5f9', cursor: 'not-allowed' }}
                     required
+                  />
+                </div>
+              </div>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Alternative Email (Optional)</label>
+                  <input
+                    type="email"
+                    value={applicationForm.alternativeEmail}
+                    onChange={(e) => setApplicationForm({ ...applicationForm, alternativeEmail: e.target.value })}
+                    placeholder="Use a different email if you prefer"
                   />
                 </div>
               </div>
@@ -1098,8 +1193,13 @@ export default function Jobs() {
                   onChange={(e) => setApplicationForm({ ...applicationForm, cover: e.target.value })}
                 />
               </div>
-              <button type="submit" className="submit-application-btn">
-                Submit Application
+              {/* ✅ UPDATED: Submit button with disabled state */}
+              <button
+                type="submit"
+                className="submit-application-btn"
+                disabled={submitting}
+              >
+                {submitting ? "Submitting..." : "Submit Application"}
               </button>
             </form>
           </div>
@@ -1130,15 +1230,8 @@ export default function Jobs() {
                     <div className="premium-logo">
                       {selectedJob.logo || selectedJob.logoUrl ? (
                         <img
-                          src={
-                            selectedJob.logo
-                              ? `${API_URL.replace("/api", "")}${selectedJob.logo}`
-                              : selectedJob.logoUrl
-                          }
+                          src={selectedJob.logo || selectedJob.logoUrl}
                           alt={selectedJob.company}
-                          onError={(e) => {
-                            e.target.style.display = "none";
-                          }}
                         />
                       ) : (
                         <span>💼</span>
@@ -1389,7 +1482,7 @@ export default function Jobs() {
                 />
               </div>
               <div className="form-group">
-                <label>Company Logo (Upload)</label>
+                <label>Company Logo (Upload .png only)</label>
                 <input
                   type="file"
                   accept="image/*"
@@ -1424,8 +1517,12 @@ export default function Jobs() {
                   required
                 />
               </div>
-              <button type="submit" className="submit-application-btn">
-                <i className="fas fa-plus-circle" /> Post Job
+              <button 
+                type="submit" 
+                className="submit-application-btn"
+                disabled={postJobSubmitting}
+              >
+                <i className="fas fa-plus-circle" /> {postJobSubmitting ? "Posting..." : "Post Job"}
               </button>
             </form>
           </div>

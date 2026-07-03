@@ -27,11 +27,20 @@ export default function Profile() {
 
   // Fetch real applications from MongoDB
   useEffect(() => {
-    if (!user?.email) return;
+    if (!user) return;
 
     const fetchApplications = async () => {
       try {
-        const response = await api.getApplicationStatus(user.email);
+        // ✅ NEW: Use userId if available, otherwise fall back to email
+        let response;
+        if (user?._id) {
+          response = await api.get(`/applications/user/${user._id}`);
+        } else if (user?.email) {
+          response = await api.getApplicationStatus(user.email);
+        } else {
+          setApplications([]);
+          return;
+        }
         setApplications(response.data || []);
       } catch (error) {
         console.error("Error fetching applications:", error);

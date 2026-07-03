@@ -35,11 +35,13 @@ export default function Admin() {
   const [tableItems, setTableItems] = useState([]);
   const [newJob, setNewJob] = useState(initialJobTemplate);
   const [editingJobId, setEditingJobId] = useState(null);
+  const [jobSubmitting, setJobSubmitting] = useState(false);
 
   // ===== STATE FROM API =====
   const [jobs, setJobs] = useState([]);
   const [applications, setApplications] = useState([]);
   const [contacts, setContacts] = useState([]);
+  const [subscribers, setSubscribers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Separate state for dashboard data (derived from API data)
@@ -56,15 +58,17 @@ export default function Admin() {
   const loadDashboard = async (keepCurrentTab = false) => {
     setLoading(true);
     try {
-      const [jobsRes, applicationsRes, contactsRes] = await Promise.all([
+      const [jobsRes, applicationsRes, contactsRes, subscribersRes] = await Promise.all([
         api.getJobs(),
         api.getApplications(),
         api.getContacts(),
+        api.getSubscribers(),
       ]);
 
       setJobs(jobsRes.data || []);
       setApplications(applicationsRes.data || []);
       setContacts(contactsRes.data || []);
+      setSubscribers(subscribersRes.data || []);
 
       const companies = new Set((applicationsRes.data || []).map((item) => item.company)).size;
       const candidates = new Set((applicationsRes.data || []).map((item) => item.applicantEmail)).size;
@@ -244,6 +248,9 @@ export default function Admin() {
       case 'contacts':
         items = dashboardData.contacts || [];
         break;
+      case 'subscribers':
+        items = subscribers;
+        break;
       default:
         items = [];
     }
@@ -276,6 +283,7 @@ export default function Admin() {
     setJobs([]);
     setApplications([]);
     setContacts([]);
+    setSubscribers([]);
     setDashboardData({
       applications: [],
       postedJobs: [],
@@ -293,6 +301,7 @@ export default function Admin() {
       applications: applications,
       jobs: jobs,
       contacts: contacts,
+      subscribers: subscribers,
       exportedAt: new Date().toISOString(),
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
@@ -362,6 +371,9 @@ export default function Admin() {
       case 'pendingjobs':
         data = dashboardData.pendingJobs || [];
         break;
+      case 'subscribers':
+        data = subscribers;
+        break;
       default:
         data = [];
     }
@@ -385,9 +397,7 @@ export default function Admin() {
           item.applicantEmail || item.email || '',
           item.applicantPhone || item.phone || '',
           item.resumeName || '',
-          item.resumeUrl
-            ? `http://localhost:5000${item.resumeUrl}`
-            : '',
+          item.resumeUrl || '',
           item.appliedDate || item.createdAt || '',
           item.status || 'Pending',
         ]);
@@ -401,6 +411,14 @@ export default function Admin() {
           item.subject || '',
           item.message || '',
           item.createdAt || '',
+        ]);
+        break;
+
+      case 'subscribers':
+        headers = ['Email', 'Subscribed On'];
+        rows = data.map((item) => [
+          item.email || '',
+          item.createdAt ? new Date(item.createdAt).toLocaleDateString() : '',
         ]);
         break;
 
@@ -482,11 +500,17 @@ export default function Admin() {
   // ===== ADD JOB =====
   const handleAddJob = async (event) => {
     event.preventDefault();
+    
+    // ✅ NEW: Prevent duplicate submissions
+    if (jobSubmitting) return;
+    setJobSubmitting(true);
+    
     if (!newJob.title || !newJob.company || !newJob.location || !newJob.salary || !newJob.contactEmail) {
       showToast('Please fill required job fields', 'warning');
+      setJobSubmitting(false);
       return;
     }
-    
+
     const tags = (newJob.tags || '').split(',').map((tag) => tag.trim()).filter(Boolean);
 
     // Create FormData for file upload support
@@ -504,9 +528,9 @@ export default function Admin() {
       JSON.stringify(
         newJob.requirements
           ? newJob.requirements
-              .split(",")
-              .map(r => r.trim())
-              .filter(Boolean)
+            .split(",")
+            .map(r => r.trim())
+            .filter(Boolean)
           : []
       )
     );
@@ -516,9 +540,9 @@ export default function Admin() {
       JSON.stringify(
         newJob.benefits
           ? newJob.benefits
-              .split(",")
-              .map(b => b.trim())
-              .filter(Boolean)
+            .split(",")
+            .map(b => b.trim())
+            .filter(Boolean)
           : []
       )
     );
@@ -550,6 +574,9 @@ export default function Admin() {
     } catch (err) {
       console.error(err);
       showToast('Failed to save job', 'error');
+    } finally {
+      // ✅ NEW: Reset submitting state
+      setJobSubmitting(false);
     }
   };
 
@@ -579,6 +606,69 @@ export default function Admin() {
     }
   };
 
+  // ===== DELETE SUBSCRIBER =====
+  const handleDeleteSubscriber = async (id) => {
+    if (!window.confirm("Delete this subscriber?")) return;
+
+    try {
+      await api.deleteSubscriber(id);
+
+      setSubscribers((prev) =>
+        prev.filter((subscriber) => subscriber._id !== id)
+      );
+
+      showToast("Subscriber deleted successfully", "success");
+
+      await loadDashboard(true);
+    } catch (error) {
+      showToast(error.message, "error");
+    }
+  };
+
+  // ===== VIEW RESUME =====
+  const handleViewResume = (application) => {
+    if (!application.resumeUrl) {
+      showToast("Resume URL not available", "error");
+      return;
+    }
+    window.open(application.resumeUrl, "_blank", "noopener,noreferrer");
+  };
+
+  // ===== DOWNLOAD RESUME =====
+  const handleDownloadResume = async (application) => {
+    try {
+      if (!application.resumeUrl) {
+        showToast("Resume URL not available", "error");
+        return;
+      }
+
+      const response = await fetch(application.resumeUrl);
+
+      if (!response.ok) {
+        throw new Error("Unable to download resume");
+      }
+
+      const blob = await response.blob();
+
+      const blobUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = application.resumeName || "resume.pdf";
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
+
+      showToast("✅ Resume downloaded successfully", "success");
+    } catch (err) {
+      console.error(err);
+      showToast("Failed to download resume", "error");
+    }
+  };
+
   const sectionTitle = useMemo(() => {
     switch (activeTable) {
       case 'applications':
@@ -589,6 +679,8 @@ export default function Admin() {
         return '📝 Posted Jobs';
       case 'contacts':
         return '📩 Contacts';
+      case 'subscribers':
+        return '📧 Newsletter Subscribers';
       default:
         return '📋 All Applications';
     }
@@ -597,6 +689,7 @@ export default function Admin() {
   // ===== COUNTS =====
   const contactsCount = contacts.length;
   const applicationsCount = applications.length;
+  const subscribersCount = subscribers.length;
 
   return (
     <section className="admin page-section">
@@ -774,8 +867,8 @@ export default function Admin() {
                       )}
                     </div>
 
-                    <button type="submit" className="admin-add-job-btn">
-                      <i className={`fas ${editingJobId ? 'fa-save' : 'fa-plus-circle'}`}></i> {editingJobId ? 'Save Job' : 'Add Job'}
+                    <button type="submit" className="admin-add-job-btn" disabled={jobSubmitting}>
+                      <i className={`fas ${editingJobId ? 'fa-save' : 'fa-plus-circle'}`}></i> {jobSubmitting ? (editingJobId ? 'Saving...' : 'Adding...') : (editingJobId ? 'Save Job' : 'Add Job')}
                     </button>
                   </form>
                 </div>
@@ -809,6 +902,11 @@ export default function Admin() {
                 <div className="stat-number">{contactsCount}</div>
                 <div className="stat-label">Messages</div>
               </div>
+              <div className="admin-stat-card">
+                <div className="stat-icon"><i className="fas fa-newspaper"></i></div>
+                <div className="stat-number">{subscribersCount}</div>
+                <div className="stat-label">Subscribers</div>
+              </div>
             </div>
 
             {/* ===== TABLE ===== */}
@@ -827,6 +925,9 @@ export default function Admin() {
                   </button>
                   <button type="button" className={activeTable === 'contacts' ? 'active' : ''} onClick={() => switchTable('contacts')}>
                     Contacts
+                  </button>
+                  <button type="button" className={activeTable === 'subscribers' ? 'active' : ''} onClick={() => switchTable('subscribers')}>
+                    Subscribers
                   </button>
                 </div>
               </div>
@@ -861,6 +962,7 @@ export default function Admin() {
                           )}
                           {activeTable === 'postedjobs' && (
                             <>
+                              <th>Logo</th>
                               <th>Title</th>
                               <th>Company</th>
                               <th>Location</th>
@@ -870,6 +972,7 @@ export default function Admin() {
                           )}
                           {activeTable === 'pendingjobs' && (
                             <>
+                              <th>Logo</th>
                               <th>Title</th>
                               <th>Company</th>
                               <th>Location</th>
@@ -887,6 +990,13 @@ export default function Admin() {
                               <th>Actions</th>
                             </>
                           )}
+                          {activeTable === 'subscribers' && (
+                            <>
+                              <th>Email</th>
+                              <th>Subscribed On</th>
+                              <th>Action</th>
+                            </>
+                          )}
                         </tr>
                       </thead>
                       <tbody>
@@ -897,11 +1007,7 @@ export default function Admin() {
                                 <td>
                                   <img
                                     src={
-                                      item.logoUrl
-                                        ? item.logoUrl
-                                        : item.logo
-                                        ? `http://localhost:5000${item.logo}`
-                                        : "/images/default-company.png"
+                                      item.logo || item.logoUrl || "/images/default-company.png"
                                     }
                                     alt={item.company}
                                     className="company-logo-admin"
@@ -920,21 +1026,20 @@ export default function Admin() {
                                         flexWrap: 'wrap',
                                       }}
                                     >
-                                      <a
-                                        href={`http://localhost:5000${item.resumeUrl}`}
-                                        target="_blank"
-                                        rel="noreferrer"
+                                      <button
+                                        type="button"
                                         className="resume-action-btn view-btn"
+                                        onClick={() => handleViewResume(item)}
                                       >
                                         👁 View
-                                      </a>
-                                      <a
-                                        href={`http://localhost:5000${item.resumeUrl}`}
-                                        download
+                                      </button>
+                                      <button
+                                        type="button"
                                         className="resume-action-btn download-btn"
+                                        onClick={() => handleDownloadResume(item)}
                                       >
                                         ⬇ Download
-                                      </a>
+                                      </button>
                                     </div>
                                   ) : (
                                     <>
@@ -991,6 +1096,13 @@ export default function Admin() {
                             )}
                             {activeTable === 'postedjobs' && (
                               <>
+                                <td>
+                                  <img
+                                    src={item.logo || item.logoUrl || "/images/default-company.png"}
+                                    alt={item.company}
+                                    style={{ width: '40px', height: '40px', borderRadius: '4px', objectFit: 'cover' }}
+                                  />
+                                </td>
                                 <td>{item.title}</td>
                                 <td>{item.company}</td>
                                 <td>{item.location}</td>
@@ -1003,6 +1115,13 @@ export default function Admin() {
                             )}
                             {activeTable === 'pendingjobs' && (
                               <>
+                                <td>
+                                  <img
+                                    src={item.logo || item.logoUrl || "/images/default-company.png"}
+                                    alt={item.company}
+                                    style={{ width: '40px', height: '40px', borderRadius: '4px', objectFit: 'cover' }}
+                                  />
+                                </td>
                                 <td>{item.title}</td>
                                 <td>{item.company}</td>
                                 <td>{item.location}</td>
@@ -1028,6 +1147,24 @@ export default function Admin() {
                                       handleDeleteContact(
                                         item._id || item.id
                                       )
+                                    }
+                                  >
+                                    Delete
+                                  </button>
+                                </td>
+                              </>
+                            )}
+                            {activeTable === 'subscribers' && (
+                              <>
+                                <td>{item.email}</td>
+                                <td>
+                                  {new Date(item.createdAt).toLocaleDateString()}
+                                </td>
+                                <td>
+                                  <button
+                                    className="btn btn-danger"
+                                    onClick={() =>
+                                      handleDeleteSubscriber(item._id)
                                     }
                                   >
                                     Delete

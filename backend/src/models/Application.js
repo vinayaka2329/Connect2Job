@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const applicationSchema = new mongoose.Schema(
   {
+    userId: {
+      type: String,
+      default: null,  // ✅ NEW: Links applications to user account
+    },
     jobTitle: {
       type: String,
       required: true,
@@ -40,6 +44,10 @@ const applicationSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    resumePublicId: {  // ✅ NEW: Store Cloudinary public ID
+    type: String,
+    default: '',
+  },
     coverLetter: {
       type: String,
       default: '',

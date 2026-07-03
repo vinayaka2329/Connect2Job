@@ -31,8 +31,7 @@ export default function Home() {
             </h1>
 
             <p>
-              Connect with top companies and discover premium opportunities
-              tailored to your skills and career goals.
+             Shape Your Future With A Career that Matches Your Ambition!
             </p>
 
             <div className="hero-buttons">
