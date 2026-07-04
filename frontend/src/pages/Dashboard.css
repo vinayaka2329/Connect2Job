@@ -1,0 +1,454 @@
+/* ===== DASHBOARD STYLES ===== */
+
+.dashboard-container {
+  max-width: 1200px;
+  margin: 120px auto;
+  padding: 20px;
+  min-height: 60vh;
+}
+
+/* Welcome Section */
+.dashboard-welcome {
+  margin-bottom: 40px;
+  padding: 30px 40px;
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f0ff 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(108, 99, 255, 0.1);
+}
+
+.dashboard-welcome h1 {
+  font-size: 2rem;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+}
+
+.dashboard-welcome p {
+  color: #6A7A9A;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* My Applications Section */
+.my-applications-section {
+  margin-top: 40px;
+}
+
+.my-applications-section h2 {
+  font-size: 1.5rem;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* No Applications */
+.no-applications {
+  background: #f8f9fc;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  border: 2px dashed #dce0ea;
+}
+
+.no-applications p {
+  color: #6A7A9A;
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+.browse-jobs-btn {
+  background: linear-gradient(135deg, #6C63FF 0%, #5A52D5 100%);
+  color: #ffffff;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+}
+
+.browse-jobs-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(108, 99, 255, 0.4);
+  background: linear-gradient(135deg, #7B73FF 0%, #6C63FF 100%);
+}
+
+/* Applications Table */
+.applications-table-wrapper {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e8ecf4;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.applications-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.applications-table thead {
+  background: #f8f9fc;
+}
+
+.applications-table th {
+  padding: 14px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: #4a5a7a;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e8ecf4;
+}
+
+.applications-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid #f0f2f7;
+  color: #2a3a5a;
+  vertical-align: middle;
+}
+
+.applications-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.applications-table tbody tr:hover {
+  background: #f8f9ff;
+}
+
+.applications-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Company Logo */
+.company-logo-small {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #e8ecf4;
+  background: #ffffff;
+}
+
+/* View Application Button */
+.view-application-btn {
+  background: linear-gradient(135deg, #6C63FF 0%, #5A52D5 100%);
+  color: #ffffff;
+  border: none;
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(108, 99, 255, 0.25);
+  white-space: nowrap;
+}
+
+.view-application-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.35);
+  background: linear-gradient(135deg, #7B73FF 0%, #6C63FF 100%);
+}
+
+.view-application-btn:active {
+  transform: translateY(0px);
+}
+
+/* View More Container */
+.view-more-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 10px 0;
+  width: 100%;
+}
+
+.view-more-btn {
+  background: linear-gradient(135deg, #6C63FF 0%, #5A52D5 100%);
+  color: #ffffff;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+  letter-spacing: 0.3px;
+}
+
+.view-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(108, 99, 255, 0.4);
+  background: linear-gradient(135deg, #7B73FF 0%, #6C63FF 100%);
+}
+
+.view-more-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 10px rgba(108, 99, 255, 0.3);
+}
+
+/* ===== APPLICATION DETAILS MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.application-details-modal {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 520px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.application-details-modal h2 {
+  font-size: 1.5rem;
+  color: #1a1a2e;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.application-details-modal h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  margin: 8px auto 0;
+  background: linear-gradient(135deg, #6C63FF 0%, #5A52D5 100%);
+  border-radius: 2px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #6A7A9A;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.modal-close:hover {
+  color: #1a1a2e;
+  background: #f0f2f7;
+  transform: rotate(90deg);
+}
+
+/* Application Info Items */
+.application-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f8f9fc;
+  border-radius: 10px;
+  border: 1px solid #e8ecf4;
+  gap: 16px;
+}
+
+.info-item span {
+  color: #6A7A9A;
+  font-size: 0.85rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.info-item strong {
+  color: #1a1a2e;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: right;
+  word-break: break-word;
+}
+
+/* Modal Actions */
+.application-modal-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.track-status-btn {
+  background: linear-gradient(135deg, #6C63FF 0%, #5A52D5 100%);
+  color: #ffffff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+  width: 100%;
+}
+
+.track-status-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(108, 99, 255, 0.4);
+  background: linear-gradient(135deg, #7B73FF 0%, #6C63FF 100%);
+}
+
+.track-status-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 10px rgba(108, 99, 255, 0.3);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .dashboard-container {
+    margin: 100px auto;
+    padding: 16px;
+  }
+
+  .dashboard-welcome {
+    padding: 20px 24px;
+  }
+
+  .dashboard-welcome h1 {
+    font-size: 1.5rem;
+  }
+
+  .dashboard-welcome p {
+    font-size: 0.9rem;
+  }
+
+  .applications-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .applications-table {
+    font-size: 0.85rem;
+    min-width: 500px;
+  }
+
+  .applications-table th,
+  .applications-table td {
+    padding: 10px 14px;
+  }
+
+  .company-logo-small {
+    width: 32px;
+    height: 32px;
+  }
+
+  .application-details-modal {
+    padding: 28px 20px;
+    max-width: 95%;
+    margin: 16px;
+  }
+
+  .info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 10px 14px;
+  }
+
+  .info-item strong {
+    text-align: left;
+    width: 100%;
+  }
+
+  .view-application-btn {
+    padding: 4px 14px;
+    font-size: 0.75rem;
+  }
+
+  .view-more-btn {
+    padding: 8px 24px;
+    font-size: 0.85rem;
+  }
+
+  .track-status-btn {
+    padding: 10px 24px;
+    font-size: 0.85rem;
+  }
+
+  .my-applications-section h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-welcome h1 {
+    font-size: 1.25rem;
+  }
+
+  .dashboard-welcome {
+    padding: 16px 20px;
+  }
+
+  .applications-table {
+    font-size: 0.75rem;
+    min-width: 400px;
+  }
+
+  .applications-table th,
+  .applications-table td {
+    padding: 8px 10px;
+  }
+
+  .application-details-modal h2 {
+    font-size: 1.2rem;
+  }
+
+  .modal-close {
+    top: 12px;
+    right: 14px;
+    font-size: 24px;
+  }
+}

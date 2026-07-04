@@ -100,12 +100,28 @@ export default function Admin() {
       const candidates = new Set((applicationsRes.data || []).map((item) => item.applicantEmail)).size;
 
       const allJobs = jobsRes.data || [];
-      const pendingJobs = allJobs.filter((job) => job.status === 'Pending' || job.approved === false);
+      // const pendingJobs = allJobs.filter((job) => job.status === 'Pending' || job.approved === false);
+      const pendingJobs = allJobs.filter(
+        (job) => !job.approved
+      );
+
+      const postedJobs = allJobs.filter(
+        (job) => job.approved
+      );
+
+      // setDashboardData({
+      //   applications: applicationsRes.data || [],
+      //   postedJobs: allJobs,
+      //   pendingJobs: pendingJobs,
+      //   contacts: contactsRes.data || [],
+      //   companies,
+      //   candidates,
+      // });
 
       setDashboardData({
         applications: applicationsRes.data || [],
-        postedJobs: allJobs,
-        pendingJobs: pendingJobs,
+        postedJobs,
+        pendingJobs,
         contacts: contactsRes.data || [],
         companies,
         candidates,
@@ -210,7 +226,7 @@ export default function Admin() {
       await api.updateApplicationStatus(id, 'Accepted');
 
       showToast(
-        '✅ Application Accepted',
+        ' Application Accepted',
         'success'
       );
 
@@ -259,8 +275,11 @@ export default function Admin() {
       case 'pendingjobs':
         items = dashboardData.pendingJobs || [];
         break;
+      // case 'postedjobs':
+      //   items = jobs;
       case 'postedjobs':
-        items = jobs;
+      items = dashboardData.postedJobs || [];
+      break;
         break;
       case 'contacts':
         items = dashboardData.contacts || [];

@@ -1,55 +1,9 @@
-// import { useAuth } from "../context/AuthContext";
-// import Admin from "./Admin";
-
-// export default function Dashboard() {
-//   const { user, loading } = useAuth();
-
-//   if (loading) {
-//     return (
-//       <div style={{ marginTop: "120px", textAlign: "center" }}>
-//         Loading...
-//       </div>
-//     );
-//   }
-
-//   if (!user) {
-//     return (
-//       <div style={{ marginTop: "120px", textAlign: "center" }}>
-//         Please login first.
-//       </div>
-//     );
-//   }
-
-//   // Admin Dashboard
-//   if (user.role === "admin") {
-//     return <Admin />;
-//   }
-
-//   // User Dashboard (temporary)
-//   return (
-//     <div
-//       style={{
-//         maxWidth: "1200px",
-//         margin: "120px auto",
-//         padding: "20px",
-//       }}
-//     >
-//       <h1>Welcome, {user.name} 👋</h1>
-
-//       <h3>User Dashboard</h3>
-
-//       <p>This is where your applications will be displayed.</p>
-//     </div>
-//   );
-// }
-
-
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../services/api";
 import Admin from "./Admin";
+import "./Dashboard.css";
 
 export default function Dashboard() {
   const { user, loading } = useAuth();
@@ -61,7 +15,7 @@ export default function Dashboard() {
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [showApplicationModal, setShowApplicationModal] = useState(false);
 
-  // ===== Load Applications (Copied from Jobs.jsx) =====
+  // ===== Load Applications =====
   const loadApplications = async () => {
     if (!user) return;
 
@@ -109,98 +63,94 @@ export default function Dashboard() {
 
   // ===== User =====
   return (
-    <div
-      style={{
-        maxWidth: "1200px",
-        margin: "120px auto",
-        padding: "20px",
-      }}
-    >
-      <h1>Welcome, {user.name} 👋</h1>
-
-      <h3>User Dashboard</h3>
-
-      {/* Applications section will be pasted here in the next step */}
-      <h3>User Dashboard</h3>
+    <div className="dashboard-container">
+      {/* Welcome Section */}
+      <div className="dashboard-welcome">
+        <h1>Welcome, {user.name} 👋</h1>
+        <p>Manage your job applications and track your progress.</p>
+      </div>
 
       {/* ===== MY APPLICATIONS ===== */}
-      {user && myApplications.length > 0 && (
-        <section className="my-applications-section">
-          <h2>📄 My Applications</h2>
+      <section className="my-applications-section">
+        <h2>📄 My Applications</h2>
 
-          <div className="applications-table-wrapper">
-            <table className="applications-table">
-              <thead>
-                <tr>
-                  <th>Logo</th>
-                  <th>Job Title</th>
-                  <th>Company</th>
-                  <th>Applied Date</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(showAllApplications
-                  ? myApplications
-                  : myApplications.slice(0, 3)
-                ).map((app) => (
-                  <tr key={app._id}>
-                    <td>
-                      <img
-                        src={app.logo || app.logoUrl || "/images/default-company.png"}
-                        alt={app.company}
-                        style={{
-                          width: "40px",
-                          height: "40px",
-                          borderRadius: "4px",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </td>
-
-                    <td>{app.jobTitle}</td>
-
-                    <td>{app.company}</td>
-
-                    <td>
-                      {new Date(app.createdAt).toLocaleDateString()}
-                    </td>
-
-                    <td>
-                      <button
-                        className="view-application-btn"
-                        onClick={() => {
-                          setSelectedApplication(app);
-                          setShowApplicationModal(true);
-                        }}
-                      >
-                        View Details
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        {myApplications.length === 0 ? (
+          <div className="no-applications">
+            <p>You haven't applied to any jobs yet.</p>
+            <button 
+              className="browse-jobs-btn"
+              onClick={() => navigate("/jobs")}
+            >
+              Browse Jobs
+            </button>
           </div>
-
-          {myApplications.length > 3 && (
-            <div className="view-more-container">
-              <button
-                className="view-more-btn"
-                onClick={() =>
-                  setShowAllApplications(!showAllApplications)
-                }
-              >
-                {showAllApplications
-                  ? "Show Less"
-                  : "View More"}
-              </button>
+        ) : (
+          <>
+            <div className="applications-table-wrapper">
+              <table className="applications-table">
+                <thead>
+                  <tr>
+                    <th>Logo</th>
+                    <th>Job Title</th>
+                    <th>Company</th>
+                    <th>Applied Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(showAllApplications
+                    ? myApplications
+                    : myApplications.slice(0, 3)
+                  ).map((app) => (
+                    <tr key={app._id}>
+                      <td>
+                        <img
+                          src={app.logo || app.logoUrl || "/images/default-company.png"}
+                          alt={app.company}
+                          className="company-logo-small"
+                        />
+                      </td>
+                      <td>{app.jobTitle}</td>
+                      <td>{app.company}</td>
+                      <td>
+                        {new Date(app.createdAt).toLocaleDateString()}
+                      </td>
+                      <td>
+                        <button
+                          className="view-application-btn"
+                          onClick={() => {
+                            setSelectedApplication(app);
+                            setShowApplicationModal(true);
+                          }}
+                        >
+                          View Details
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-          )}
-        </section>
-      )}
 
-            {/* ===== APPLICATION DETAILS MODAL ===== */}
+            {myApplications.length > 3 && (
+              <div className="view-more-container">
+                <button
+                  className="view-more-btn"
+                  onClick={() =>
+                    setShowAllApplications(!showAllApplications)
+                  }
+                >
+                  {showAllApplications
+                    ? "Show Less"
+                    : "Show More"}
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </section>
+
+      {/* ===== APPLICATION DETAILS MODAL ===== */}
       {showApplicationModal && selectedApplication && (
         <div
           className="modal-overlay"
@@ -217,7 +167,7 @@ export default function Dashboard() {
               &times;
             </button>
 
-            <h2>My Application</h2>
+            <h2>Application Details</h2>
 
             <div className="application-info">
               <div className="info-item">
@@ -246,11 +196,6 @@ export default function Dashboard() {
                   {new Date(selectedApplication.createdAt).toLocaleDateString()}
                 </strong>
               </div>
-
-              {/* <div className="info-item">
-                <span>Status</span>
-                <strong>{selectedApplication.status}</strong>
-              </div> */}
             </div>
 
             <div className="application-modal-actions">
@@ -267,8 +212,6 @@ export default function Dashboard() {
           </div>
         </div>
       )}
-
-
     </div>
   );
 }

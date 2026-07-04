@@ -450,7 +450,7 @@ if (selectedJob?.logoUrl) {
       await loadApplications();
 
       showToast(
-        `✅ Application submitted for ${selectedJob.title} at ${selectedJob.company}!`,
+        ` Application submitted for ${selectedJob.title} at ${selectedJob.company}!`,
         'success'
       );
     } catch (err) {
@@ -586,7 +586,7 @@ if (selectedJob?.logoUrl) {
       setShowPostJobModal(false);
 
       showToast(
-        "✅ Job posted successfully! Pending admin approval.",
+        " Job posted successfully! Pending admin approval.",
         "success"
       );
     } catch (err) {
