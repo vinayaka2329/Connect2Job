@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Application = require("../models/Application");
 
 // ===== REGISTER =====
 router.post("/register", async (req, res) => {
@@ -155,6 +156,84 @@ router.get("/me", protect, async (req, res) => {
     res.status(401).json({
       success: false,
       message: "Invalid token",
+    });
+  }
+});
+
+// ===== GET ALL USERS (ADMIN DASHBOARD) =====
+router.get("/users", async (req, res) => {
+  try {
+    const users = await User.find({})
+      .select("-password")
+      .sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      count: users.length,
+      data: users,
+    });
+  } catch (error) {
+    console.error("Get users error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch users",
+    });
+  }
+});
+
+// ===== DELETE USER =====
+router.delete("/users/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // Check whether user has applications
+    const applicationCount = await Application.countDocuments({
+      applicantEmail: user.email,
+    });
+
+    // Step 1: Read the force parameter
+    const force = req.query.force === "true";
+
+    // Step 2: Replace the block with force check
+    if (applicationCount > 0 && !force) {
+      return res.status(409).json({
+        success: false,
+        hasApplications: true,
+        applicationCount,
+        message: `This user has ${applicationCount} application(s).`,
+      });
+    }
+
+    // Step 3: Before deleting - keep application history but unlink it
+    await Application.updateMany(
+      { applicantEmail: user.email },
+      {
+        $set: {
+          userId: null,
+        },
+      }
+    );
+
+    await User.findByIdAndDelete(req.params.id);
+
+    res.json({
+      success: true,
+      message: "User deleted successfully.",
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server error",
     });
   }
 });

@@ -4,12 +4,16 @@ export const API_URL =
   'http://localhost:5000/api';
 
 const handleResponse = async (response) => {
+  const data = await response.json().catch(() => ({}));
+
   if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || 'Something went wrong');
+    const error = new Error(data.message || "Something went wrong");
+    error.status = response.status;
+    error.data = data;
+    throw error;
   }
 
-  return response.json();
+  return data;
 };
 
 export const api = {
@@ -162,4 +166,26 @@ export const api = {
 
     return handleResponse(response);
   },
+
+  // =========================
+  // AUTH / USERS
+  // =========================
+  getUsers: async () => {
+    const response = await fetch(`${API_URL}/auth/users`);
+    return handleResponse(response);
+  },
+
+  //=============DELETE USER===========//
+  //=============DELETE USER===========//
+deleteUser: async (id, force = false) => {
+  const response = await fetch(
+    `${API_URL}/auth/users/${id}?force=${force}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  return handleResponse(response);
+},
+
 };

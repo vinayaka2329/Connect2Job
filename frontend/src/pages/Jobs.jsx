@@ -405,15 +405,13 @@ export default function Jobs() {
     );
 
     // ✅ NEW: Add logo and logoUrl to application
-    formData.append(
-      'logo',
-      selectedJob?.logo || null
-    );
+    if (selectedJob?.logo) {
+  formData.append("logo", selectedJob.logo);
+}
 
-    formData.append(
-      'logoUrl',
-      selectedJob?.logoUrl || ''
-    );
+if (selectedJob?.logoUrl) {
+  formData.append("logoUrl", selectedJob.logoUrl);
+}
 
     formData.append(
       'applicantName',
@@ -1043,7 +1041,7 @@ export default function Jobs() {
       )}
 
       {/* ===== MY APPLICATIONS ===== */}
-      {user && myApplications.length > 0 && (
+      {/* {user && myApplications.length > 0 && (
         <section className="my-applications-section">
           <h2>📄 My Applications</h2>
 
@@ -1108,7 +1106,7 @@ export default function Jobs() {
             </div>
           )}
         </section>
-      )}
+      )} */}
 
       {/* ============================================
           MODALS

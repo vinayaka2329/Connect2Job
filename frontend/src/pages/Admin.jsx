@@ -3,8 +3,6 @@ import { useAppContext } from '../context/AppContext';
 import { api } from '../services/api';
 import './Admin.css';
 
-const ADMIN_PASSKEY = 'admin123';
-
 const initialJobTemplate = {
   title: '',
   company: '',
@@ -27,9 +25,6 @@ function createExportFilename() {
 
 export default function Admin() {
   const { showToast } = useAppContext();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [passkey, setPasskey] = useState('');
-  const [authError, setAuthError] = useState('');
   const [showAddJob, setShowAddJob] = useState(false);
   const [activeTable, setActiveTable] = useState('applications');
   const [tableItems, setTableItems] = useState([]);
@@ -42,7 +37,18 @@ export default function Admin() {
   const [applications, setApplications] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [subscribers, setSubscribers] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // ===== SHOW MORE/LESS STATE =====
+  const [showAllRows, setShowAllRows] = useState({
+    applications: false,
+    users: false,
+    pendingJobs: false,
+    postedJobs: false,
+    contacts: false,
+    subscribers: false,
+  });
 
   // Separate state for dashboard data (derived from API data)
   const [dashboardData, setDashboardData] = useState({
@@ -54,21 +60,41 @@ export default function Admin() {
     candidates: 0,
   });
 
+  // ===== HELPER FUNCTIONS FOR SHOW MORE/LESS =====
+  const getVisibleData = (type, data) => {
+    return showAllRows[type] ? data : data.slice(0, 5);
+  };
+
+  const toggleRows = (type) => {
+    setShowAllRows((prev) => ({
+      ...prev,
+      [type]: !prev[type],
+    }));
+  };
+
   // ===== FETCH ALL DATA FROM API =====
   const loadDashboard = async (keepCurrentTab = false) => {
     setLoading(true);
     try {
-      const [jobsRes, applicationsRes, contactsRes, subscribersRes] = await Promise.all([
+      const [
+        jobsRes,
+        applicationsRes,
+        contactsRes,
+        subscribersRes,
+        usersRes,
+      ] = await Promise.all([
         api.getJobs(),
         api.getApplications(),
         api.getContacts(),
         api.getSubscribers(),
+        api.getUsers(),
       ]);
 
       setJobs(jobsRes.data || []);
       setApplications(applicationsRes.data || []);
       setContacts(contactsRes.data || []);
       setSubscribers(subscribersRes.data || []);
+      setUsers(usersRes.data || []);
 
       const companies = new Set((applicationsRes.data || []).map((item) => item.company)).size;
       const candidates = new Set((applicationsRes.data || []).map((item) => item.applicantEmail)).size;
@@ -99,20 +125,10 @@ export default function Admin() {
 
   // ===== FETCH ON AUTHENTICATION =====
   useEffect(() => {
-    if (window.sessionStorage.getItem('adminLoggedIn') === 'true') {
-      setIsAuthenticated(true);
-      loadDashboard();
-    }
+    loadDashboard();
   }, []);
 
   useEffect(() => {
-    return () => {
-      window.sessionStorage.removeItem('adminLoggedIn');
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isAuthenticated) return;
     switchTable(activeTable);
   }, [
     activeTable,
@@ -120,7 +136,8 @@ export default function Admin() {
     jobs,
     contacts,
     dashboardData,
-    isAuthenticated,
+    subscribers,
+    users,
   ]);
 
   // ===== APPROVE JOB =====
@@ -251,48 +268,13 @@ export default function Admin() {
       case 'subscribers':
         items = subscribers;
         break;
+      case 'users':
+        items = users;
+        break;
       default:
         items = [];
     }
     setTableItems(items);
-  };
-
-  // ===== HANDLE LOGIN =====
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    if (passkey.trim() === ADMIN_PASSKEY) {
-      setIsAuthenticated(true);
-      setAuthError('');
-      window.sessionStorage.setItem('adminLoggedIn', 'true');
-      await loadDashboard();
-      showToast('🔓 Welcome to the Admin Dashboard!', 'success');
-    } else {
-      setAuthError('❌ Invalid passkey. Please try again.');
-      showToast('Invalid admin passkey', 'error');
-    }
-  };
-
-  // ===== HANDLE LOGOUT =====
-  const handleLogout = () => {
-    if (!window.confirm('Are you sure you want to logout?')) return;
-    window.sessionStorage.removeItem('adminLoggedIn');
-    setIsAuthenticated(false);
-    setPasskey('');
-    setShowAddJob(false);
-    setTableItems([]);
-    setJobs([]);
-    setApplications([]);
-    setContacts([]);
-    setSubscribers([]);
-    setDashboardData({
-      applications: [],
-      postedJobs: [],
-      pendingJobs: [],
-      contacts: [],
-      companies: 0,
-      candidates: 0,
-    });
-    showToast('🔒 Logged out successfully', 'info');
   };
 
   // ===== EXPORT JSON =====
@@ -302,6 +284,7 @@ export default function Admin() {
       jobs: jobs,
       contacts: contacts,
       subscribers: subscribers,
+      users: users,
       exportedAt: new Date().toISOString(),
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
@@ -373,6 +356,9 @@ export default function Admin() {
         break;
       case 'subscribers':
         data = subscribers;
+        break;
+      case 'users':
+        data = users;
         break;
       default:
         data = [];
@@ -447,6 +433,16 @@ export default function Admin() {
         ]);
         break;
 
+      case 'users':
+        headers = ['Name', 'Email', 'Role', 'Joined Date'];
+        rows = data.map((item) => [
+          item.name || '',
+          item.email || '',
+          item.role || 'User',
+          item.createdAt ? new Date(item.createdAt).toLocaleDateString() : '',
+        ]);
+        break;
+
       default:
         headers = Object.keys(data[0] || {});
         rows = data.map((item) => Object.values(item));
@@ -500,11 +496,11 @@ export default function Admin() {
   // ===== ADD JOB =====
   const handleAddJob = async (event) => {
     event.preventDefault();
-    
+
     // ✅ NEW: Prevent duplicate submissions
     if (jobSubmitting) return;
     setJobSubmitting(true);
-    
+
     if (!newJob.title || !newJob.company || !newJob.location || !newJob.salary || !newJob.contactEmail) {
       showToast('Please fill required job fields', 'warning');
       setJobSubmitting(false);
@@ -669,6 +665,59 @@ export default function Admin() {
     }
   };
 
+  // ===== DELETE USER =====
+  const handleDeleteUser = async (user) => {
+    const confirmDelete = window.confirm(
+      `Delete ${user.name}?\n\nThis action cannot be undone.`
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      const res = await api.deleteUser(user._id);
+
+      alert(res.message);
+
+      loadDashboard();
+
+    } catch (err) {
+
+      // User has applications
+      if (
+        err.status === 409 &&
+        err.data?.hasApplications
+      ) {
+
+        const confirmForce = window.confirm(
+          `${user.name} has submitted ${err.data.applicationCount} application(s).\n\n` +
+          `Deleting this account WILL NOT delete those applications.\n\n` +
+          `The applications will remain in the Applications section but will no longer be linked to this account.\n\n` +
+          `Do you want to delete this user anyway?`
+        );
+
+        if (!confirmForce) return;
+
+        try {
+
+          const res = await api.deleteUser(user._id, true);
+
+          alert(res.message);
+
+          loadDashboard();
+
+        } catch (forceErr) {
+
+          alert(forceErr.message);
+
+        }
+
+        return;
+      }
+
+      alert(err.message);
+    }
+  };
+
   const sectionTitle = useMemo(() => {
     switch (activeTable) {
       case 'applications':
@@ -681,6 +730,8 @@ export default function Admin() {
         return '📩 Contacts';
       case 'subscribers':
         return '📧 Newsletter Subscribers';
+      case 'users':
+        return '👥 Users';
       default:
         return '📋 All Applications';
     }
@@ -690,317 +741,369 @@ export default function Admin() {
   const contactsCount = contacts.length;
   const applicationsCount = applications.length;
   const subscribersCount = subscribers.length;
+  const usersCount = users.length;
 
   return (
     <section className="admin page-section">
       <div className="container" data-aos="fade-up">
-        {!isAuthenticated ? (
-          <div className="admin-login-container" data-aos="fade-up">
-            <div className="admin-login-box">
-              <div className="lock-icon">🔐</div>
-              <h2>Admin Access</h2>
-              <p>Enter the passkey to access the admin dashboard.</p>
-              <form onSubmit={handleLogin}>
-                <label>
-                  <span>Passkey</span>
-                  <input
-                    type="password"
-                    value={passkey}
-                    onChange={(e) => setPasskey(e.target.value)}
-                    placeholder="Enter Passkey"
-                    maxLength={10}
-                    required
-                  />
-                </label>
-                <div className="login-error">{authError || 'Use passkey: admin123'}</div>
-                <button type="submit" className="btn btn-primary">
-                  <i className="fas fa-unlock"></i> Unlock Dashboard
-                </button>
-              </form>
+        <div className="admin-dashboard" data-aos="fade-up">
+          <div className="admin-header">
+            <div>
+              <h1>📊 <span className="highlight">Admin</span> Dashboard</h1>
+              <p style={{ color: '#6A7A9A', fontSize: '0.95rem' }}>
+                Manage applications, jobs, and contacts.
+              </p>
+            </div>
+            <div className="admin-actions">
+              <button type="button" className="btn btn-secondary" onClick={() => window.location.assign('/jobs')}>
+                <i className="fas fa-sync"></i> View Jobs
+              </button>
+              <button type="button" className="btn btn-secondary" onClick={handleExportJson}>
+                <i className="fas fa-file-code"></i> Export JSON
+              </button>
+              <button type="button" className="btn btn-secondary" onClick={handleExportTxt}>
+                <i className="fas fa-file-alt"></i> Export TXT
+              </button>
+              <button type="button" className="btn btn-secondary" onClick={handleExportExcel}>
+                <i className="fas fa-file-excel"></i> Export Excel
+              </button>
+              <button type="button" className="btn btn-secondary" onClick={handleClearAll}>
+                <i className="fas fa-trash"></i> Clear All
+              </button>
             </div>
           </div>
-        ) : (
-          <div className="admin-dashboard" data-aos="fade-up">
-            <div className="admin-header">
-              <div>
-                <h1>📊 <span className="highlight">Admin</span> Dashboard</h1>
-                <p style={{ color: '#6A7A9A', fontSize: '0.95rem' }}>
-                  Manage applications, jobs, and contacts.
-                </p>
-              </div>
-              <div className="admin-actions">
-                <button type="button" className="btn btn-secondary" onClick={() => window.location.assign('/jobs')}>
-                  <i className="fas fa-sync"></i> View Jobs
-                </button>
-                <button type="button" className="btn btn-secondary" onClick={handleExportJson}>
-                  <i className="fas fa-file-code"></i> Export JSON
-                </button>
-                <button type="button" className="btn btn-secondary" onClick={handleExportTxt}>
-                  <i className="fas fa-file-alt"></i> Export TXT
-                </button>
-                <button type="button" className="btn btn-secondary" onClick={handleExportExcel}>
-                  <i className="fas fa-file-excel"></i> Export Excel
-                </button>
-                <button type="button" className="btn btn-secondary" onClick={handleClearAll}>
-                  <i className="fas fa-trash"></i> Clear All
-                </button>
-                <button type="button" className="btn btn-secondary" onClick={handleLogout}>
-                  <i className="fas fa-sign-out-alt"></i> Logout
-                </button>
-              </div>
+
+          {/* ===== ADD JOB SECTION ===== */}
+          <div className="admin-section" id="addJobSection">
+            <div className="admin-section-header" onClick={() => setShowAddJob((value) => !value)}>
+              <h3><i className="fas fa-plus-circle"></i> Add New Job</h3>
+              <button type="button" className="toggle-btn">
+                <i className={`fas ${showAddJob ? 'fa-chevron-up' : 'fa-chevron-down'}`} />
+              </button>
             </div>
+            {showAddJob && (
+              <div className="admin-section-body">
+                <form className="admin-add-job-form" onSubmit={handleAddJob}>
+                  <div className="form-row">
+                    <div className="form-group half">
+                      <label>Job Title *</label>
+                      <input type="text" value={newJob.title} onChange={(e) => handleNewJobChange('title', e.target.value)} placeholder="Frontend Developer" required />
+                    </div>
+                    <div className="form-group half">
+                      <label>Company Name *</label>
+                      <input type="text" value={newJob.company} onChange={(e) => handleNewJobChange('company', e.target.value)} placeholder="Google" required />
+                    </div>
+                  </div>
+                  <div className="form-row">
+                    <div className="form-group half">
+                      <label>Location *</label>
+                      <input type="text" value={newJob.location} onChange={(e) => handleNewJobChange('location', e.target.value)} placeholder="Bangalore" required />
+                    </div>
+                    <div className="form-group half">
+                      <label>Salary *</label>
+                      <input type="text" value={newJob.salary} onChange={(e) => handleNewJobChange('salary', e.target.value)} placeholder="₹5-8 LPA" required />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label>Job Type *</label>
+                    <select value={newJob.type} onChange={(e) => handleNewJobChange('type', e.target.value)} required>
+                      <option>Full Time</option>
+                      <option>Part Time</option>
+                      <option>Contract</option>
+                      <option>Internship</option>
+                      <option>Remote</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label>Job Description *</label>
+                    <textarea value={newJob.description} rows={4} onChange={(e) => handleNewJobChange('description', e.target.value)} placeholder="Describe the role and responsibilities..." required />
+                  </div>
+                  <div className="form-group">
+                    <label>Requirements (comma separated)</label>
+                    <textarea value={newJob.requirements} rows={3} onChange={(e) => handleNewJobChange('requirements', e.target.value)} placeholder="React, CSS, JavaScript" />
+                  </div>
+                  <div className="form-group">
+                    <label>Benefits (comma separated)</label>
+                    <textarea value={newJob.benefits} rows={3} onChange={(e) => handleNewJobChange('benefits', e.target.value)} placeholder="Health insurance, Flexible hours" />
+                  </div>
+                  <div className="form-group">
+                    <label>Tags/Skills</label>
+                    <input type="text" value={newJob.tags} onChange={(e) => handleNewJobChange('tags', e.target.value)} placeholder="React, CSS, JavaScript" />
+                  </div>
+                  <div className="form-group">
+                    <label>Contact Email *</label>
+                    <input type="email" value={newJob.contactEmail} onChange={(e) => handleNewJobChange('contactEmail', e.target.value)} placeholder="Enter contact email" required />
+                  </div>
 
-            {/* ===== ADD JOB SECTION ===== */}
-            <div className="admin-section" id="addJobSection">
-              <div className="admin-section-header" onClick={() => setShowAddJob((value) => !value)}>
-                <h3><i className="fas fa-plus-circle"></i> Add New Job</h3>
-                <button type="button" className="toggle-btn">
-                  <i className={`fas ${showAddJob ? 'fa-chevron-up' : 'fa-chevron-down'}`} />
-                </button>
-              </div>
-              {showAddJob && (
-                <div className="admin-section-body">
-                  <form className="admin-add-job-form" onSubmit={handleAddJob}>
-                    <div className="form-row">
-                      <div className="form-group half">
-                        <label>Job Title *</label>
-                        <input type="text" value={newJob.title} onChange={(e) => handleNewJobChange('title', e.target.value)} placeholder="Frontend Developer" required />
-                      </div>
-                      <div className="form-group half">
-                        <label>Company Name *</label>
-                        <input type="text" value={newJob.company} onChange={(e) => handleNewJobChange('company', e.target.value)} placeholder="Google" required />
-                      </div>
-                    </div>
-                    <div className="form-row">
-                      <div className="form-group half">
-                        <label>Location *</label>
-                        <input type="text" value={newJob.location} onChange={(e) => handleNewJobChange('location', e.target.value)} placeholder="Bangalore" required />
-                      </div>
-                      <div className="form-group half">
-                        <label>Salary *</label>
-                        <input type="text" value={newJob.salary} onChange={(e) => handleNewJobChange('salary', e.target.value)} placeholder="₹5-8 LPA" required />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <label>Job Type *</label>
-                      <select value={newJob.type} onChange={(e) => handleNewJobChange('type', e.target.value)} required>
-                        <option>Full Time</option>
-                        <option>Part Time</option>
-                        <option>Contract</option>
-                        <option>Internship</option>
-                        <option>Remote</option>
-                      </select>
-                    </div>
-                    <div className="form-group">
-                      <label>Job Description *</label>
-                      <textarea value={newJob.description} rows={4} onChange={(e) => handleNewJobChange('description', e.target.value)} placeholder="Describe the role and responsibilities..." required />
-                    </div>
-                    <div className="form-group">
-                      <label>Requirements (comma separated)</label>
-                      <textarea value={newJob.requirements} rows={3} onChange={(e) => handleNewJobChange('requirements', e.target.value)} placeholder="React, CSS, JavaScript" />
-                    </div>
-                    <div className="form-group">
-                      <label>Benefits (comma separated)</label>
-                      <textarea value={newJob.benefits} rows={3} onChange={(e) => handleNewJobChange('benefits', e.target.value)} placeholder="Health insurance, Flexible hours" />
-                    </div>
-                    <div className="form-group">
-                      <label>Tags/Skills</label>
-                      <input type="text" value={newJob.tags} onChange={(e) => handleNewJobChange('tags', e.target.value)} placeholder="React, CSS, JavaScript" />
-                    </div>
-                    <div className="form-group">
-                      <label>Contact Email *</label>
-                      <input type="email" value={newJob.contactEmail} onChange={(e) => handleNewJobChange('contactEmail', e.target.value)} placeholder="Enter contact email" required />
-                    </div>
-
-                    {/* Company Logo URL Input with Preview */}
-                    <div className="form-group">
-                      <label>Company Logo URL</label>
-                      <input
-                        type="url"
-                        placeholder="https://logo.clearbit.com/google.com"
-                        value={newJob.logoUrl}
-                        onChange={(e) =>
-                          handleNewJobChange("logoUrl", e.target.value)
-                        }
+                  {/* Company Logo URL Input with Preview */}
+                  <div className="form-group">
+                    <label>Company Logo URL</label>
+                    <input
+                      type="url"
+                      placeholder="https://logo.clearbit.com/google.com"
+                      value={newJob.logoUrl}
+                      onChange={(e) =>
+                        handleNewJobChange("logoUrl", e.target.value)
+                      }
+                    />
+                    {newJob.logoUrl && (
+                      <img
+                        src={newJob.logoUrl}
+                        alt="Logo Preview"
+                        style={{
+                          width: 70,
+                          height: 70,
+                          objectFit: "contain",
+                          marginTop: 10,
+                          borderRadius: 10,
+                          border: "1px solid #e0e0e0",
+                          padding: "4px",
+                        }}
                       />
-                      {newJob.logoUrl && (
-                        <img
-                          src={newJob.logoUrl}
-                          alt="Logo Preview"
-                          style={{
-                            width: 70,
-                            height: 70,
-                            objectFit: "contain",
-                            marginTop: 10,
-                            borderRadius: 10,
-                            border: "1px solid #e0e0e0",
-                            padding: "4px",
-                          }}
-                        />
-                      )}
-                    </div>
+                    )}
+                  </div>
 
-                    {/* File Upload for Company Logo */}
-                    <div className="form-group">
-                      <label>Upload Company Logo (PNG, JPG, WEBP)</label>
-                      <input
-                        type="file"
-                        accept="image/png,image/jpeg,image/jpg,image/webp"
-                        onChange={(e) =>
-                          handleNewJobChange("logo", e.target.files[0])
-                        }
+                  {/* File Upload for Company Logo */}
+                  <div className="form-group">
+                    <label>Upload Company Logo (PNG, JPG, WEBP)</label>
+                    <input
+                      type="file"
+                      accept="image/png,image/jpeg,image/jpg,image/webp"
+                      onChange={(e) =>
+                        handleNewJobChange("logo", e.target.files[0])
+                      }
+                    />
+                    {newJob.logo && (
+                      <img
+                        src={URL.createObjectURL(newJob.logo)}
+                        alt="Logo Preview"
+                        style={{
+                          width: 70,
+                          height: 70,
+                          objectFit: "contain",
+                          marginTop: 10,
+                          borderRadius: 10,
+                          border: "1px solid #ddd",
+                          padding: 5,
+                        }}
                       />
-                      {newJob.logo && (
-                        <img
-                          src={URL.createObjectURL(newJob.logo)}
-                          alt="Logo Preview"
-                          style={{
-                            width: 70,
-                            height: 70,
-                            objectFit: "contain",
-                            marginTop: 10,
-                            borderRadius: 10,
-                            border: "1px solid #ddd",
-                            padding: 5,
-                          }}
-                        />
-                      )}
-                    </div>
+                    )}
+                  </div>
 
-                    <button type="submit" className="admin-add-job-btn" disabled={jobSubmitting}>
-                      <i className={`fas ${editingJobId ? 'fa-save' : 'fa-plus-circle'}`}></i> {jobSubmitting ? (editingJobId ? 'Saving...' : 'Adding...') : (editingJobId ? 'Save Job' : 'Add Job')}
-                    </button>
-                  </form>
-                </div>
-              )}
+                  <button type="submit" className="admin-add-job-btn" disabled={jobSubmitting}>
+                    <i className={`fas ${editingJobId ? 'fa-save' : 'fa-plus-circle'}`}></i> {jobSubmitting ? (editingJobId ? 'Saving...' : 'Adding...') : (editingJobId ? 'Save Job' : 'Add Job')}
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+
+          {/* ===== STATS ===== */}
+          <div className="admin-stats" data-aos="fade-up" data-aos-delay="100">
+            <div className="admin-stat-card">
+              <div className="stat-icon"><i className="fas fa-briefcase"></i></div>
+              <div className="stat-number">{applicationsCount}</div>
+              <div className="stat-label">Applications</div>
             </div>
+            <div className="admin-stat-card">
+              <div className="stat-icon"><i className="fas fa-building"></i></div>
+              <div className="stat-number">{dashboardData.companies}</div>
+              <div className="stat-label">Companies</div>
+            </div>
+            <div className="admin-stat-card">
+              <div className="stat-icon"><i className="fas fa-users"></i></div>
+              <div className="stat-number">{dashboardData.candidates}</div>
+              <div className="stat-label">Candidates</div>
+            </div>
+            <div className="admin-stat-card">
+              <div className="stat-icon"><i className="fas fa-briefcase"></i></div>
+              <div className="stat-number">{jobs.length}</div>
+              <div className="stat-label">Posted Jobs</div>
+            </div>
+            <div className="admin-stat-card">
+              <div className="stat-icon"><i className="fas fa-envelope"></i></div>
+              <div className="stat-number">{contactsCount}</div>
+              <div className="stat-label">Messages</div>
+            </div>
+            <div className="admin-stat-card">
+              <div className="stat-icon"><i className="fas fa-newspaper"></i></div>
+              <div className="stat-number">{subscribersCount}</div>
+              <div className="stat-label">Subscribers</div>
+            </div>
+            <div className="admin-stat-card">
+              <div className="stat-icon"><i className="fas fa-user"></i></div>
+              <div className="stat-number">{usersCount}</div>
+              <div className="stat-label">Users</div>
+            </div>
+          </div>
 
-            {/* ===== STATS ===== */}
-            <div className="admin-stats" data-aos="fade-up" data-aos-delay="100">
-              <div className="admin-stat-card">
-                <div className="stat-icon"><i className="fas fa-briefcase"></i></div>
-                <div className="stat-number">{applicationsCount}</div>
-                <div className="stat-label">Applications</div>
-              </div>
-              <div className="admin-stat-card">
-                <div className="stat-icon"><i className="fas fa-building"></i></div>
-                <div className="stat-number">{dashboardData.companies}</div>
-                <div className="stat-label">Companies</div>
-              </div>
-              <div className="admin-stat-card">
-                <div className="stat-icon"><i className="fas fa-users"></i></div>
-                <div className="stat-number">{dashboardData.candidates}</div>
-                <div className="stat-label">Candidates</div>
-              </div>
-              <div className="admin-stat-card">
-                <div className="stat-icon"><i className="fas fa-briefcase"></i></div>
-                <div className="stat-number">{jobs.length}</div>
-                <div className="stat-label">Posted Jobs</div>
-              </div>
-              <div className="admin-stat-card">
-                <div className="stat-icon"><i className="fas fa-envelope"></i></div>
-                <div className="stat-number">{contactsCount}</div>
-                <div className="stat-label">Messages</div>
-              </div>
-              <div className="admin-stat-card">
-                <div className="stat-icon"><i className="fas fa-newspaper"></i></div>
-                <div className="stat-number">{subscribersCount}</div>
-                <div className="stat-label">Subscribers</div>
+          {/* ===== TABLE ===== */}
+          <div className="admin-table-container" data-aos="fade-up" data-aos-delay="200">
+            <div className="admin-table-header">
+              <h3 id="tableTitle">{sectionTitle}</h3>
+              <div className="table-tabs">
+                <button type="button" className={activeTable === 'applications' ? 'active' : ''} onClick={() => switchTable('applications')}>
+                  Applications
+                </button>
+                <button type="button" className={activeTable === 'pendingjobs' ? 'active' : ''} onClick={() => switchTable('pendingjobs')}>
+                  Pending Jobs
+                </button>
+                <button type="button" className={activeTable === 'postedjobs' ? 'active' : ''} onClick={() => switchTable('postedjobs')}>
+                  Posted Jobs
+                </button>
+                <button type="button" className={activeTable === 'users' ? 'active' : ''} onClick={() => switchTable('users')}>
+                  Users
+                </button>
+                <button type="button" className={activeTable === 'contacts' ? 'active' : ''} onClick={() => switchTable('contacts')}>
+                  Contacts
+                </button>
+                <button type="button" className={activeTable === 'subscribers' ? 'active' : ''} onClick={() => switchTable('subscribers')}>
+                  Subscribers
+                </button>
               </div>
             </div>
+            <div className="admin-table-wrap">
+              <div className="admin-table">
+                {loading ? (
+                  <div className="loading-state">
+                    <p>Loading data...</p>
+                  </div>
+                ) : tableItems.length === 0 ? (
+                  <div className="empty-state">
+                    <div className="empty-icon">📭</div>
+                    <h3>No records found</h3>
+                    <p>There is no data for the selected table yet.</p>
+                  </div>
+                ) : (
+                  <table>
+                    <thead>
+                      <tr>
+                        {activeTable === 'applications' && (
+                          <>
+                            <th>Logo</th>
+                            <th>Applicant</th>
+                            <th>Company</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Resume</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                          </>
+                        )}
+                        {activeTable === 'postedjobs' && (
+                          <>
+                            <th>Logo</th>
+                            <th>Title</th>
+                            <th>Company</th>
+                            <th>Location</th>
+                            <th>Salary</th>
+                            <th>Actions</th>
+                          </>
+                        )}
+                        {activeTable === 'pendingjobs' && (
+                          <>
+                            <th>Logo</th>
+                            <th>Title</th>
+                            <th>Company</th>
+                            <th>Location</th>
+                            <th>Salary</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                          </>
+                        )}
+                        {activeTable === 'contacts' && (
+                          <>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                          </>
+                        )}
+                        {activeTable === 'subscribers' && (
+                          <>
+                            <th>Email</th>
+                            <th>Subscribed On</th>
+                            <th>Action</th>
+                          </>
+                        )}
+                        {activeTable === 'users' && (
+                          <>
+                            <th>Profile</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Applications</th>
+                            <th>Resume</th>
+                            <th>Role</th>
+                            <th>Registered</th>
+                            <th>Action</th>
+                          </>
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {activeTable === 'users' ? (
+                        getVisibleData("users", users).map((user) => {
+                          const applicationCount = applications.filter(
+                            (app) => app.applicantEmail === user.email
+                          ).length;
 
-            {/* ===== TABLE ===== */}
-            <div className="admin-table-container" data-aos="fade-up" data-aos-delay="200">
-              <div className="admin-table-header">
-                <h3 id="tableTitle">{sectionTitle}</h3>
-                <div className="table-tabs">
-                  <button type="button" className={activeTable === 'applications' ? 'active' : ''} onClick={() => switchTable('applications')}>
-                    Applications
-                  </button>
-                  <button type="button" className={activeTable === 'pendingjobs' ? 'active' : ''} onClick={() => switchTable('pendingjobs')}>
-                    Pending Jobs
-                  </button>
-                  <button type="button" className={activeTable === 'postedjobs' ? 'active' : ''} onClick={() => switchTable('postedjobs')}>
-                    Posted Jobs
-                  </button>
-                  <button type="button" className={activeTable === 'contacts' ? 'active' : ''} onClick={() => switchTable('contacts')}>
-                    Contacts
-                  </button>
-                  <button type="button" className={activeTable === 'subscribers' ? 'active' : ''} onClick={() => switchTable('subscribers')}>
-                    Subscribers
-                  </button>
-                </div>
-              </div>
-              <div className="admin-table-wrap">
-                <div className="admin-table">
-                  {loading ? (
-                    <div className="loading-state">
-                      <p>Loading data...</p>
-                    </div>
-                  ) : tableItems.length === 0 ? (
-                    <div className="empty-state">
-                      <div className="empty-icon">📭</div>
-                      <h3>No records found</h3>
-                      <p>There is no data for the selected table yet.</p>
-                    </div>
-                  ) : (
-                    <table>
-                      <thead>
-                        <tr>
-                          {activeTable === 'applications' && (
-                            <>
-                              <th>Logo</th>
-                              <th>Applicant</th>
-                              <th>Company</th>
-                              <th>Email</th>
-                              <th>Phone</th>
-                              <th>Resume</th>
-                              <th>Date</th>
-                              <th>Status</th>
-                              <th>Actions</th>
-                            </>
-                          )}
-                          {activeTable === 'postedjobs' && (
-                            <>
-                              <th>Logo</th>
-                              <th>Title</th>
-                              <th>Company</th>
-                              <th>Location</th>
-                              <th>Salary</th>
-                              <th>Actions</th>
-                            </>
-                          )}
-                          {activeTable === 'pendingjobs' && (
-                            <>
-                              <th>Logo</th>
-                              <th>Title</th>
-                              <th>Company</th>
-                              <th>Location</th>
-                              <th>Salary</th>
-                              <th>Description</th>
-                              <th>Actions</th>
-                            </>
-                          )}
-                          {activeTable === 'contacts' && (
-                            <>
-                              <th>Name</th>
-                              <th>Email</th>
-                              <th>Message</th>
-                              <th>Date</th>
-                              <th>Actions</th>
-                            </>
-                          )}
-                          {activeTable === 'subscribers' && (
-                            <>
-                              <th>Email</th>
-                              <th>Subscribed On</th>
-                              <th>Action</th>
-                            </>
-                          )}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {tableItems.map((item, index) => (
+                          const hasResume = applications.some(
+                            (app) =>
+                              app.applicantEmail === user.email &&
+                              app.resumeUrl
+                          );
+
+                          return (
+                            <tr key={user._id}>
+                              <td>
+                                <div className="user-avatar">
+                                  {user.name && user.name.charAt(0).toUpperCase()}
+                                </div>
+                              </td>
+                              <td>{user.name || 'Unknown'}</td>
+                              <td>{user.email || '—'}</td>
+                              <td>
+                                <strong>{applicationCount}</strong>
+                              </td>
+                              <td>
+                                {hasResume ? "✅ Yes" : "❌ No"}
+                              </td>
+                              <td>
+                                <span className={`role-badge ${user.role || 'user'}`}>
+                                  {user.role || 'User'}
+                                </span>
+                              </td>
+                              <td>
+                                {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : '—'}
+                              </td>
+                              <td>
+                                <button
+                                  className="delete-btn"
+                                  onClick={() => handleDeleteUser(user)}
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      ) : (
+                        getVisibleData(
+                          activeTable === "applications"
+                            ? "applications"
+                            : activeTable === "pendingjobs"
+                              ? "pendingJobs"
+                              : activeTable === "postedjobs"
+                                ? "postedJobs"
+                                : activeTable === "contacts"
+                                  ? "contacts"
+                                  : activeTable === "subscribers"
+                                    ? "subscribers"
+                                    : "",
+                          tableItems
+                        ).map((item, index) => (
                           <tr key={item._id || item.id || index}>
                             {activeTable === 'applications' && (
                               <>
@@ -1173,15 +1276,82 @@ export default function Admin() {
                               </>
                             )}
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  )}
-                </div>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                )}
+
+                {/* ===== SHOW MORE/LESS BUTTONS ===== */}
+                {activeTable === 'users' && users.length > 5 && (
+                  <div className="view-more-container">
+                    <button
+                      className="view-more-btn"
+                      onClick={() => toggleRows("users")}
+                    >
+                      {showAllRows.users ? "Show Less" : "Show More"}
+                    </button>
+                  </div>
+                )}
+
+                {activeTable === 'applications' && applications.length > 5 && (
+                  <div className="view-more-container">
+                    <button
+                      className="view-more-btn"
+                      onClick={() => toggleRows("applications")}
+                    >
+                      {showAllRows.applications ? "Show Less" : "Show More"}
+                    </button>
+                  </div>
+                )}
+
+                {activeTable === 'pendingjobs' && dashboardData.pendingJobs?.length > 5 && (
+                  <div className="view-more-container">
+                    <button
+                      className="view-more-btn"
+                      onClick={() => toggleRows("pendingJobs")}
+                    >
+                      {showAllRows.pendingJobs ? "Show Less" : "Show More"}
+                    </button>
+                  </div>
+                )}
+
+                {activeTable === 'postedjobs' && jobs.length > 5 && (
+                  <div className="view-more-container">
+                    <button
+                      className="view-more-btn"
+                      onClick={() => toggleRows("postedJobs")}
+                    >
+                      {showAllRows.postedJobs ? "Show Less" : "Show More"}
+                    </button>
+                  </div>
+                )}
+
+                {activeTable === 'contacts' && dashboardData.contacts?.length > 5 && (
+                  <div className="view-more-container">
+                    <button
+                      className="view-more-btn"
+                      onClick={() => toggleRows("contacts")}
+                    >
+                      {showAllRows.contacts ? "Show Less" : "Show More"}
+                    </button>
+                  </div>
+                )}
+
+                {activeTable === 'subscribers' && subscribers.length > 5 && (
+                  <div className="view-more-container">
+                    <button
+                      className="view-more-btn"
+                      onClick={() => toggleRows("subscribers")}
+                    >
+                      {showAllRows.subscribers ? "Show Less" : "Show More"}
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

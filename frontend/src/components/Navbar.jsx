@@ -34,8 +34,8 @@ export default function Navbar() {
       <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
 
         <Link to="/" className="logo" onClick={closeMenu}>
-  <img src={logo} alt="Connect2Job" className="brand-logo" />
-</Link>
+          <img src={logo} alt="Connect2Job" className="brand-logo" />
+        </Link>
 
         <nav className="nav-links">
 
@@ -54,6 +54,16 @@ export default function Navbar() {
           >
             Jobs
           </NavLink>
+
+          {isAuthenticated && (
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) => (isActive ? "active" : "")}
+              onClick={closeMenu}
+            >
+              Dashboard
+            </NavLink>
+          )}
 
           <NavLink
             to="/services"
@@ -138,6 +148,13 @@ export default function Navbar() {
 
           <NavLink to="/" onClick={closeMenu}>Home</NavLink>
           <NavLink to="/jobs" onClick={closeMenu}>Jobs</NavLink>
+          
+          {isAuthenticated && (
+            <NavLink to="/dashboard" onClick={closeMenu}>
+              Dashboard
+            </NavLink>
+          )}
+          
           <NavLink to="/services" onClick={closeMenu}>Services</NavLink>
           <NavLink to="/about" onClick={closeMenu}>About</NavLink>
           <NavLink to="/track-application" onClick={closeMenu}>Track Application</NavLink>
