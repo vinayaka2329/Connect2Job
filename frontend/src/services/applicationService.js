@@ -1,4 +1,5 @@
-const API = "https://connect2job-backend.onrender.com/api";
+export const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export const createApplication = async (data) => {
   const response = await fetch(`${API}/applications`, {
