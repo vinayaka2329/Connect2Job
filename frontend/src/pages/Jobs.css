@@ -198,7 +198,7 @@ body {
 .jobs-hero p {
   font-size: 17px;
   line-height: 1.7;
-  color: #64748b;
+  color: #0f438e;
   max-width: 640px;
   margin: 0 auto 20px;
 }
@@ -336,7 +336,7 @@ body {
 
 .results-count {
   font-size: 13px;
-  color: #64748b;
+  color: #062f68;
   font-weight: 500;
 }
 
@@ -394,7 +394,7 @@ body {
   justify-content: center;
   border-radius: 10px;
   background: #f1f5f9;
-  color: #64748b;
+  color: #0f438e;
   font-size: 16px;
 }
 
@@ -407,7 +407,7 @@ body {
   display: block;
   font-size: 10px;
   font-weight: 700;
-  color: #94a3b8;
+  color: #0d3b7b;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 1px;
@@ -551,7 +551,7 @@ body {
 
 .job-card-info .company-name {
   font-size: 15px;
-  color: #64748b;
+  color: #021c41;
   font-weight: 500;
 }
 
@@ -562,7 +562,7 @@ body {
   border-radius: 50%;
   border: 2px solid #e2e8f0;
   background: #ffffff;
-  color: #94a3b8;
+  color: #0d3b7b;
   cursor: pointer;
   transition: 0.3s ease;
   display: flex;
@@ -595,14 +595,14 @@ body {
 
 .job-meta span {
   font-size: 14px;
-  color: #64748b;
+  color:#021c41;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
 .job-meta span i {
-  color: #94a3b8;
+  color:#0d3b7b;
   font-size: 14px;
 }
 
@@ -638,7 +638,7 @@ body {
 
 .job-date {
   font-size: 13px;
-  color: #94a3b8;
+  color:#0d3b7b;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -694,7 +694,7 @@ body {
 
 .loading h3 {
   font-size: 18px;
-  color: #64748b;
+  color:#021c41;
 }
 
 .no-jobs-message {
@@ -712,7 +712,7 @@ body {
 }
 
 .no-jobs-message p {
-  color: #64748b;
+  color:#021c41;
   font-size: 15px;
 }
 
@@ -865,7 +865,7 @@ body {
 }
 
 .modal-subtitle {
-  color: #64748b;
+  color:#021c41;
   font-size: 14px;
   margin-bottom: 20px;
 }
@@ -1035,7 +1035,7 @@ body {
 
 .premium-info h4 {
   font-size: 15px;
-  color: #64748b;
+  color:#021c41;
   font-weight: 500;
   margin-bottom: 6px;
 }
@@ -1048,7 +1048,7 @@ body {
 
 .premium-meta span {
   font-size: 13px;
-  color: #64748b;
+  color: #021c41;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -1192,12 +1192,12 @@ body {
 
 .fav-company {
   font-size: 13px;
-  color: #64748b;
+  color:#021c41;
 }
 
 .fav-details {
   font-size: 12px;
-  color: #94a3b8;
+  color:#0d3b7b;
   margin-top: 2px;
 }
 
@@ -1254,7 +1254,7 @@ body {
 }
 
 .empty-favorites p {
-  color: #94a3b8;
+  color:#0d3b7b;
   font-size: 14px;
 }
 
@@ -1309,7 +1309,7 @@ body {
 }
 
 .info-item span {
-  color: #64748b;
+  color: #021c41;
   font-size: 13px;
   font-weight: 500;
 }
@@ -1778,5 +1778,5 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #0d3b7b;
 }
