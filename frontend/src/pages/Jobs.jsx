@@ -837,7 +837,7 @@ if (selectedJob?.logoUrl) {
 
           <div className="filter-group">
 
-            <select value={category} onChange={(e) => {
+            {/* <select value={category} onChange={(e) => {
               setCategory(e.target.value);
               setCurrentPage(1);
             }}>
@@ -848,7 +848,7 @@ if (selectedJob?.logoUrl) {
               <option value="data">Data Science</option>
               <option value="devops">DevOps</option>
               <option value="design">UI/UX Design</option>
-            </select>
+            </select> */}
 
             <select value={typeFilter} onChange={(e) => {
               setTypeFilter(e.target.value);
