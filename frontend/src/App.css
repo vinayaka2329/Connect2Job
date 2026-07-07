@@ -1,6 +1,61 @@
 /* =====================================
    APP LAYOUT
 ===================================== */
+/* =====================================
+   FIX: DESKTOP SITE VIEW ON MOBILE ONLY
+   (Only applies when viewport is between 768px and 1200px)
+===================================== */
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    /* Force hero-section parent to be full width */
+    .hero-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* Hero container takes 95% like navbar */
+    .hero-container {
+        width: 95% !important;
+        max-width: 1400px !important;
+        margin: 0 auto !important;
+        padding: 0 20px !important;
+    }
+
+    /* Fix other home sections the same way */
+    .services-section,
+    .why-section,
+    .testimonial-section,
+    .home-cta-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* Their inner containers take 95% */
+    .services-section .services-grid,
+    .why-section .why-left,
+    .why-section .why-right,
+    .testimonial-section .testimonial-grid,
+    .home-cta-wrapper .home-cta-left,
+    .home-cta-wrapper .home-cta-right {
+        width: 95% !important;
+        max-width: 1400px !important;
+        margin: 0 auto !important;
+        padding: 0 20px !important;
+    }
+}
+
+
+
+
+
 
 .app-shell{
     min-height:100vh;
