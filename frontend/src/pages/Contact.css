@@ -463,7 +463,7 @@
 
 @media (max-width: 768px) {
   .contact-page {
-    padding-top: 30px;
+    padding-top: 0px;
   }
   
   .page-hero h1 {
