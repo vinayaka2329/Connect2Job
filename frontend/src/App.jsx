@@ -26,20 +26,26 @@ function AppContent() {
   }, []);
 
   useEffect(() => {
-    const pageClasses = [
-  "home-page",
-  "about-page",
-  "services-page",
-  "jobs-page",
-  "contact-page",
-  "admin-page",
-  "track-application-page",
-];
-    const pageSlug = location.pathname === '/' ? 'home-page' : `${location.pathname.replace(/^\//, '')}-page`;
-    const bodyClassList = document.body.classList;
-    bodyClassList.remove(...pageClasses);
-    bodyClassList.add(pageSlug);
-  }, [location.pathname]);
+  const pageClasses = [
+    "home-page",
+    "about-page",
+    "services-page",
+    "jobs-page",
+    "contact-page",
+    "admin-page",
+    "track-application-page",
+  ];
+  const pageSlug = location.pathname === '/' ? 'home-page' : `${location.pathname.replace(/^\//, '')}-page`;
+  const bodyClassList = document.body.classList;
+  bodyClassList.remove(...pageClasses);
+  bodyClassList.add(pageSlug);
+
+  const timer = setTimeout(() => {
+    AOS.refreshHard();
+  }, 150);
+
+  return () => clearTimeout(timer);
+}, [location.pathname]);
 
   return (
     <div className="app-shell">

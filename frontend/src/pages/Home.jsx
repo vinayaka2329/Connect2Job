@@ -31,7 +31,7 @@ export default function Home() {
             </h1>
 
             <p>
-             Shape Your Future With A Career that Matches Your Ambition!
+              Shape Your Future With A Career that Matches Your Ambition!
             </p>
 
             <div className="hero-buttons">
@@ -218,159 +218,130 @@ export default function Home() {
 
       {/* ================= TESTIMONIALS ================= */}
 
-<section className="testimonial-section">
+      <section className="testimonial-section">
 
-  <span className="section-tag">
-    TESTIMONIALS
-  </span>
+        <span className="section-tag">
+          TESTIMONIALS
+        </span>
 
-  <div className="testimonial-header">
+        <div className="testimonial-header">
 
-    <div>
-      <h2>
-        Trusted by people building
-        <br />
-        their next chapter.
-      </h2>
-    </div>
+          <div>
+            <h2>
+              Trusted by people building
+              <br />
+              their next chapter.
+            </h2>
+          </div>
 
-    <div className="rating-box">
-      ⭐ ⭐ ⭐ ⭐ ⭐
-      <span>4.9 / 5</span>
-    </div>
+          <div className="rating-box">
+            ⭐ ⭐ ⭐ ⭐ ⭐
+            <span>4.9 / 5</span>
+          </div>
 
-  </div>
+        </div>
 
-  <div className="testimonial-grid">
+        <div className="testimonial-grid">
 
-    <div className="testimonial-card">
+          <div className="testimonial-card">
 
-      <div className="quote">❝</div>
+            <div className="quote">❝</div>
 
-      <p>
-        Connect2Job gave me fewer listings, but every one was
-        relevant. I landed interviews within one week.
-      </p>
+            <p>
+              Connect2Job gave me fewer listings, but every one was
+              relevant. I landed interviews within one week.
+            </p>
 
-      <h4>Aarav Mehta</h4>
+            <h4>Aarav Mehta</h4>
 
-      <span>Frontend Engineer</span>
+            <span>Frontend Engineer</span>
 
-    </div>
+          </div>
 
-    <div className="testimonial-card">
+          <div className="testimonial-card">
 
-      <div className="quote">❝</div>
+            <div className="quote">❝</div>
 
-      <p>
-        The candidate quality is what stands out. Our team spends
-        less time filtering and more time interviewing.
-      </p>
+            <p>
+              The candidate quality is what stands out. Our team spends
+              less time filtering and more time interviewing.
+            </p>
 
-      <h4>Priya Nair</h4>
+            <h4>Priya Nair</h4>
 
-      <span>Talent Acquisition Lead</span>
+            <span>Talent Acquisition Lead</span>
 
-    </div>
+          </div>
 
-    <div className="testimonial-card">
+          <div className="testimonial-card">
 
-      <div className="quote">❝</div>
+            <div className="quote">❝</div>
 
-      <p>
-        The hiring flow felt clean and premium. I always knew what
-        stage my application was in.
-      </p>
+            <p>
+              The hiring flow felt clean and premium. I always knew what
+              stage my application was in.
+            </p>
 
-      <h4>Nisha Rao</h4>
+            <h4>Nisha Rao</h4>
 
-      <span>Product Designer</span>
+            <span>Product Designer</span>
 
-    </div>
+          </div>
 
-  </div>
+        </div>
 
-</section>
+      </section>
 
-{/* ================= CTA ================= */}
+      {/* ================= CTA ================= */}
 
-<section className="cta-section">
+      <section className="home-cta-wrapper">
+        <div className="home-cta-left">
+          <span className="section-tag">START TODAY</span>
+          <h2>
+            Ready to connect with
+            <br />
+            better jobs and
+            <br />
+            better talent?
+          </h2>
+          <p>
+            Create your profile, browse premium opportunities,
+            or partner with Connect2Job to build your next team.
+          </p>
+          <div className="home-cta-buttons">
+            <button className="home-cta-btn-primary" onClick={() => navigate("/jobs")}>
+              Browse Jobs
+            </button>
+            <button className="home-cta-btn-secondary" onClick={() => navigate("/contact")}>
+              Hire Talent
+            </button>
+          </div>
+        </div>
 
-  <div className="cta-left">
+        <div className="home-cta-right">
+          <div className="home-cta-card">
+            <div className="home-cta-icon">💼</div>
+            <div className="home-cta-card-content">
+              <h3>For Job Seekers</h3>
+              <p>
+                Find premium opportunities matching your skills,
+                passion and career goals.
+              </p>
+            </div>
+          </div>
 
-    <span className="section-tag">
-      START TODAY
-    </span>
-
-    <h2>
-      Ready to connect with
-      <br />
-      better jobs and
-      <br />
-      better talent?
-    </h2>
-
-    <p>
-      Create your profile, browse premium opportunities,
-      or partner with Connect2Job to build your next team.
-    </p>
-
-    <div className="cta-buttons">
-
-      <button onClick={() => navigate("/jobs")}>
-        Browse Jobs
-      </button>
-
-      <button
-        className="outline"
-        onClick={() => navigate("/contact")}
-      >
-        Hire Talent
-      </button>
-
-    </div>
-
-  </div>
-
-  <div className="cta-right">
-
-    <div className="cta-card">
-
-      <div className="cta-icon">💼</div>
-
-      <div>
-
-        <h3>For Job Seekers</h3>
-
-        <p>
-          Find premium opportunities matching your skills,
-          passion and career goals.
-        </p>
-
-      </div>
-
-    </div>
-
-    <div className="cta-card">
-
-      <div className="cta-icon">🏢</div>
-
-      <div>
-
-        <h3>For Employers</h3>
-
-        <p>
-          Hire verified candidates with AI-powered
-          recruitment tools and faster shortlisting.
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
+          <div className="home-cta-card">
+            <div className="home-cta-icon">🏢</div>
+            <div className="home-cta-card-content">
+              <h3>For Employers</h3>
+              <p>
+                Hire verified candidates with AI-powered
+                recruitment tools and faster shortlisting.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
     </main>
   );

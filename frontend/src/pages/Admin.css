@@ -5,18 +5,30 @@
 /* =====================================================
    PAGE SECTION
 ====================================================== */
-.admin.page-section {
+.admin-page {
     padding: 40px 0 60px;
     background: #f8fafc;
-    min-height: 100vh;
+    min-height: auto;
+    height: auto;
     position: relative;
-    overflow-x: hidden;
+    overflow: visible !important;
 }
 
-.admin.page-section .container {
+.admin-page .container {
+    overflow: visible !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.admin-container {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 20px;
+    overflow: visible !important;
+    height: auto;
 }
 
 /* =====================================================
@@ -25,6 +37,8 @@
 .admin-dashboard {
     position: relative;
     z-index: 2;
+    overflow: visible;
+    height: auto;
 }
 
 .admin-header {
@@ -45,7 +59,7 @@
     margin-bottom: 6px;
 }
 
-.admin-header h1 .highlight {
+.admin-header h1 .admin-highlight {
     background: linear-gradient(135deg, #7c3aed, #ec4899);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -63,7 +77,7 @@
     flex-wrap: wrap;
 }
 
-.admin-actions .btn {
+.admin-btn {
     padding: 10px 20px;
     border: none;
     border-radius: 12px;
@@ -80,32 +94,65 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-.admin-actions .btn:hover {
+.admin-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     border-color: #7c3aed;
 }
 
-.admin-actions .btn-secondary {
+.admin-btn-secondary {
     background: #ffffff;
     color: #1a2332;
 }
 
-.admin-actions .btn-secondary:hover {
+.admin-btn-secondary:hover {
     background: #f8f5ff;
     border-color: #7c3aed;
     color: #7c3aed;
 }
 
-.admin-actions .btn-danger {
+.admin-btn-danger {
     background: #fee2e2;
     color: #dc2626;
     border-color: #fecaca;
 }
 
-.admin-actions .btn-danger:hover {
+.admin-btn-danger:hover {
     background: #fecaca;
     border-color: #f87171;
+}
+
+.admin-btn-primary {
+    background: #7c3aed;
+    color: #ffffff;
+}
+
+.admin-btn-primary:hover {
+    background: #6d28d9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+
+.admin-btn-success {
+    background: #10b981;
+    color: #ffffff;
+}
+
+.admin-btn-success:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.admin-btn-warning {
+    background: #f59e0b;
+    color: #ffffff;
+}
+
+.admin-btn-warning:hover {
+    background: #d97706;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
 }
 
 /* =====================================================
@@ -117,7 +164,7 @@
     border: 1px solid #e8edf5;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     margin-bottom: 30px;
-    overflow: hidden;
+    overflow: visible;
     transition: all 0.3s ease;
 }
 
@@ -152,7 +199,7 @@
     font-size: 1.2rem;
 }
 
-.toggle-btn {
+.admin-toggle-btn {
     width: 36px;
     height: 36px;
     border: none;
@@ -166,7 +213,7 @@
     justify-content: center;
 }
 
-.toggle-btn:hover {
+.admin-toggle-btn:hover {
     background: #e2e8f0;
     transform: rotate(180deg);
 }
@@ -179,17 +226,17 @@
     padding-top: 10px;
 }
 
-.admin-add-job-form .form-row {
+.admin-form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 18px;
 }
 
-.admin-add-job-form .form-group {
+.admin-form-group {
     margin-bottom: 18px;
 }
 
-.admin-add-job-form .form-group label {
+.admin-form-group label {
     display: block;
     font-size: 0.85rem;
     font-weight: 600;
@@ -197,9 +244,9 @@
     margin-bottom: 6px;
 }
 
-.admin-add-job-form .form-group input,
-.admin-add-job-form .form-group select,
-.admin-add-job-form .form-group textarea {
+.admin-form-group input,
+.admin-form-group select,
+.admin-form-group textarea {
     width: 100%;
     padding: 10px 16px;
     border: 1px solid #e2e8f0;
@@ -211,27 +258,27 @@
     transition: all 0.3s ease;
 }
 
-.admin-add-job-form .form-group input:focus,
-.admin-add-job-form .form-group select:focus,
-.admin-add-job-form .form-group textarea:focus {
+.admin-form-group input:focus,
+.admin-form-group select:focus,
+.admin-form-group textarea:focus {
     outline: none;
     border-color: #7c3aed;
     box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.08);
 }
 
-.admin-add-job-form .form-group textarea {
+.admin-form-group textarea {
     resize: vertical;
     min-height: 80px;
 }
 
-.admin-add-job-form .form-group input[type="file"] {
+.admin-form-group input[type="file"] {
     padding: 8px;
     background: #f8fafc;
     border: 2px dashed #e2e8f0;
     cursor: pointer;
 }
 
-.admin-add-job-form .form-group input[type="file"]:hover {
+.admin-form-group input[type="file"]:hover {
     border-color: #7c3aed;
     background: #faf5ff;
 }
@@ -272,6 +319,7 @@
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 18px;
     margin-bottom: 35px;
+    overflow: visible;
 }
 
 .admin-stat-card {
@@ -283,7 +331,7 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     transition: all 0.35s ease;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .admin-stat-card::before {
@@ -308,7 +356,7 @@
     box-shadow: 0 16px 40px rgba(124, 58, 237, 0.08);
 }
 
-.stat-icon {
+.admin-stat-icon {
     width: 48px;
     height: 48px;
     border-radius: 14px;
@@ -322,13 +370,13 @@
     transition: all 0.35s ease;
 }
 
-.admin-stat-card:hover .stat-icon {
+.admin-stat-card:hover .admin-stat-icon {
     background: linear-gradient(135deg, #7c3aed, #ec4899);
     color: #ffffff;
     transform: scale(1.08);
 }
 
-.stat-number {
+.admin-stat-number {
     font-size: 2rem;
     font-weight: 800;
     color: #1a2332;
@@ -339,7 +387,7 @@
     background-clip: text;
 }
 
-.stat-label {
+.admin-stat-label {
     font-size: 0.8rem;
     color: #6a7a9a;
     font-weight: 600;
@@ -355,7 +403,7 @@
     border-radius: 20px;
     border: 1px solid #e8edf5;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-    overflow: hidden;
+    overflow: visible;
     transition: all 0.3s ease;
 }
 
@@ -380,13 +428,13 @@
     color: #1a2332;
 }
 
-.table-tabs {
+.admin-table-tabs {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
 }
 
-.table-tabs button {
+.admin-table-tabs button {
     padding: 8px 18px;
     border: none;
     border-radius: 10px;
@@ -398,13 +446,13 @@
     transition: all 0.3s ease;
 }
 
-.table-tabs button:hover {
+.admin-table-tabs button:hover {
     background: #e2e8f0;
     color: #1a2332;
     transform: translateY(-1px);
 }
 
-.table-tabs button.active {
+.admin-table-tabs .admin-tab-active {
     background: linear-gradient(135deg, #7c3aed, #ec4899);
     color: #ffffff;
     box-shadow: 0 4px 15px rgba(124, 58, 237, 0.2);
@@ -415,11 +463,15 @@
 ====================================================== */
 .admin-table-wrap {
     overflow-x: auto;
+    overflow-y: visible;
     padding: 0;
+    max-height: none;
 }
 
 .admin-table {
     padding: 0;
+    height: auto;
+    overflow: visible;
 }
 
 .admin-table table {
@@ -466,7 +518,7 @@
 /* =====================================================
    TABLE ELEMENTS
 ====================================================== */
-.company-logo-admin {
+.admin-company-logo {
     width: 40px;
     height: 40px;
     border-radius: 8px;
@@ -475,7 +527,7 @@
     background: #ffffff;
 }
 
-.status-badge {
+.admin-status-badge {
     padding: 4px 14px;
     border-radius: 20px;
     font-size: 0.75rem;
@@ -485,22 +537,22 @@
     display: inline-block;
 }
 
-.status-pending {
+.admin-status-pending {
     background: #fef3c7;
     color: #d97706;
 }
 
-.status-accepted {
+.admin-status-accepted {
     background: #d1fae5;
     color: #059669;
 }
 
-.status-rejected {
+.admin-status-rejected {
     background: #fee2e2;
     color: #dc2626;
 }
 
-.role-badge {
+.admin-role-badge {
     padding: 3px 12px;
     border-radius: 12px;
     font-size: 0.7rem;
@@ -510,22 +562,22 @@
     display: inline-block;
 }
 
-.role-badge.admin {
+.admin-role-admin {
     background: #dbeafe;
     color: #2563eb;
 }
 
-.role-badge.user {
+.admin-role-user {
     background: #f1f5f9;
     color: #475569;
 }
 
-.role-badge.moderator {
+.admin-role-moderator {
     background: #fce7f3;
     color: #db2777;
 }
 
-.user-avatar {
+.admin-user-avatar {
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -539,77 +591,9 @@
 }
 
 /* =====================================================
-   TABLE BUTTONS
+   RESUME BUTTONS
 ====================================================== */
-.btn {
-    padding: 6px 14px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-}
-
-.btn-primary {
-    background: #7c3aed;
-    color: #ffffff;
-}
-
-.btn-primary:hover {
-    background: #6d28d9;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-}
-
-.btn-success {
-    background: #10b981;
-    color: #ffffff;
-}
-
-.btn-success:hover {
-    background: #059669;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-}
-
-.btn-warning {
-    background: #f59e0b;
-    color: #ffffff;
-}
-
-.btn-warning:hover {
-    background: #d97706;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-}
-
-.btn-danger {
-    background: #ef4444;
-    color: #ffffff;
-}
-
-.btn-danger:hover {
-    background: #dc2626;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-}
-
-.btn-secondary {
-    background: #f1f5f9;
-    color: #475569;
-}
-
-.btn-secondary:hover {
-    background: #e2e8f0;
-    transform: translateY(-2px);
-}
-
-.resume-action-btn {
+.admin-resume-btn {
     padding: 4px 12px;
     border: none;
     border-radius: 6px;
@@ -619,36 +603,57 @@
     transition: all 0.3s ease;
 }
 
-.resume-action-btn.view-btn {
+.admin-view-resume-btn {
     background: #dbeafe;
     color: #2563eb;
 }
 
-.resume-action-btn.view-btn:hover {
+.admin-view-resume-btn:hover {
     background: #bfdbfe;
     transform: scale(1.05);
 }
 
-.resume-action-btn.download-btn {
+.admin-download-resume-btn {
     background: #d1fae5;
     color: #059669;
 }
 
-.resume-action-btn.download-btn:hover {
+.admin-download-resume-btn:hover {
     background: #a7f3d0;
     transform: scale(1.05);
 }
 
 /* =====================================================
+   DELETE BUTTON
+====================================================== */
+.admin-delete-btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.admin-delete-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* =====================================================
    VIEW MORE BUTTON
 ====================================================== */
-.view-more-container {
+.admin-view-more-container {
     text-align: center;
     padding: 18px 0 24px;
     border-top: 1px solid #f1f5f9;
 }
 
-.view-more-btn {
+.admin-view-more-btn {
     padding: 10px 30px;
     border: none;
     border-radius: 12px;
@@ -660,7 +665,7 @@
     transition: all 0.35s ease;
 }
 
-.view-more-btn:hover {
+.admin-view-more-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
 }
@@ -668,13 +673,13 @@
 /* =====================================================
    LOADING & EMPTY STATES
 ====================================================== */
-.loading-state {
+.admin-loading-state {
     text-align: center;
     padding: 60px 20px;
     color: #6a7a9a;
 }
 
-.loading-state p {
+.admin-loading-state p {
     font-size: 1rem;
     display: flex;
     align-items: center;
@@ -682,39 +687,39 @@
     gap: 10px;
 }
 
-.loading-state p::before {
+.admin-loading-state p::before {
     content: '';
     width: 20px;
     height: 20px;
     border: 3px solid #e2e8f0;
     border-top: 3px solid #7c3aed;
     border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+    animation: admin-spin 0.8s linear infinite;
 }
 
-@keyframes spin {
+@keyframes admin-spin {
     to {
         transform: rotate(360deg);
     }
 }
 
-.empty-state {
+.admin-empty-state {
     text-align: center;
     padding: 60px 20px;
 }
 
-.empty-icon {
+.admin-empty-icon {
     font-size: 4rem;
     margin-bottom: 16px;
 }
 
-.empty-state h3 {
+.admin-empty-state h3 {
     font-size: 1.3rem;
     color: #1a2332;
     margin-bottom: 8px;
 }
 
-.empty-state p {
+.admin-empty-state p {
     color: #6a7a9a;
     font-size: 0.95rem;
 }
@@ -741,7 +746,7 @@
         padding: 18px 14px;
     }
 
-    .stat-number {
+    .admin-stat-number {
         font-size: 1.6rem;
     }
 }
@@ -750,11 +755,12 @@
    RESPONSIVE - MOBILE
 ====================================================== */
 @media (max-width: 768px) {
-    .admin.page-section {
+    .admin-page {
         padding: 20px 0 40px;
+        min-height: auto;
     }
 
-    .admin.page-section .container {
+    .admin-container {
         padding: 0 12px;
     }
 
@@ -767,7 +773,7 @@
         width: 100%;
     }
 
-    .admin-actions .btn {
+    .admin-btn {
         width: 100%;
         justify-content: center;
         padding: 12px 16px;
@@ -786,22 +792,22 @@
         padding: 0 18px 18px;
     }
 
-    .admin-add-job-form .form-row {
+    .admin-form-row {
         grid-template-columns: 1fr;
         gap: 0;
     }
 
-    .admin-add-job-form .form-group {
+    .admin-form-group {
         margin-bottom: 14px;
     }
 
-    .admin-add-job-form .form-group label {
+    .admin-form-group label {
         font-size: 0.8rem;
     }
 
-    .admin-add-job-form .form-group input,
-    .admin-add-job-form .form-group select,
-    .admin-add-job-form .form-group textarea {
+    .admin-form-group input,
+    .admin-form-group select,
+    .admin-form-group textarea {
         padding: 8px 14px;
         font-size: 0.9rem;
     }
@@ -816,17 +822,17 @@
         border-radius: 14px;
     }
 
-    .stat-icon {
+    .admin-stat-icon {
         width: 40px;
         height: 40px;
         font-size: 1.1rem;
     }
 
-    .stat-number {
+    .admin-stat-number {
         font-size: 1.4rem;
     }
 
-    .stat-label {
+    .admin-stat-label {
         font-size: 0.7rem;
     }
 
@@ -840,11 +846,11 @@
         font-size: 0.95rem;
     }
 
-    .table-tabs {
+    .admin-table-tabs {
         justify-content: flex-start;
     }
 
-    .table-tabs button {
+    .admin-table-tabs button {
         padding: 6px 14px;
         font-size: 0.7rem;
     }
@@ -855,33 +861,33 @@
         font-size: 0.8rem;
     }
 
-    .admin-table td .btn {
+    .admin-table td .admin-btn {
         padding: 4px 10px;
         font-size: 0.7rem;
         margin: 2px 0;
     }
 
-    .admin-table td .btn:not(:last-child) {
+    .admin-table td .admin-btn:not(:last-child) {
         margin-right: 4px;
     }
 
-    .company-logo-admin {
+    .admin-company-logo {
         width: 32px;
         height: 32px;
     }
 
-    .status-badge {
+    .admin-status-badge {
         font-size: 0.65rem;
         padding: 2px 10px;
     }
 
-    .resume-action-btn {
+    .admin-resume-btn {
         padding: 3px 8px;
         font-size: 0.65rem;
         margin: 2px 0;
     }
 
-    .view-more-btn {
+    .admin-view-more-btn {
         padding: 8px 24px;
         font-size: 0.8rem;
     }
@@ -891,15 +897,15 @@
         font-size: 0.9rem;
     }
 
-    .empty-state {
+    .admin-empty-state {
         padding: 40px 16px;
     }
 
-    .empty-icon {
+    .admin-empty-icon {
         font-size: 3rem;
     }
 
-    .empty-state h3 {
+    .admin-empty-state h3 {
         font-size: 1.1rem;
     }
 }
@@ -917,7 +923,7 @@
         padding: 14px 10px;
     }
 
-    .stat-number {
+    .admin-stat-number {
         font-size: 1.2rem;
     }
 
@@ -927,12 +933,12 @@
         font-size: 0.7rem;
     }
 
-    .admin-table td .btn {
+    .admin-table td .admin-btn {
         padding: 3px 8px;
         font-size: 0.65rem;
     }
 
-    .table-tabs button {
+    .admin-table-tabs button {
         padding: 5px 10px;
         font-size: 0.65rem;
     }
@@ -956,10 +962,6 @@
     .admin-section-body {
         padding: 0 14px 14px;
     }
-
-    .modal-content {
-        padding: 18px 14px;
-    }
 }
 
 /* =====================================================
@@ -982,226 +984,3 @@
 .admin-table-wrap::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
 }
-
-/* =====================================================
-   UTILITY CLASSES
-====================================================== */
-.text-center {
-    text-align: center;
-}
-
-.mt-10 {
-    margin-top: 10px;
-}
-
-.mb-10 {
-    margin-bottom: 10px;
-}
-
-.gap-8 {
-    gap: 8px;
-}
-
-.flex {
-    display: flex;
-}
-
-.flex-wrap {
-    flex-wrap: wrap;
-}
-
-.items-center {
-    align-items: center;
-}
-
-.justify-between {
-    justify-content: space-between;
-}
-
-/* =====================================================
-   ANIMATIONS
-====================================================== */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.admin-stat-card {
-    animation: fadeInUp 0.6s ease forwards;
-}
-
-.admin-stat-card:nth-child(1) { animation-delay: 0.05s; }
-.admin-stat-card:nth-child(2) { animation-delay: 0.10s; }
-.admin-stat-card:nth-child(3) { animation-delay: 0.15s; }
-.admin-stat-card:nth-child(4) { animation-delay: 0.20s; }
-.admin-stat-card:nth-child(5) { animation-delay: 0.25s; }
-.admin-stat-card:nth-child(6) { animation-delay: 0.30s; }
-.admin-stat-card:nth-child(7) { animation-delay: 0.35s; }
-
-/* =====================================================
-   DARK MODE SUPPORT (Optional)
-====================================================== */
-/* @media (prefers-color-scheme: dark) {
-    .admin.page-section {
-        background: #0f172a;
-    }
-
-    .admin-header h1 {
-        color: #f1f5f9;
-    }
-
-    .admin-header p {
-        color: #94a3b8;
-    }
-
-    .admin-section {
-        background: #1e293b;
-        border-color: #334155;
-    }
-
-    .admin-section-header:hover {
-        background: #1a2332;
-    }
-
-    .admin-section-header h3 {
-        color: #f1f5f9;
-    }
-
-    .admin-add-job-form .form-group label {
-        color: #cbd5e1;
-    }
-
-    .admin-add-job-form .form-group input,
-    .admin-add-job-form .form-group select,
-    .admin-add-job-form .form-group textarea {
-        background: #0f172a;
-        border-color: #334155;
-        color: #f1f5f9;
-    }
-
-    .admin-add-job-form .form-group input[type="file"] {
-        background: #0f172a;
-    }
-
-    .admin-stat-card {
-        background: #1e293b;
-        border-color: #334155;
-    }
-
-    .stat-number {
-        -webkit-text-fill-color: transparent;
-    }
-
-    .stat-label {
-        color: #94a3b8;
-    }
-
-    .admin-table-container {
-        background: #1e293b;
-        border-color: #334155;
-    }
-
-    .admin-table-header {
-        background: #0f172a;
-        border-bottom-color: #334155;
-    }
-
-    .admin-table-header h3 {
-        color: #f1f5f9;
-    }
-
-    .table-tabs button {
-        background: #0f172a;
-        color: #94a3b8;
-    }
-
-    .table-tabs button:hover {
-        background: #1a2332;
-        color: #f1f5f9;
-    }
-
-    .admin-table thead {
-        background: #0f172a;
-        border-bottom-color: #334155;
-    }
-
-    .admin-table th {
-        color: #94a3b8;
-    }
-
-    .admin-table td {
-        border-bottom-color: #1a2332;
-        color: #f1f5f9;
-    }
-
-    .admin-table tbody tr:hover {
-        background: #0f172a;
-    }
-
-    .admin-table .btn-secondary {
-        background: #0f172a;
-        color: #94a3b8;
-    }
-
-    .admin-table .btn-secondary:hover {
-        background: #1a2332;
-        color: #f1f5f9;
-    }
-
-    .empty-state h3 {
-        color: #f1f5f9;
-    }
-
-    .empty-state p {
-        color: #94a3b8;
-    }
-
-    .loading-state {
-        color: #94a3b8;
-    }
-
-    .user-avatar {
-        background: linear-gradient(135deg, #7c3aed, #ec4899);
-    }
-
-    .view-more-container {
-        border-top-color: #1a2332;
-    }
-
-    .admin-actions .btn {
-        background: #0f172a;
-        color: #f1f5f9;
-        border-color: #334155;
-    }
-
-    .admin-actions .btn:hover {
-        background: #1a2332;
-        border-color: #7c3aed;
-    }
-
-    .admin-actions .btn-secondary {
-        background: #0f172a;
-        color: #f1f5f9;
-    }
-
-    .admin-actions .btn-secondary:hover {
-        background: #1a2332;
-    }
-
-    .admin-actions .btn-danger {
-        background: #7f1d1d;
-        color: #fca5a5;
-        border-color: #991b1b;
-    }
-
-    .admin-actions .btn-danger:hover {
-        background: #991b1b;
-        border-color: #dc2626;
-    }
-} */
