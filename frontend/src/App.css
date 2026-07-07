@@ -31,4 +31,42 @@ padding-top:0;
 
 }
 
+}/* =====================================
+   FIX: HOME PAGE FULL WIDTH ON MOBILE DESKTOP VIEW
+===================================== */
+
+/* Override page-container for home page when viewport is small */
+@media screen and (max-width: 1024px) {
+  body.home-page .page-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 16px !important;
+    margin: 0 auto !important;
+  }
+}
+
+/* Also override any other containers that might be restricting width */
+@media screen and (max-width: 1024px) {
+  body.home-page .container,
+  body.home-page .hero-container,
+  body.home-page .page-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  body.home-page .hero-section {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/* Extra small screens */
+@media screen and (max-width: 480px) {
+  body.home-page .page-container {
+    padding: 0 12px !important;
+  }
 }
