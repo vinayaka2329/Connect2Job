@@ -553,17 +553,13 @@
 }
 
 /* ====================================
-   CTA SECTION
-==================================== */
-
-/* ====================================
    HOME CTA SECTION - PROFESSIONAL
 ==================================== */
 
 .home-cta-wrapper {
   width: min(1320px, 92%);
   margin: 80px auto;
-  padding: 25px 70px;
+  padding: 60px 70px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
@@ -764,11 +760,71 @@
   margin: 0;
 }
 
-/* ====================================
-   RESPONSIVE
-==================================== */
+/* ==========================
+   RESPONSIVE - HERO
+========================= */
+
+@media (max-width: 1200px) {
+  .hero-container {
+    gap: 50px;
+  }
+  
+  .hero-left h1 {
+    font-size: 56px;
+  }
+  
+  .hero-right img {
+    width: 380px;
+  }
+  
+  .floating-card.top {
+    top: 40px;
+    left: 10px;
+  }
+  
+  .floating-card.bottom {
+    right: 10px;
+    bottom: 30px;
+  }
+}
 
 @media (max-width: 1024px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  
+  .hero-left p {
+    max-width: 100%;
+  }
+  
+  .hero-left h1 {
+    font-size: 48px;
+  }
+  
+  .hero-right img {
+    width: 320px;
+  }
+  
+  .hero-buttons {
+    justify-content: center;
+  }
+  
+  .hero-stats {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .hero-stats div {
+    min-width: 140px;
+    padding: 20px 25px;
+  }
+  
+  .floating-card {
+    display: none;
+  }
+  
   .home-cta-wrapper {
     padding: 50px 40px;
     gap: 50px;
@@ -784,6 +840,182 @@
 }
 
 @media (max-width: 768px) {
+  .hero-section {
+    padding: 100px 0 60px;
+    min-height: auto;
+  }
+  
+  .hero-left h1 {
+    font-size: 36px;
+  }
+  
+  .hero-left p {
+    font-size: 16px;
+  }
+  
+  .hero-badge {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .hero-buttons button {
+    padding: 12px 28px;
+    font-size: 15px;
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .hero-stats {
+    gap: 12px;
+  }
+  
+  .hero-stats div {
+    padding: 15px 20px;
+    min-width: 100px;
+    flex: 1;
+  }
+  
+  .hero-stats h2 {
+    font-size: 28px;
+  }
+  
+  .hero-stats p {
+    font-size: 13px;
+  }
+  
+  .hero-right img {
+    width: 250px;
+  }
+  
+  .hero-glow {
+    width: 400px;
+    height: 400px;
+  }
+
+  /* Services Mobile */
+  .services-section {
+    margin: 50px auto;
+  }
+  
+  .services-section h2 {
+    font-size: 32px;
+  }
+  
+  .services-section p {
+    font-size: 16px;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 40px;
+  }
+  
+  .service-card {
+    padding: 25px;
+  }
+  
+  .service-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .service-card p {
+    font-size: 0.95rem;
+  }
+
+  /* Why Section Mobile */
+  .why-section {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    text-align: center;
+    margin: 50px auto;
+  }
+  
+  .why-left p {
+    max-width: 100%;
+  }
+  
+  .why-list {
+    align-items: center;
+  }
+  
+  .why-list li {
+    width: 100%;
+    max-width: 500px;
+    font-size: 15px;
+    padding: 14px 18px;
+  }
+  
+  .why-left h2 {
+    font-size: 32px;
+  }
+  
+  .why-left p {
+    font-size: 16px;
+  }
+
+  /* Dashboard Card Mobile */
+  .dashboard-card {
+    padding: 24px;
+  }
+  
+  .dashboard-card h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-grid div {
+    padding: 16px;
+  }
+  
+  .dashboard-grid h3 {
+    font-size: 28px;
+  }
+
+  /* Testimonials Mobile */
+  .testimonial-section {
+    margin: 50px auto;
+  }
+  
+  .testimonial-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .testimonial-header h2 {
+    font-size: 32px;
+  }
+  
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .testimonial-card {
+    padding: 25px;
+  }
+  
+  .testimonial-card p {
+    font-size: 0.95rem;
+  }
+  
+  .rating-box {
+    font-size: 18px;
+  }
+
+  /* Home CTA Mobile */
   .home-cta-wrapper {
     grid-template-columns: 1fr;
     padding: 40px 28px;
@@ -840,6 +1072,65 @@
 }
 
 @media (max-width: 480px) {
+  /* Hero Small Mobile */
+  .hero-left h1 {
+    font-size: 28px;
+  }
+  
+  .hero-left p {
+    font-size: 14px;
+  }
+  
+  .hero-stats {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-stats div {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .hero-right img {
+    width: 200px;
+  }
+  
+  .hero-glow {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* Services Small Mobile */
+  .services-section h2 {
+    font-size: 26px;
+  }
+
+  /* Why Section Small Mobile */
+  .why-left h2 {
+    font-size: 26px;
+  }
+
+  /* Testimonials Small Mobile */
+  .testimonial-header h2 {
+    font-size: 26px;
+  }
+
+  /* Dashboard Small Mobile */
+  .dashboard-card h2 {
+    font-size: 20px;
+  }
+  
+  .dashboard-grid h3 {
+    font-size: 24px;
+  }
+  
+  .service-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+
+  /* Home CTA Small Mobile */
   .home-cta-wrapper {
     padding: 30px 18px;
     margin: 30px auto;
