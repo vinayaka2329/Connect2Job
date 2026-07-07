@@ -1047,7 +1047,7 @@
 /* =====================================================
    DARK MODE SUPPORT (Optional)
 ====================================================== */
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
     .admin.page-section {
         background: #0f172a;
     }
@@ -1204,4 +1204,4 @@
         background: #991b1b;
         border-color: #dc2626;
     }
-}
+} */
