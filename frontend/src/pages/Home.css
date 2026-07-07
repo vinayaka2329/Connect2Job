@@ -1171,131 +1171,239 @@
     font-size: 22px;
   }
 }
-
 /* ====================================
-   FIX: FULL WIDTH ON MOBILE DESKTOP VIEW
+   FIX: FULL WIDTH ON DESKTOP SITE MOBILE VIEW
 ==================================== */
 
-/* Force full width when desktop site mode is enabled on mobile */
-@media (max-width: 768px) {
-  /* Override container width to be full */
+/* Force full width when viewport is smaller than 1024px but desktop site is enabled */
+@media screen and (max-width: 1024px) {
+  /* Override all container widths to be 100% */
+  .home-page .container,
   .container {
-    width: 100%;
-    padding: 0 16px;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 16px !important;
+    margin: 0 auto !important;
   }
 
-  /* Hero container full width */
+  /* Hero sections full width */
+  .hero-section {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    min-height: auto !important;
+  }
+
   .hero-container {
-    width: 100%;
-    padding: 0 16px;
-    gap: 30px;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 16px !important;
+    margin: 0 auto !important;
+    gap: 30px !important;
   }
 
-  /* Services section full width */
-  .services-section {
-    width: 100%;
-    padding: 0 16px;
-  }
-
-  /* Why section full width */
-  .why-section {
-    width: 100%;
-    padding: 0 16px;
-  }
-
-  /* Testimonial section full width */
-  .testimonial-section {
-    width: 100%;
-    padding: 0 16px;
+  /* All section wrappers full width */
+  .services-section,
+  .why-section,
+  .testimonial-section,
+  .home-cta-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 
   /* Home CTA full width */
   .home-cta-wrapper {
-    width: 100%;
-    margin: 40px auto;
-    padding: 30px 20px;
-    border-radius: 0;
+    padding: 30px 20px !important;
+    border-radius: 0 !important;
+    margin: 30px 0 !important;
   }
 
-  /* Fix hero right image */
+  /* Hero text adjustments */
+  .hero-left h1 {
+    font-size: 42px !important;
+  }
+
+  .hero-left p {
+    font-size: 17px !important;
+    max-width: 100% !important;
+  }
+
+  /* Hero image */
   .hero-right img {
-    max-width: 100%;
-    height: auto;
+    width: 100% !important;
+    max-width: 320px !important;
+    height: auto !important;
   }
 
-  /* Fix hero stats */
+  /* Stats full width */
+  .hero-stats {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+  }
+
   .hero-stats div {
-    min-width: auto;
-    flex: 1;
-    padding: 15px;
+    flex: 1 !important;
+    min-width: 100px !important;
+    padding: 15px 20px !important;
   }
 
-  /* Fix hero buttons */
+  /* Buttons full width */
   .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
   }
 
   .hero-buttons button {
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 14px !important;
+  }
+
+  /* CTA right side */
+  .home-cta-right {
+    gap: 16px !important;
+  }
+
+  .home-cta-card {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 20px !important;
+  }
+
+  .home-cta-buttons {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .home-cta-btn-primary,
+  .home-cta-btn-secondary {
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Grid layouts to single column */
+  .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .testimonial-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .why-section {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+    text-align: center !important;
+  }
+
+  .why-left p {
+    max-width: 100% !important;
+  }
+
+  .why-list {
+    align-items: center !important;
+  }
+
+  .why-list li {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Dashboard grid */
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Floating cards hide on mobile */
+  .floating-card {
+    display: none !important;
   }
 }
 
-/* For very small screens with desktop site mode */
-@media (max-width: 480px) {
+/* Extra small screens */
+@media screen and (max-width: 480px) {
+  .home-page .container,
   .container {
-    padding: 0 12px;
+    padding: 0 12px !important;
   }
 
   .hero-container {
-    padding: 0 12px;
+    padding: 0 12px !important;
+  }
+
+  .hero-left h1 {
+    font-size: 28px !important;
+  }
+
+  .hero-left p {
+    font-size: 14px !important;
   }
 
   .home-cta-wrapper {
-    padding: 25px 16px;
+    padding: 25px 16px !important;
   }
 
   .home-cta-left h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem !important;
+  }
+
+  .services-section h2 {
+    font-size: 26px !important;
+  }
+
+  .why-left h2 {
+    font-size: 26px !important;
+  }
+
+  .testimonial-header h2 {
+    font-size: 26px !important;
   }
 }
 
-/* Fix for phones with desktop site view (width > 768px but physical screen is small) */
-@media (max-width: 1024px) and (orientation: portrait) {
-  /* This targets portrait mode on tablets/phones */
+/* Specific fix for Chrome on mobile with desktop site */
+@media screen and (max-width: 1024px) and (orientation: portrait) {
   .hero-container {
-    width: 100%;
-    padding: 0 20px;
+    grid-template-columns: 1fr !important;
   }
 
-  .hero-left h1 {
-    font-size: 42px;
+  .hero-right {
+    order: -1 !important;
   }
 
   .hero-right img {
-    width: 280px;
+    max-width: 250px !important;
   }
 }
 
-/* Fix for landscape phones with desktop site */
-@media (max-width: 900px) and (orientation: landscape) {
+/* Landscape phones with desktop site */
+@media screen and (max-width: 900px) and (orientation: landscape) {
   .hero-container {
-    width: 100%;
-    padding: 0 20px;
-    gap: 30px;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
   }
 
   .hero-left h1 {
-    font-size: 36px;
+    font-size: 32px !important;
   }
 
   .hero-right img {
-    width: 220px;
+    max-width: 180px !important;
   }
 
-  .floating-card {
-    display: none;
+  .hero-stats div {
+    padding: 10px 15px !important;
+    min-width: 80px !important;
+  }
+
+  .hero-stats h2 {
+    font-size: 24px !important;
   }
 }
