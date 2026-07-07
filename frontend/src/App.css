@@ -2,43 +2,6 @@
    APP LAYOUT
 ===================================== */
 
-/* .app-shell{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-}
-
-.app-main{
-    flex:1;
-    padding-top:90px;
-}
-
-body.home-page .app-main{
-    padding-top:0;
-}
-
-@media(max-width:768px){
-
-.app-main{
-
-padding-top:80px;
-
-}
-
-body.home-page .app-main{
-
-padding-top:0;
-
-}
-
-} */
-
-
-
-/* =====================================
-   APP LAYOUT
-===================================== */
-
 .app-shell {
     min-height: 100vh;
     display: flex;
@@ -50,12 +13,10 @@ padding-top:0;
     padding-top: 90px;
 }
 
-/* Home page has no navbar padding */
 body.home-page .app-main {
     padding-top: 0;
 }
 
-/* Mobile */
 @media (max-width: 768px) {
     .app-main {
         padding-top: 80px;
@@ -66,51 +27,46 @@ body.home-page .app-main {
 }
 
 /* =====================================
-   FIX: DESKTOP SITE VIEW ON MOBILE ONLY
+   GLOBAL CONTAINER - MATCHES NAVBAR
+   Applies to ALL home page sections
 ===================================== */
 
-@media screen and (min-width: 768px) and (max-width: 1200px) {
-    /* Force hero-section parent to be full width */
-    .hero-section {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
+.hero-container,
+.services-section,
+.why-section,
+.testimonial-section,
+.home-cta-wrapper {
+    width: 95%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
-    /* Hero container takes 95% like navbar */
-    .hero-container {
-        width: 95% !important;
-        max-width: 1400px !important;
-        margin: 0 auto !important;
-        padding: 0 20px !important;
-    }
-
-    /* Fix other home sections */
+/* Mobile and Desktop Site mode */
+@media screen and (max-width: 1200px) {
+    .hero-container,
     .services-section,
     .why-section,
     .testimonial-section,
     .home-cta-wrapper {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+        width: 96%;
+        padding: 0 16px;
     }
+}
 
-    /* Their inner containers take 95% */
-    .services-section .services-grid,
-    .why-section .why-left,
-    .why-section .why-right,
-    .testimonial-section .testimonial-grid,
-    .home-cta-wrapper .home-cta-left,
-    .home-cta-wrapper .home-cta-right {
-        width: 95% !important;
-        max-width: 1400px !important;
-        margin: 0 auto !important;
-        padding: 0 20px !important;
+/* Small mobile */
+@media screen and (max-width: 480px) {
+    .hero-container,
+    .services-section,
+    .why-section,
+    .testimonial-section,
+    .home-cta-wrapper {
+        padding: 0 12px;
     }
+}
+
+/* Fix hero section parent */
+.hero-section {
+    padding-left: 0;
+    padding-right: 0;
 }

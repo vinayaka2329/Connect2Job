@@ -9,15 +9,6 @@
 }
 
 /* =========================
-   CONTAINER
-========================= */
-
-.container {
-  width: min(1320px, 92%);
-  margin: auto;
-}
-
-/* =========================
    HERO
 ========================= */
 
@@ -31,8 +22,6 @@
 }
 
 .hero-container {
-  width: min(1320px, 92%);
-  margin: auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -199,8 +188,6 @@
 =========================== */
 
 .services-section {
-  width: min(1320px, 92%);
-  margin: 80px auto;
   text-align: center;
 }
 
@@ -312,8 +299,6 @@
 ========================================= */
 
 .why-section {
-  width: min(1320px, 92%);
-  margin: 80px auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 70px;
@@ -446,8 +431,7 @@
 ========================== */
 
 .testimonial-section {
-  width: min(1320px, 92%);
-  margin: 80px auto;
+  /* No width/margin here - handled by App.css */
 }
 
 .testimonial-header {
@@ -553,12 +537,10 @@
 }
 
 /* ====================================
-   HOME CTA SECTION - PROFESSIONAL
+   HOME CTA SECTION
 ==================================== */
 
 .home-cta-wrapper {
-  width: min(1320px, 92%);
-  margin: 80px auto;
   padding: 60px 70px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -761,7 +743,7 @@
 }
 
 /* ==========================
-   RESPONSIVE - HERO
+   RESPONSIVE
 ========================= */
 
 @media (max-width: 1200px) {
@@ -898,9 +880,8 @@
     height: 400px;
   }
 
-  /* Services Mobile */
   .services-section {
-    margin: 50px auto;
+    margin: 50px 0;
   }
   
   .services-section h2 {
@@ -929,12 +910,10 @@
     font-size: 0.95rem;
   }
 
-  /* Why Section Mobile */
   .why-section {
     grid-template-columns: 1fr;
     gap: 50px;
     text-align: center;
-    margin: 50px auto;
   }
   
   .why-left p {
@@ -960,7 +939,6 @@
     font-size: 16px;
   }
 
-  /* Dashboard Card Mobile */
   .dashboard-card {
     padding: 24px;
   }
@@ -982,9 +960,8 @@
     font-size: 28px;
   }
 
-  /* Testimonials Mobile */
   .testimonial-section {
-    margin: 50px auto;
+    margin: 50px 0;
   }
   
   .testimonial-header {
@@ -1015,12 +992,10 @@
     font-size: 18px;
   }
 
-  /* Home CTA Mobile */
   .home-cta-wrapper {
     grid-template-columns: 1fr;
     padding: 40px 28px;
     gap: 35px;
-    margin: 50px auto;
     border-radius: 24px;
     text-align: center;
   }
@@ -1072,7 +1047,6 @@
 }
 
 @media (max-width: 480px) {
-  /* Hero Small Mobile */
   .hero-left h1 {
     font-size: 28px;
   }
@@ -1100,22 +1074,18 @@
     height: 300px;
   }
 
-  /* Services Small Mobile */
   .services-section h2 {
     font-size: 26px;
   }
 
-  /* Why Section Small Mobile */
   .why-left h2 {
     font-size: 26px;
   }
 
-  /* Testimonials Small Mobile */
   .testimonial-header h2 {
     font-size: 26px;
   }
 
-  /* Dashboard Small Mobile */
   .dashboard-card h2 {
     font-size: 20px;
   }
@@ -1130,10 +1100,8 @@
     font-size: 24px;
   }
 
-  /* Home CTA Small Mobile */
   .home-cta-wrapper {
     padding: 30px 18px;
-    margin: 30px auto;
     border-radius: 20px;
   }
 
@@ -1169,498 +1137,5 @@
     height: 50px;
     min-width: 50px;
     font-size: 22px;
-  }
-}
-/* ====================================
-   FIX: FULL WIDTH ON DESKTOP SITE MOBILE VIEW
-==================================== */
-
-/* Force full width when viewport is smaller than 1024px but desktop site is enabled */
-@media screen and (max-width: 1024px) {
-  /* Override all container widths to be 100% */
-  .home-page .container,
-  .container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 0 16px !important;
-    margin: 0 auto !important;
-  }
-
-  /* Hero sections full width */
-  .hero-section {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    min-height: auto !important;
-  }
-
-  .hero-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 0 16px !important;
-    margin: 0 auto !important;
-    gap: 30px !important;
-  }
-
-  /* All section wrappers full width */
-  .services-section,
-  .why-section,
-  .testimonial-section,
-  .home-cta-wrapper {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  /* Home CTA full width */
-  .home-cta-wrapper {
-    padding: 30px 20px !important;
-    border-radius: 0 !important;
-    margin: 30px 0 !important;
-  }
-
-  /* Hero text adjustments */
-  .hero-left h1 {
-    font-size: 42px !important;
-  }
-
-  .hero-left p {
-    font-size: 17px !important;
-    max-width: 100% !important;
-  }
-
-  /* Hero image */
-  .hero-right img {
-    width: 100% !important;
-    max-width: 320px !important;
-    height: auto !important;
-  }
-
-  /* Stats full width */
-  .hero-stats {
-    flex-wrap: wrap !important;
-    gap: 12px !important;
-  }
-
-  .hero-stats div {
-    flex: 1 !important;
-    min-width: 100px !important;
-    padding: 15px 20px !important;
-  }
-
-  /* Buttons full width */
-  .hero-buttons {
-    flex-direction: column !important;
-    align-items: center !important;
-    width: 100% !important;
-  }
-
-  .hero-buttons button {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 14px !important;
-  }
-
-  /* CTA right side */
-  .home-cta-right {
-    gap: 16px !important;
-  }
-
-  .home-cta-card {
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-    padding: 20px !important;
-  }
-
-  .home-cta-buttons {
-    flex-direction: column !important;
-    width: 100% !important;
-  }
-
-  .home-cta-btn-primary,
-  .home-cta-btn-secondary {
-    width: 100% !important;
-    max-width: 100% !important;
-    justify-content: center !important;
-  }
-
-  /* Grid layouts to single column */
-  .services-grid {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-  }
-
-  .testimonial-grid {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-  }
-
-  .why-section {
-    grid-template-columns: 1fr !important;
-    gap: 30px !important;
-    text-align: center !important;
-  }
-
-  .why-left p {
-    max-width: 100% !important;
-  }
-
-  .why-list {
-    align-items: center !important;
-  }
-
-  .why-list li {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  /* Dashboard grid */
-  .dashboard-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Floating cards hide on mobile */
-  .floating-card {
-    display: none !important;
-  }
-}
-
-/* Extra small screens */
-@media screen and (max-width: 480px) {
-  .home-page .container,
-  .container {
-    padding: 0 12px !important;
-  }
-
-  .hero-container {
-    padding: 0 12px !important;
-  }
-
-  .hero-left h1 {
-    font-size: 28px !important;
-  }
-
-  .hero-left p {
-    font-size: 14px !important;
-  }
-
-  .home-cta-wrapper {
-    padding: 25px 16px !important;
-  }
-
-  .home-cta-left h2 {
-    font-size: 1.6rem !important;
-  }
-
-  .services-section h2 {
-    font-size: 26px !important;
-  }
-
-  .why-left h2 {
-    font-size: 26px !important;
-  }
-
-  .testimonial-header h2 {
-    font-size: 26px !important;
-  }
-}
-
-/* Specific fix for Chrome on mobile with desktop site */
-@media screen and (max-width: 1024px) and (orientation: portrait) {
-  .hero-container {
-    grid-template-columns: 1fr !important;
-  }
-
-  .hero-right {
-    order: -1 !important;
-  }
-
-  .hero-right img {
-    max-width: 250px !important;
-  }
-}
-
-/* Landscape phones with desktop site */
-@media screen and (max-width: 900px) and (orientation: landscape) {
-  .hero-container {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 20px !important;
-  }
-
-  .hero-left h1 {
-    font-size: 32px !important;
-  }
-
-  .hero-right img {
-    max-width: 180px !important;
-  }
-
-  .hero-stats div {
-    padding: 10px 15px !important;
-    min-width: 80px !important;
-  }
-
-  .hero-stats h2 {
-    font-size: 24px !important;
-  }
-}
-
-/* ====================================
-   FIX: FULL WIDTH ON MOBILE DESKTOP VIEW
-   (This goes at the END of Home.css)
-==================================== */
-
-/* Override ALL section widths on home page when viewport is small */
-@media screen and (max-width: 1024px) {
-  /* All sections that use min(1320px, 92%) */
-  .services-section,
-  .why-section,
-  .testimonial-section,
-  .home-cta-wrapper {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  /* Hero container */
-  .hero-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    gap: 30px !important;
-  }
-
-  /* Hero section */
-  .hero-section {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    min-height: auto !important;
-  }
-
-  /* Make hero grid single column */
-  .hero-container {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Home CTA */
-  .home-cta-wrapper {
-    padding: 30px 20px !important;
-    border-radius: 0 !important;
-    margin: 30px 0 !important;
-  }
-
-  /* All grids to single column */
-  .services-grid {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-  }
-
-  .testimonial-grid {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-  }
-
-  .why-section {
-    grid-template-columns: 1fr !important;
-    gap: 30px !important;
-    text-align: center !important;
-  }
-
-  .dashboard-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Stats */
-  .hero-stats {
-    flex-wrap: wrap !important;
-    gap: 12px !important;
-  }
-
-  .hero-stats div {
-    flex: 1 !important;
-    min-width: 100px !important;
-    padding: 15px 20px !important;
-  }
-
-  /* Buttons */
-  .hero-buttons,
-  .home-cta-buttons {
-    flex-direction: column !important;
-    align-items: center !important;
-    width: 100% !important;
-  }
-
-  .hero-buttons button,
-  .home-cta-btn-primary,
-  .home-cta-btn-secondary {
-    width: 100% !important;
-    max-width: 100% !important;
-    justify-content: center !important;
-  }
-
-  /* CTA Cards */
-  .home-cta-card {
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-    padding: 20px !important;
-  }
-
-  .home-cta-right {
-    gap: 16px !important;
-  }
-
-  /* Hide floating cards */
-  .floating-card {
-    display: none !important;
-  }
-
-  /* Hero image */
-  .hero-right {
-    order: -1 !important;
-  }
-
-  .hero-right img {
-    max-width: 280px !important;
-    height: auto !important;
-  }
-
-  .hero-glow {
-    width: 300px !important;
-    height: 300px !important;
-  }
-
-  /* Why section */
-  .why-left p {
-    max-width: 100% !important;
-  }
-
-  .why-list {
-    align-items: center !important;
-  }
-
-  .why-list li {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  /* Testimonials */
-  .testimonial-header {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 20px !important;
-  }
-
-  /* Dashboard card */
-  .dashboard-card {
-    padding: 24px !important;
-  }
-
-  .dashboard-card h2 {
-    font-size: 24px !important;
-  }
-
-  .dashboard-grid h3 {
-    font-size: 28px !important;
-  }
-
-  /* Home CTA left */
-  .home-cta-left {
-    align-items: center !important;
-    text-align: center !important;
-  }
-
-  .home-cta-left .section-tag {
-    align-self: center !important;
-  }
-
-  .home-cta-left p {
-    max-width: 100% !important;
-  }
-}
-
-/* Extra small screens */
-@media screen and (max-width: 480px) {
-  .services-section,
-  .why-section,
-  .testimonial-section,
-  .home-cta-wrapper {
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-  }
-
-  .hero-container {
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-  }
-
-  .hero-left h1 {
-    font-size: 28px !important;
-  }
-
-  .hero-left p {
-    font-size: 14px !important;
-  }
-
-  .home-cta-wrapper {
-    padding: 20px 16px !important;
-  }
-
-  .home-cta-left h2 {
-    font-size: 1.6rem !important;
-  }
-
-  .services-section h2 {
-    font-size: 26px !important;
-  }
-
-  .why-left h2 {
-    font-size: 26px !important;
-  }
-
-  .testimonial-header h2 {
-    font-size: 26px !important;
-  }
-
-  .hero-right img {
-    max-width: 200px !important;
-  }
-}
-
-/* Landscape phones */
-@media screen and (max-width: 900px) and (orientation: landscape) {
-  .hero-container {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 20px !important;
-  }
-
-  .hero-left h1 {
-    font-size: 32px !important;
-  }
-
-  .hero-right img {
-    max-width: 180px !important;
-  }
-
-  .hero-stats div {
-    padding: 10px 15px !important;
-    min-width: 80px !important;
-  }
-
-  .hero-stats h2 {
-    font-size: 24px !important;
-  }
-
-  .floating-card {
-    display: none !important;
   }
 }
