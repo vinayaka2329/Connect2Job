@@ -1171,3 +1171,131 @@
     font-size: 22px;
   }
 }
+
+/* ====================================
+   FIX: FULL WIDTH ON MOBILE DESKTOP VIEW
+==================================== */
+
+/* Force full width when desktop site mode is enabled on mobile */
+@media (max-width: 768px) {
+  /* Override container width to be full */
+  .container {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  /* Hero container full width */
+  .hero-container {
+    width: 100%;
+    padding: 0 16px;
+    gap: 30px;
+  }
+
+  /* Services section full width */
+  .services-section {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  /* Why section full width */
+  .why-section {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  /* Testimonial section full width */
+  .testimonial-section {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  /* Home CTA full width */
+  .home-cta-wrapper {
+    width: 100%;
+    margin: 40px auto;
+    padding: 30px 20px;
+    border-radius: 0;
+  }
+
+  /* Fix hero right image */
+  .hero-right img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Fix hero stats */
+  .hero-stats div {
+    min-width: auto;
+    flex: 1;
+    padding: 15px;
+  }
+
+  /* Fix hero buttons */
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-buttons button {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* For very small screens with desktop site mode */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+
+  .hero-container {
+    padding: 0 12px;
+  }
+
+  .home-cta-wrapper {
+    padding: 25px 16px;
+  }
+
+  .home-cta-left h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Fix for phones with desktop site view (width > 768px but physical screen is small) */
+@media (max-width: 1024px) and (orientation: portrait) {
+  /* This targets portrait mode on tablets/phones */
+  .hero-container {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .hero-left h1 {
+    font-size: 42px;
+  }
+
+  .hero-right img {
+    width: 280px;
+  }
+}
+
+/* Fix for landscape phones with desktop site */
+@media (max-width: 900px) and (orientation: landscape) {
+  .hero-container {
+    width: 100%;
+    padding: 0 20px;
+    gap: 30px;
+  }
+
+  .hero-left h1 {
+    font-size: 36px;
+  }
+
+  .hero-right img {
+    width: 220px;
+  }
+
+  .floating-card {
+    display: none;
+  }
+}
