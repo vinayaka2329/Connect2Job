@@ -102,7 +102,7 @@ export default function Footer() {
             <ul>
               <li><MapPin size={18} /> Mysuru, India</li>
               <li><Phone size={18} /> +91 70190 45849</li>
-              <li><Mail size={18} /> info@connect2job.com</li>
+              <li><Mail size={18} /> hr@connect2future.com</li>
             </ul>
           </div>
         </div>

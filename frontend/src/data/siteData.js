@@ -266,7 +266,7 @@ export const testimonials = [
 export const contactInfo = [
   { icon: 'fas fa-map-marker-alt', label: 'Location', value: 'Mysuru, India' },
   { icon: 'fas fa-phone', label: 'Phone', value: '+91 70190 45849' },
-  { icon: 'fas fa-envelope', label: 'Email', value: 'info@connect2job.com' },
+  { icon: 'fas fa-envelope', label: 'Email', value: 'hr@connect2future.com' },
   { icon: 'fas fa-clock', label: 'Hours', value: 'Mon - Fri, 9 AM - 6 PM' }
 ];
 
