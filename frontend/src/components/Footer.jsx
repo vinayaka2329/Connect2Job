@@ -16,6 +16,8 @@ import {
 import { useAppContext } from "../context/AppContext";
 import { api } from "../services/api";
 import footerLogo from "../../images/image.png";
+import boyCharacter from "../../images/c2j boy.png";
+import girlCharacter from "../../images/c2j girl.png";
 import "./Footer.css";
 
 const socialLinks = [
@@ -40,9 +42,7 @@ export default function Footer() {
 
     try {
       await api.subscribe(email);
-
       showToast("Subscribed successfully!");
-
       setEmail("");
     } catch (error) {
       showToast(error.message || "Subscription failed", "error");
@@ -107,23 +107,49 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="newsletter-section">
-          <div className="newsletter-content">
-            <h3>Get premium job updates</h3>
-            <p>Fresh opportunities, hiring insights, and career tips delivered to your inbox.</p>
-            <form className="newsletter-form" onSubmit={handleSubscribe}>
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                required
-              />
-              <button type="submit">
-                <Send size={17} />
-                Subscribe
-              </button>
-            </form>
+        {/* ========================================
+            NEWSLETTER WITH CHARACTERS
+        ======================================== */}
+        <div className="newsletter-wrapper">
+          {/* Boy Character - Left */}
+          <div className="newsletter-boy">
+            <div className="character-glow"></div>
+            <img
+              src={boyCharacter}
+              alt="Character"
+              className="character-image"
+            />
+          </div>
+
+          {/* Newsletter Card */}
+          <div className="newsletter-section">
+            <div className="newsletter-content">
+              <h3>Get premium job updates</h3>
+              <p>Fresh opportunities, hiring insights, and career tips delivered to your inbox.</p>
+              <form className="newsletter-form" onSubmit={handleSubscribe}>
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
+                />
+                <button type="submit">
+                  <Send size={17} />
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </div>
+
+          {/* Girl Character - Right */}
+          <div className="newsletter-girl">
+            <div className="character-glow"></div>
+            <img
+              src={girlCharacter}
+              alt="Character"
+              className="character-image"
+            />
           </div>
         </div>
 
