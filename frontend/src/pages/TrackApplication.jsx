@@ -131,13 +131,13 @@ export default function TrackApplication() {
                     <div className="app-icon">
                       <img
                         src={
-                          item.logo
-                            ? `${API_URL.replace("/api", "")}${item.logo}`
-                            : "/images/default-company.png"
+                          item.logo ||
+                          item.logoUrl ||
+                          "/images/default-company.png"
                         }
                         alt={item.company}
                         onError={(e) => {
-                          e.target.src = "/images/default-company.png";
+                          e.currentTarget.src = "/images/default-company.png";
                         }}
                       />
                     </div>
