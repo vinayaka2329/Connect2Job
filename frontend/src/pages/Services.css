@@ -5,7 +5,7 @@
 .services-hero {
   width: min(900px, 92%);
   margin: 0 auto;
-  padding: 70px 0 80px;
+  padding: 125px 0 80px;
   text-align: center;
 }
 
@@ -83,7 +83,7 @@
 
 .services-grid-container {
   width: min(1320px, 92%);
-  margin: 50px auto 90px;
+  margin: 10px auto 90px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 35px;
@@ -268,7 +268,7 @@
 
 @media (max-width: 768px) {
   .services-hero {
-    padding: 50px 0 60px;
+    padding: 120px 0 60px;
   }
 
   .hero-stats {
@@ -308,6 +308,9 @@
 }
 
 @media (max-width: 480px) {
+  .services-hero {
+    padding: 100px 0 60px;
+  }
   .services-hero h1 {
     font-size: 2.5rem;
   }

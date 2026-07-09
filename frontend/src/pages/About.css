@@ -6,7 +6,7 @@
   width: 100%;
   overflow-x: hidden;
   background: #ffffff;
-  padding-top: 0px;
+  padding-top: 5px;
   padding-bottom: 0px;
   min-height: 100vh;
 }
@@ -528,7 +528,7 @@
 
 @media (max-width: 768px) {
   .about-page {
-    padding-top: 0px;
+    padding-top: 10px;
   }
   
   .page-hero {

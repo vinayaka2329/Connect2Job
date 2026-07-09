@@ -1054,7 +1054,7 @@
 /* Tablet Portrait (768px) */
 @media (max-width: 768px) {
   .hero-section {
-    padding: 80px 0 30px;
+    padding: 100px 0 30px;
   }
   
   .hero-container {
@@ -1315,7 +1315,7 @@
 /* Mobile Large (576px) */
 @media (max-width: 576px) {
   .hero-section {
-    padding: 60px 0 25px;
+    padding: 100px 0 10px;
     min-height: auto;
   }
   
@@ -1372,6 +1372,7 @@
   .hero-right {
     max-width: 300px;
     aspect-ratio: 1 / 1;
+    margin-top: 10px;
   }
   
   .hero-right img {
@@ -1501,7 +1502,7 @@
 /* Mobile Small (400px) */
 @media (max-width: 400px) {
   .hero-section {
-    padding: 50px 0 20px;
+    padding: 100px 0 20px;
   }
   
   .hero-left h1 {

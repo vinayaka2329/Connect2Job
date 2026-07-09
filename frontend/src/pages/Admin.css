@@ -6,7 +6,7 @@
    PAGE SECTION
 ====================================================== */
 .admin-page {
-    padding: 40px 0 60px;
+    padding: 120px 0 60px;
     background: #f8fafc;
     min-height: auto;
     height: auto;
@@ -756,7 +756,7 @@
 ====================================================== */
 @media (max-width: 768px) {
     .admin-page {
-        padding: 20px 0 40px;
+        padding: 120px 0 40px;
         min-height: auto;
     }
 
