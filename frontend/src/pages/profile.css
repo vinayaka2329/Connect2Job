@@ -34,6 +34,8 @@
 
     align-items:center;
 
+    padding: 100px;
+
     gap:30px;
 
     margin-bottom:40px;
@@ -256,6 +258,8 @@
 flex-direction:column;
 
 text-align:center;
+
+padding: 100px;
 
 }
 
