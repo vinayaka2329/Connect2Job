@@ -9,7 +9,22 @@
 }
 
 /* =========================
-   HERO SECTION - REDESIGNED
+   SECTION CONTAINER SYSTEM
+   ALL sections use the EXACT SAME width/max-width/margin
+========================= */
+
+.hero-section,
+.services-section,
+.why-section,
+.testimonial-section,
+.home-cta-wrapper {
+  width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* =========================
+   HERO SECTION
 ========================= */
 
 .hero-section {
@@ -27,9 +42,9 @@
   align-items: center;
   gap: clamp(40px, 5vw, 80px);
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 60px);
+  max-width: 100%;
+  margin: 0;
+  padding: 0; /* ← REMOVED padding - let section handle alignment */
 }
 
 /* =========================
@@ -246,7 +261,7 @@
 }
 
 /* =========================
-   FLOATING CARDS
+   FLOATING CARDS - FIXED POSITIONING
 ========================= */
 
 .floating-card {
@@ -272,13 +287,13 @@
 
 .floating-card.top {
   top: 5%;
-  left: -5%;
+  left: 5%; /* ← CHANGED from -5% to 5% */
   animation-delay: 0s;
 }
 
 .floating-card.bottom {
   bottom: 5%;
-  right: -5%;
+  right: 5%; /* ← CHANGED from -5% to 5% */
   animation-delay: -2s;
 }
 
@@ -312,6 +327,7 @@
 
 .services-section {
   text-align: center;
+  padding: 80px 0;
 }
 
 .section-tag {
@@ -339,7 +355,7 @@
   font-size: 19px;
   color: #6b7280;
   max-width: 720px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .services-grid {
@@ -386,7 +402,7 @@
 .service-icon {
   width: 70px;
   height: 70px;
-  margin: auto;
+  margin: 0 auto 25px;
   border-radius: 20px;
   background: linear-gradient(135deg, #7c3aed, #ec4899);
   display: flex;
@@ -394,7 +410,6 @@
   justify-content: center;
   font-size: 30px;
   color: white;
-  margin-bottom: 25px;
   transition: 0.4s;
 }
 
@@ -426,6 +441,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 70px;
   align-items: center;
+  padding: 80px 0;
 }
 
 .why-left h2 {
@@ -451,6 +467,7 @@
   flex-direction: column;
   gap: 18px;
   list-style: none;
+  padding: 0;
 }
 
 .why-list li {
@@ -554,7 +571,7 @@
 ========================== */
 
 .testimonial-section {
-  /* No width/margin here - handled by App.css */
+  padding: 80px 0;
 }
 
 .testimonial-header {
@@ -660,11 +677,11 @@
 }
 
 /* ====================================
-   HOME CTA SECTION
+   HOME CTA SECTION - FIXED PADDING
 ==================================== */
 
 .home-cta-wrapper {
-  padding: 60px 70px;
+  padding: 60px 0; /* ← CHANGED from 60px 70px to 60px 0 */
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
@@ -674,6 +691,7 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 30px 80px rgba(124, 58, 237, 0.25);
+  margin: 80px auto;
 }
 
 /* Background Decorations */
@@ -711,6 +729,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-left: 70px; /* ← ADDED internal padding */
 }
 
 .home-cta-left .section-tag {
@@ -807,6 +826,7 @@
   gap: 20px;
   position: relative;
   z-index: 2;
+  padding-right: 70px; /* ← ADDED internal padding */
 }
 
 .home-cta-card {
@@ -897,12 +917,12 @@
   
   .floating-card.top {
     top: 2%;
-    left: -3%;
+    left: 3%; /* ← UPDATED to match new positioning */
   }
   
   .floating-card.bottom {
     bottom: 2%;
-    right: -3%;
+    right: 3%; /* ← UPDATED to match new positioning */
   }
   
   .services-grid {
@@ -957,12 +977,12 @@
   
   .floating-card.top {
     top: 0%;
-    left: -2%;
+    left: 2%; /* ← UPDATED to match new positioning */
   }
   
   .floating-card.bottom {
     bottom: 0%;
-    right: -2%;
+    right: 2%; /* ← UPDATED to match new positioning */
   }
   
   .hero-glow {
@@ -971,8 +991,16 @@
   }
   
   .home-cta-wrapper {
-    padding: 50px 40px;
+    padding: 50px 0; /* ← UPDATED to match new padding */
     gap: 50px;
+  }
+
+  .home-cta-left {
+    padding-left: 40px; /* ← UPDATED responsive padding */
+  }
+
+  .home-cta-right {
+    padding-right: 40px; /* ← UPDATED responsive padding */
   }
 
   .home-cta-left h2 {
@@ -988,10 +1016,15 @@
     gap: 20px;
   }
   
+  .services-section {
+    padding: 60px 0;
+  }
+  
   .why-section {
     grid-template-columns: 1fr;
     gap: 50px;
     text-align: center;
+    padding: 60px 0;
   }
   
   .why-left p {
@@ -1012,6 +1045,10 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
+  
+  .testimonial-section {
+    padding: 60px 0;
+  }
 }
 
 /* Tablet Portrait (768px) */
@@ -1022,7 +1059,7 @@
   
   .hero-container {
     gap: 30px;
-    padding: 0 20px;
+    padding: 0;
   }
   
   .hero-left {
@@ -1090,12 +1127,12 @@
   
   .floating-card.top {
     top: -2%;
-    left: -5%;
+    left: 0%; /* ← UPDATED to match new positioning */
   }
   
   .floating-card.bottom {
     bottom: -2%;
-    right: -5%;
+    right: 0%; /* ← UPDATED to match new positioning */
   }
   
   .hero-glow {
@@ -1105,7 +1142,7 @@
   }
   
   .services-section {
-    margin: 50px 0;
+    padding: 50px 0;
   }
   
   .services-section h2 {
@@ -1136,7 +1173,7 @@
 
   .why-section {
     gap: 40px;
-    margin: 40px 0;
+    padding: 50px 0;
   }
   
   .why-left h2 {
@@ -1182,7 +1219,7 @@
   }
 
   .testimonial-section {
-    margin: 40px 0;
+    padding: 50px 0;
   }
   
   .testimonial-header {
@@ -1215,14 +1252,22 @@
 
   .home-cta-wrapper {
     grid-template-columns: 1fr;
-    padding: 40px 28px;
+    padding: 40px 0; /* ← UPDATED to match new padding */
     gap: 30px;
     border-radius: 24px;
     text-align: center;
+    margin: 60px auto;
   }
 
   .home-cta-left {
     align-items: center;
+    padding-left: 20px; /* ← UPDATED responsive padding */
+    padding-right: 20px;
+  }
+
+  .home-cta-right {
+    padding-right: 20px; /* ← UPDATED responsive padding */
+    padding-left: 20px;
   }
 
   .home-cta-left .section-tag {
@@ -1276,7 +1321,7 @@
   
   .hero-container {
     gap: 24px;
-    padding: 0 16px;
+    padding: 0;
   }
   
   .hero-left h1 {
@@ -1359,6 +1404,10 @@
   .services-section p {
     font-size: 14px;
   }
+  
+  .services-section {
+    padding: 40px 0;
+  }
 
   .why-left h2 {
     font-size: 26px;
@@ -1367,6 +1416,10 @@
   .why-left p {
     font-size: 14px;
   }
+  
+  .why-section {
+    padding: 40px 0;
+  }
 
   .testimonial-header h2 {
     font-size: 26px;
@@ -1374,6 +1427,10 @@
   
   .testimonial-card {
     padding: 20px;
+  }
+  
+  .testimonial-section {
+    padding: 40px 0;
   }
 
   .dashboard-card h2 {
@@ -1391,9 +1448,19 @@
   }
 
   .home-cta-wrapper {
-    padding: 30px 18px;
+    padding: 30px 0; /* ← UPDATED to match new padding */
     border-radius: 20px;
-    margin: 30px 0;
+    margin: 40px auto;
+  }
+
+  .home-cta-left {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .home-cta-right {
+    padding-right: 16px;
+    padding-left: 16px;
   }
 
   .home-cta-left h2 {
@@ -1475,7 +1542,18 @@
   }
   
   .home-cta-wrapper {
-    padding: 20px 14px;
+    padding: 20px 0; /* ← UPDATED to match new padding */
+    margin: 30px auto;
+  }
+
+  .home-cta-left {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .home-cta-right {
+    padding-right: 12px;
+    padding-left: 12px;
   }
   
   .home-cta-card {

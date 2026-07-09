@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import AOS from 'aos';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AppProvider, useAppContext } from './context/AppContext';
+import { useAppContext } from './context/AppContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Toast from './components/Toast';
@@ -76,9 +76,5 @@ function AppContent() {
 }
 
 export default function App() {
-  return (
-    <AppProvider>
-      <AppContent />
-    </AppProvider>
-  );
+  return <AppContent />;
 }

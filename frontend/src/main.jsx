@@ -1,22 +1,16 @@
-// src/main.jsx
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
 
-import './styles/index.css'
+import "./styles/index.css";
+
 import { AuthProvider } from "./context/AuthContext";
 import { AppProvider } from "./context/AppContext";
 
-// ✅ Import all styles
-import './App.css';
-import './styles/animations.css';
-import './styles/page-styles.css';
+import "aos/dist/aos.css";
 
-// ✅ Import AOS
-import 'aos/dist/aos.css';
-
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
       <AppProvider>
