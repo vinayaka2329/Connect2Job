@@ -19,7 +19,7 @@ body {
 }
 
 .page-wrapper {
-  min-height: 100vh;
+  min-height: min(100vh, 1200px);
   padding: 0 20px 40px;
   position: relative;
   overflow: hidden;

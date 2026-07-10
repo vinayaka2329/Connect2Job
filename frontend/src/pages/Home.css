@@ -28,7 +28,7 @@
 ========================= */
 
 .hero-section {
-  min-height: 100vh;
+  min-height: min(100vh, 850px);
   display: flex;
   align-items: center;
   padding: 120px 0 40px;
