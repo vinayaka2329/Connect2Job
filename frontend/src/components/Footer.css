@@ -855,6 +855,7 @@
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   position: relative;
   z-index: 3;
+  overflow: hidden;
 }
 
 .newsletter-content:hover {
@@ -943,6 +944,7 @@
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
+  flex-shrink: 0;
   box-shadow: 0 12px 35px rgba(124, 58, 237, 0.20);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: gradientShift 4s ease-in-out infinite;
