@@ -319,7 +319,7 @@
 
 .newsletter-form {
   display: flex;
-  gap: 12px;
+  gap: 0px;
   max-width: 580px;
   margin: 0 auto;
 }
@@ -357,7 +357,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 0px;
   height: 56px;
   padding: 0 34px;
   border: none;
@@ -893,7 +893,7 @@
 
 .newsletter-form {
   display: flex;
-  gap: 12px;
+  gap: 0px;
   max-width: 580px;
   margin: 0 auto;
 }
@@ -1043,7 +1043,7 @@
 
   .newsletter-form {
     flex-direction: column;
-    gap: 10px;
+    gap: 0px;
   }
 
   .newsletter-form input,
