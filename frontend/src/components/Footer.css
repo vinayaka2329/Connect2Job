@@ -855,7 +855,6 @@
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   position: relative;
   z-index: 3;
-  overflow: hidden;
 }
 
 .newsletter-content:hover {
@@ -1004,6 +1003,17 @@
 
   .newsletter-content h3 {
     font-size: 24px;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .newsletter-form input,
+  .newsletter-form button {
+    width: 100%;
+    max-width: 400px;
   }
 }
 
