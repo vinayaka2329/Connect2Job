@@ -899,7 +899,6 @@
 }
 
 .newsletter-form input {
-  flex: 1;
   height: 56px;
   border: 2px solid rgba(236, 72, 153, 0.10);
   border-radius: 999px;
@@ -1021,6 +1020,7 @@
   .newsletter-wrapper {
     padding: 0;
     margin: 10px 0;
+    gap:0px
   }
 
   .newsletter-section {
