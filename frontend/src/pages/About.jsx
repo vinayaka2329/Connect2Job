@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { aboutItems, aboutStats, aboutWhy } from '../data/siteData';
 import './About.css';
 import AnimatedCounter from '../components/AnimatedCounter';
+import guwahatiLogo from "../../images/guwahati logo.png";
+import masaiLogo from "../../images/masai.png";
+import nsdcLogo from "../../images/NSDC logo.png";
 
 
 export default function About() {
@@ -31,6 +34,92 @@ export default function About() {
               job seekers and employers alike.
             </p>
 
+            {/* ================= IIT GUWAHATI RECOGNITION ================= */}
+
+            {/* ================= RECOGNITION SECTION ================= */}
+
+            <section className="recognition-section">
+
+              <div className="recognition-card">
+
+                {/* LOGOS */}
+
+                <div className="recognition-logos">
+
+                  <img
+                    src={guwahatiLogo}
+                    alt="IIT Guwahati"
+                    className="recognition-logo guwahati-recognition-logo"
+                  />
+
+                  <img
+                    src={nsdcLogo}
+                    alt="NSDC"
+                    className="recognition-logo nsdc-recognition-logo"
+                  />
+
+                  <img
+                    src={masaiLogo}
+                    alt="Masai"
+                    className="recognition-logo masai-recognition-logo"
+                  />
+
+                </div>
+
+
+                {/* DIVIDER */}
+
+                <div className="recognition-divider"></div>
+
+
+                {/* DETAILS */}
+
+                <div className="recognition-details">
+
+                  <div className="recognition-heading">
+
+                    <span>
+                      Certified / Associated with
+                    </span>
+
+                    <strong>
+                      IIT Guwahati
+                    </strong>
+
+                    <span className="recognition-verified">
+                      ✓
+                    </span>
+
+                  </div>
+
+
+                  <div className="recognition-meta">
+
+                    <span className="recognition-code">
+
+                      Code:
+
+                      <strong>
+                        IITGCS/24091634
+                      </strong>
+
+                    </span>
+
+
+                    <span className="recognition-official">
+
+                      🏅 Official Recognition
+
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </section>
+
             <div className="about-grid">
               {aboutItems.map((item, index) => (
                 <div key={index} className="about-item" data-aos="fade-up" data-aos-delay={100 + index * 100}>
@@ -51,6 +140,46 @@ export default function About() {
                 </div>
               ))}
             </div>
+
+            {/* ================= IIT GUWAHATI RECOGNITION ================= */}
+
+            {/* <section className="iit-recognition-section">
+              <div className="iit-recognition-card">
+
+                <div className="iit-recognition-left">
+
+                  <div className="iit-recognition-icon">
+                    <span>✹</span>
+                  </div>
+
+                  <div className="iit-recognition-content">
+
+                    <div className="iit-recognition-title">
+                      <span>Certified / Associated with</span>
+
+                      <strong>IIT Guwahati</strong>
+
+                      <span className="iit-verified-icon">
+                        ✓
+                      </span>
+                    </div>
+
+                    <p>
+                      Code:
+                      <strong>IITGCS/24091634</strong>
+                    </p>
+
+                  </div>
+
+                </div>
+
+                <div className="iit-recognition-badge">
+                  <span>🏅</span>
+                  Official Recognition
+                </div>
+
+              </div>
+            </section> */}
 
             <div className="about-why-grid">
               {aboutWhy.map((item, index) => (

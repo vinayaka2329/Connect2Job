@@ -612,3 +612,759 @@
     padding: 30px 18px;
   }
 }
+
+
+
+/* =====================================================
+   OFFICIAL RECOGNITION SECTION
+===================================================== */
+
+.recognition-section {
+  width: 100%;
+  max-width: 1080px;
+
+  margin: 50px auto;
+
+  padding: 0 24px;
+
+  box-sizing: border-box;
+}
+
+
+/* MAIN CARD */
+
+.recognition-card {
+  width: 100%;
+
+  padding: 30px 42px 25px;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255, 247, 252, 0.98),
+      rgba(251, 247, 255, 0.98)
+    );
+
+  border:
+    1px solid
+    rgba(236, 72, 153, 0.16);
+
+  border-radius: 20px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 12px 30px
+    rgba(15, 23, 42, 0.07);
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+
+.recognition-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 20px 42px
+    rgba(126, 34, 206, 0.12);
+}
+
+
+/* =====================================================
+   LOGO ROW
+===================================================== */
+
+.recognition-logos {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  align-items: center;
+
+  padding: 0 15px 25px;
+
+  box-sizing: border-box;
+}
+
+
+/* COMMON LOGO */
+
+.recognition-logo {
+  display: block;
+
+  width: auto;
+  height: auto;
+
+  object-fit: contain;
+}
+
+
+/* LEFT LOGO */
+
+.guwahati-recognition-logo {
+  width: 220px;
+  max-height: 122px;
+
+  justify-self: start;
+}
+
+
+/* CENTER LOGO */
+
+.nsdc-recognition-logo {
+  width: 102px;
+  max-height: 92px;
+
+  justify-self: center;
+}
+
+
+/* RIGHT LOGO */
+
+.masai-recognition-logo {
+  width: 150px;
+  max-height: 150px;
+
+  justify-self: end;
+}
+
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.recognition-divider {
+  width: 100%;
+  height: 1px;
+
+  margin-bottom: 20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(148, 163, 184, 0.25),
+      transparent
+    );
+}
+
+
+/* =====================================================
+   RECOGNITION DETAILS
+===================================================== */
+
+.recognition-details {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 7px;
+
+  text-align: center;
+}
+
+
+/* TITLE */
+
+.recognition-heading {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  color: #172033;
+
+  font-size: 19px;
+  font-weight: 750;
+
+  line-height: 1.3;
+}
+
+
+.recognition-heading strong {
+  color: #db2777;
+
+  font-weight: 800;
+}
+
+
+/* VERIFIED ICON */
+
+.recognition-verified {
+  width: 18px;
+  height: 18px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+
+  background: #22c55e;
+
+  border-radius: 50%;
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+
+/* CODE + OFFICIAL BADGE */
+
+.recognition-meta {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 14px;
+}
+
+
+.recognition-code {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  color: #64748b;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+.recognition-code strong {
+  color: #db2777;
+
+  font-family: monospace;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+
+/* OFFICIAL RECOGNITION BADGE */
+
+.recognition-official {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 12px;
+
+  color: #64748b;
+
+  background:
+    rgba(255, 255, 255, 0.9);
+
+  border:
+    1px solid
+    rgba(148, 163, 184, 0.12);
+
+  border-radius: 30px;
+
+  box-shadow:
+    0 3px 10px
+    rgba(15, 23, 42, 0.04);
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .recognition-section {
+    margin: 40px auto;
+
+    padding: 0 18px;
+  }
+
+
+  .recognition-card {
+    padding:
+      27px
+      28px
+      23px;
+  }
+
+
+  .guwahati-recognition-logo {
+    width: 105px;
+  }
+
+
+  .nsdc-recognition-logo {
+    width: 72px;
+  }
+
+
+  .masai-recognition-logo {
+    width: 90px;
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 500px) {
+
+  .recognition-section {
+    margin: 35px auto;
+
+    padding: 0 14px;
+  }
+
+
+  .recognition-card {
+    padding:
+      22px
+      16px
+      20px;
+
+    border-radius: 17px;
+  }
+
+
+  /* Keep all logos in one row */
+
+  .recognition-logos {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    gap: 15px;
+
+    padding:
+      0
+      3px
+      19px;
+  }
+
+
+  .guwahati-recognition-logo {
+    width: 82px;
+
+    max-width: 100%;
+  }
+
+
+  .nsdc-recognition-logo {
+    width: 58px;
+
+    max-width: 100%;
+  }
+
+
+  .masai-recognition-logo {
+    width: 68px;
+
+    max-width: 100%;
+  }
+
+
+  .recognition-divider {
+    margin-bottom: 17px;
+  }
+
+
+  .recognition-heading {
+    font-size: 15px;
+
+    gap: 4px;
+  }
+
+
+  .recognition-verified {
+    width: 16px;
+    height: 16px;
+
+    font-size: 10px;
+  }
+
+
+  .recognition-meta {
+    gap: 8px;
+  }
+
+
+  .recognition-code {
+    font-size: 11px;
+  }
+
+
+  .recognition-code strong {
+    font-size: 11px;
+  }
+
+
+  .recognition-official {
+    padding: 4px 9px;
+
+    font-size: 9px;
+  }
+
+}
+
+
+
+/* mobile view for certification */
+
+/* =====================================================
+   RECOGNITION CARD — FINAL MOBILE OPTIMIZATION
+===================================================== */
+
+@media screen and (max-width: 600px) {
+
+  /* Section spacing */
+
+  .recognition-section {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 32px auto !important;
+    padding: 0 14px !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* Main recognition card */
+
+  .recognition-card {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    padding: 22px 15px 19px !important;
+
+    border-radius: 17px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+  }
+
+
+  /* ==========================================
+     THREE LOGOS — KEEP IN ONE ROW
+  ========================================== */
+
+  .recognition-logos {
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(0, 1.25fr)
+      minmax(0, 0.75fr)
+      minmax(0, 0.85fr) !important;
+
+    align-items: center !important;
+
+    width: 100% !important;
+
+    gap: 12px !important;
+
+    padding: 0 2px 18px !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  /* Common image settings */
+
+  .recognition-logo {
+    display: block !important;
+
+    width: auto !important;
+    height: auto !important;
+
+    max-width: 100% !important;
+
+    object-fit: contain !important;
+
+    flex-shrink: 1 !important;
+  }
+
+
+  /* IIT Guwahati logo */
+
+  .guwahati-recognition-logo {
+    width: 92px !important;
+    max-width: 100% !important;
+
+    max-height: 44px !important;
+
+    justify-self: start !important;
+  }
+
+
+  /* NSDC logo */
+
+  .nsdc-recognition-logo {
+    width: 52px !important;
+    max-width: 100% !important;
+
+    max-height: 54px !important;
+
+    justify-self: center !important;
+  }
+
+
+  /* Masai logo */
+
+  .masai-recognition-logo {
+    width: 65px !important;
+    max-width: 100% !important;
+
+    max-height: 38px !important;
+
+    justify-self: end !important;
+  }
+
+
+  /* ==========================================
+     DIVIDER
+  ========================================== */
+
+  .recognition-divider {
+    width: 100% !important;
+    height: 1px !important;
+
+    margin: 0 0 16px !important;
+
+    opacity: 0.8 !important;
+  }
+
+
+  /* ==========================================
+     RECOGNITION CONTENT
+  ========================================== */
+
+  .recognition-details {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 100% !important;
+
+    gap: 8px !important;
+
+    text-align: center !important;
+  }
+
+
+  /* Certification heading */
+
+  .recognition-heading {
+    display: flex !important;
+
+    justify-content: center !important;
+    align-items: center !important;
+
+    flex-wrap: wrap !important;
+
+    width: 100% !important;
+
+    gap: 4px !important;
+
+    margin: 0 !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    line-height: 1.4 !important;
+
+    text-align: center !important;
+  }
+
+
+  .recognition-heading strong {
+    font-size: 14px !important;
+
+    font-weight: 800 !important;
+
+    white-space: nowrap !important;
+  }
+
+
+  /* Green verification tick */
+
+  .recognition-verified {
+    width: 16px !important;
+    height: 16px !important;
+
+    min-width: 16px !important;
+
+    font-size: 10px !important;
+
+    flex-shrink: 0 !important;
+  }
+
+
+  /* ==========================================
+     CODE + OFFICIAL RECOGNITION
+  ========================================== */
+
+  .recognition-meta {
+    display: flex !important;
+
+    justify-content: center !important;
+    align-items: center !important;
+
+    flex-wrap: wrap !important;
+
+    width: 100% !important;
+
+    gap: 7px !important;
+  }
+
+
+  .recognition-code {
+    display: inline-flex !important;
+
+    justify-content: center !important;
+    align-items: center !important;
+
+    flex-wrap: wrap !important;
+
+    gap: 4px !important;
+
+    font-size: 10px !important;
+
+    line-height: 1.3 !important;
+
+    text-align: center !important;
+  }
+
+
+  .recognition-code strong {
+    font-size: 10px !important;
+
+    word-break: break-word !important;
+  }
+
+
+  /* Official Recognition badge */
+
+  .recognition-official {
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 5px 9px !important;
+
+    border-radius: 20px !important;
+
+    font-size: 9px !important;
+    font-weight: 600 !important;
+
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+  }
+}
+
+
+/* =====================================================
+   SMALL MOBILE — 400PX AND BELOW
+===================================================== */
+
+@media screen and (max-width: 400px) {
+
+  .recognition-section {
+    padding: 0 10px !important;
+
+    margin: 28px auto !important;
+  }
+
+
+  .recognition-card {
+    padding: 19px 12px 17px !important;
+
+    border-radius: 15px !important;
+  }
+
+
+  .recognition-logos {
+    grid-template-columns:
+      minmax(0, 1.3fr)
+      minmax(0, 0.7fr)
+      minmax(0, 0.8fr) !important;
+
+    gap: 8px !important;
+
+    padding-bottom: 15px !important;
+  }
+
+
+  .guwahati-recognition-logo {
+    width: 78px !important;
+
+    max-height: 38px !important;
+  }
+
+
+  .nsdc-recognition-logo {
+    width: 46px !important;
+
+    max-height: 48px !important;
+  }
+
+
+  .masai-recognition-logo {
+    width: 58px !important;
+
+    max-height: 34px !important;
+  }
+
+
+  .recognition-divider {
+    margin-bottom: 14px !important;
+  }
+
+
+  .recognition-heading,
+  .recognition-heading strong {
+    font-size: 12px !important;
+  }
+
+
+  .recognition-code,
+  .recognition-code strong {
+    font-size: 9px !important;
+  }
+
+
+  .recognition-official {
+    padding: 4px 7px !important;
+
+    font-size: 8px !important;
+  }
+}
