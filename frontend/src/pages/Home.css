@@ -358,7 +358,7 @@
 
 .services-section {
   text-align: center;
-  padding: 80px 0;
+  padding: 20px 0;
 }
 
 .section-tag {
@@ -712,7 +712,7 @@
 ==================================== */
 
 .home-cta-wrapper {
-  padding: 60px 0; /* ← CHANGED from 60px 70px to 60px 0 */
+  padding: 30px 0; /* ← CHANGED from 60px 70px to 60px 0 */
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
@@ -2123,8 +2123,6 @@
     white-space: normal !important;
   }
 }
-
-
 
 
 
