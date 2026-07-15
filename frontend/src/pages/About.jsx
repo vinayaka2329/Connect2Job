@@ -6,6 +6,7 @@ import AnimatedCounter from '../components/AnimatedCounter';
 import guwahatiLogo from "../../images/guwahati logo.png";
 import masaiLogo from "../../images/masai.png";
 import nsdcLogo from "../../images/NSDC logo.png";
+import c2fLogo from "../../images/c2f.png";
 
 
 export default function About() {
@@ -113,6 +114,30 @@ export default function About() {
                     </span>
 
                   </div>
+
+                </div>
+
+              </div>
+
+            </section>
+
+            {/* ================= VENTURE OF SECTION ================= */}
+
+            <section className="venture-section">
+
+              <div className="venture-card">
+
+                <p className="venture-label">
+                  A VENTURE OF
+                </p>
+
+                <div className="venture-logo-wrapper">
+
+                  <img
+                    src={c2fLogo}
+                    alt="Connect2Future"
+                    className="venture-logo"
+                  />
 
                 </div>
 
