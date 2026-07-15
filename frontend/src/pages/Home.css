@@ -1140,30 +1140,35 @@
   }
   
   .hero-right {
-    max-width: 380px;
+    max-width: 340px;
+    overflow: visible;
   }
   
   .floating-card {
-    padding: 10px 14px;
-    min-width: 80px;
+    padding: 8px 12px;
+    min-width: 70px;
+    border-radius: 12px;
   }
   
   .floating-card h3 {
-    font-size: 18px;
+    font-size: 15px;
   }
   
   .floating-card p {
-    font-size: 10px;
+    font-size: 9px;
   }
   
+  /* Keep cards inside viewport on mobile */
   .floating-card.top {
-    top: -2%;
-    left: 0%; /* ← UPDATED to match new positioning */
+    top: 4%;
+    left: 4%;
+    right: auto;
   }
   
   .floating-card.bottom {
-    bottom: -2%;
-    right: 0%; /* ← UPDATED to match new positioning */
+    bottom: 4%;
+    right: 4%;
+    left: auto;
   }
   
   .hero-glow {
