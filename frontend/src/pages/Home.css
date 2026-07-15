@@ -1949,3 +1949,177 @@
     font-size: 25px !important;
   }
 }
+
+/* =====================================================
+   MOBILE HERO FLOATING CARDS — KEEP INSIDE SCREEN
+===================================================== */
+
+@media (max-width: 768px) {
+
+  /* Keep floating cards inside the hero-image area */
+
+  .hero-right {
+    position: relative !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    overflow: visible !important;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Common floating-card mobile style */
+
+  .hero-right .floating-card {
+    position: absolute !important;
+
+    width: auto !important;
+    min-width: 105px !important;
+    max-width: 125px !important;
+
+    padding: 10px 12px !important;
+
+    border-radius: 16px !important;
+
+    box-sizing: border-box !important;
+
+    transform: none !important;
+
+    z-index: 10 !important;
+  }
+
+  /* Top-left card */
+
+  .hero-right .floating-card.top {
+    top: 8% !important;
+
+    left: 12px !important;
+    right: auto !important;
+
+    transform: none !important;
+  }
+
+  /* Bottom-right card */
+
+  .hero-right .floating-card.bottom {
+    top: auto !important;
+
+    right: 12px !important;
+    left: auto !important;
+
+    bottom: 8% !important;
+
+    transform: none !important;
+  }
+
+  /* Floating-card number */
+
+  .hero-right .floating-card h3 {
+    margin: 0 0 4px !important;
+
+    font-size: 18px !important;
+    line-height: 1.1 !important;
+
+    text-align: center !important;
+  }
+
+  /* AnimatedCounter content */
+
+  .hero-right .floating-card h3,
+  .hero-right .floating-card h3 *,
+  .hero-right .floating-card h3 span {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+  }
+
+  /* Floating-card label */
+
+  .hero-right .floating-card p {
+    margin: 0 !important;
+
+    font-size: 9px !important;
+    line-height: 1.25 !important;
+
+    text-align: center !important;
+
+    white-space: nowrap !important;
+  }
+}
+
+
+/* =====================================================
+   SMALL MOBILE — 500PX AND BELOW
+===================================================== */
+
+@media (max-width: 500px) {
+
+  .hero-right .floating-card {
+    min-width: 90px !important;
+    max-width: 110px !important;
+
+    padding: 9px 10px !important;
+
+    border-radius: 14px !important;
+  }
+
+  .hero-right .floating-card.top {
+    top: 10% !important;
+
+    left: 8px !important;
+    right: auto !important;
+  }
+
+  .hero-right .floating-card.bottom {
+    right: 8px !important;
+    left: auto !important;
+
+    bottom: 10% !important;
+  }
+
+  .hero-right .floating-card h3,
+  .hero-right .floating-card h3 *,
+  .hero-right .floating-card h3 span {
+    font-size: 16px !important;
+  }
+
+  .hero-right .floating-card p {
+    font-size: 8px !important;
+  }
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE — 380PX AND BELOW
+===================================================== */
+
+@media (max-width: 380px) {
+
+  .hero-right .floating-card {
+    min-width: 82px !important;
+    max-width: 96px !important;
+
+    padding: 8px 7px !important;
+  }
+
+  .hero-right .floating-card.top {
+    left: 5px !important;
+  }
+
+  .hero-right .floating-card.bottom {
+    right: 5px !important;
+  }
+
+  .hero-right .floating-card h3,
+  .hero-right .floating-card h3 *,
+  .hero-right .floating-card h3 span {
+    font-size: 15px !important;
+  }
+
+  .hero-right .floating-card p {
+    font-size: 7px !important;
+
+    white-space: normal !important;
+  }
+}
