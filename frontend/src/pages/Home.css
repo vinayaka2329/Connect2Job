@@ -2030,7 +2030,7 @@
   .hero-right .floating-card h3,
   .hero-right .floating-card h3 *,
   .hero-right .floating-card h3 span {
-    font-size: 18px !important;
+    font-size: 28px !important;
     font-weight: 800 !important;
   }
 
@@ -2039,7 +2039,7 @@
   .hero-right .floating-card p {
     margin: 0 !important;
 
-    font-size: 9px !important;
+    font-size: 11px !important;
     line-height: 1.25 !important;
 
     text-align: center !important;
