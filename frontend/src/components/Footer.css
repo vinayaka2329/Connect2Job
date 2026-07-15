@@ -8,8 +8,8 @@
 }
 
 .footer {
-  margin-top: 80px; /* reduced from 120px */
-  padding: 60px 2rem 25px; /* reduced bottom padding */
+  margin-top: 0px; /* reduced from 120px */
+  padding: 0px 2rem 25px; /* reduced bottom padding */
   background: linear-gradient(
     180deg,
     #fff8fd 0%,
