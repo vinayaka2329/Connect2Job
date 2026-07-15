@@ -515,6 +515,15 @@
     border-bottom: none;
 }
 
+/* Action buttons inside table cells - compact to fit 3 buttons */
+.admin-table td .admin-btn {
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    border-radius: 8px;
+    gap: 4px;
+    white-space: nowrap;
+}
+
 /* =====================================================
    TABLE ELEMENTS
 ====================================================== */
@@ -798,18 +807,18 @@
     }
 
     .admin-form-group {
-        margin-bottom: 14px;
+        margin-bottom: 8px;
     }
 
     .admin-form-group label {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
 
     .admin-form-group input,
     .admin-form-group select,
     .admin-form-group textarea {
-        padding: 8px 14px;
-        font-size: 0.9rem;
+        padding: 6px 10px;
+        font-size: 0.8rem;
     }
 
     .admin-stats {
@@ -871,7 +880,106 @@
         margin-right: 4px;
     }
 
-    .admin-company-logo {
+    /* =====================================================
+   APPLICATION ACTION BUTTONS
+===================================================== */
+.admin-action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 7px;
+  width: max-content;
+  min-width: max-content;
+  overflow: visible;
+  position: relative;
+  z-index: 5;
+}
+.admin-action-buttons .admin-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  min-width: 68px;
+  min-height: 34px;
+  margin: 0 !important;
+  padding: 7px 11px;
+  border-radius: 8px;
+  opacity: 1 !important;
+  visibility: visible !important;
+  white-space: nowrap;
+  position: relative;
+  z-index: 6;
+  flex: 0 0 auto;
+}
+.admin-action-buttons .admin-btn-success {
+  background: #10b981 !important;
+  border: 1px solid #10b981 !important;
+  color: #ffffff !important;
+}
+.admin-action-buttons .admin-btn-success:hover {
+  background: #059669 !important;
+  border-color: #059669 !important;
+  color: #ffffff !important;
+}
+.admin-action-buttons .admin-btn-warning {
+  background: #f59e0b !important;
+  border: 1px solid #f59e0b !important;
+  color: #ffffff !important;
+}
+.admin-action-buttons .admin-btn-warning:hover {
+  background: #d97706 !important;
+  border-color: #d97706 !important;
+  color: #ffffff !important;
+}
+.admin-action-buttons .admin-btn-danger {
+  background: #ef4444 !important;
+  border: 1px solid #ef4444 !important;
+  color: #ffffff !important;
+}
+.admin-action-buttons .admin-btn-danger:hover {
+  background: #dc2626 !important;
+  border-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+/* Ensure admin action buttons in tables remain compact on mobile */
+@media (max-width: 768px) {
+  .admin-table td .admin-btn,
+  .admin-table th .admin-btn {
+    width: auto !important;
+    min-width: 68px;
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-table td .admin-btn,
+  .admin-table th .admin-btn {
+    width: auto !important;
+    min-width: 68px;
+    margin: 0 !important;
+  }
+}
+
+/* Keep action column wide */
+.admin-table th:last-child,
+.admin-table td:last-child {
+  min-width: 245px;
+  overflow: visible;
+  white-space: nowrap;
+}
+
+/* Table wrapper adjustments */
+.admin-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-company-logo {
         width: 32px;
         height: 32px;
     }
@@ -983,4 +1091,441 @@
 
 .admin-table-wrap::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
+}
+
+/* =====================================================
+   ADMIN SEARCH & FILTER BAR
+====================================================== */
+.admin-search-bar {
+    display: flex;
+    gap: 15px;
+    padding: 16px 20px;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.admin-search-input-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 280px;
+}
+
+.admin-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.admin-search-input {
+    width: 100%;
+    padding: 10px 40px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    color: #1a2332;
+    transition: all 0.3s ease;
+    background: #f8fafc;
+}
+
+.admin-search-input:focus {
+    outline: none;
+    border-color: #7c3aed;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.admin-search-clear {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 2px;
+    transition: color 0.2s;
+}
+
+.admin-search-clear:hover {
+    color: #475569;
+}
+
+.admin-status-select {
+    padding: 10px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    color: #475569;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 160px;
+}
+
+.admin-status-select:focus {
+    outline: none;
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+/* =====================================================
+   ADDITIONAL STAT CARD VARIANT
+====================================================== */
+.admin-stat-card--warning {
+    border-left: 4px solid #f59e0b;
+}
+.admin-stat-card--warning:hover {
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.08);
+}
+.admin-stat-card--warning .admin-stat-icon {
+    background: #fffbeb;
+    color: #d97706;
+}
+
+/* =====================================================
+   COVER LETTER BUTTON & MODAL
+====================================================== */
+.admin-btn-cover {
+    background: #fdf2f8;
+    color: #db2777;
+    border-color: #fbcfe8;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+}
+.admin-btn-cover:hover {
+    background: #fce7f3;
+    border-color: #f472b6;
+    color: #be185d;
+}
+
+.admin-no-cover {
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+.admin-cover-modal {
+    background: #ffffff;
+    border-radius: 20px;
+    width: min(600px, 90%);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    animation: adminModalScale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes adminModalScale {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.admin-cover-modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #fdf4ff 0%, #fff 100%);
+}
+
+.admin-cover-modal-header h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1e1b4b;
+}
+
+.admin-cover-modal-close {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.admin-cover-modal-close:hover {
+    color: #475569;
+}
+
+.admin-cover-modal-body {
+    padding: 24px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.admin-cover-text {
+    white-space: pre-wrap;
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #334155;
+    margin: 0;
+}
+
+/* =====================================================
+   LOADING STATE SPINNER
+====================================================== */
+.admin-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(124, 58, 237, 0.1);
+    border-top-color: #7c3aed;
+    border-radius: 50%;
+    animation: adminSpin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes adminSpin {
+    to { transform: rotate(360deg); }
+}
+
+
+
+/* =====================================================
+   FINAL FIX — APPLICATION ACTION BUTTONS
+===================================================== */
+
+.admin-table-wrap {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-table {
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+.admin-table table {
+  width: max-content !important;
+  min-width: 1500px !important;
+}
+
+.admin-table th:last-child,
+.admin-table td:last-child {
+  min-width: 230px !important;
+  width: 230px !important;
+  overflow: visible !important;
+}
+
+.admin-action-buttons {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+
+  width: max-content !important;
+  min-width: 210px !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  overflow: visible !important;
+
+  position: relative !important;
+  z-index: 999 !important;
+}
+
+.admin-action-buttons .admin-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: auto !important;
+  min-width: 64px !important;
+  height: 34px !important;
+
+  padding: 6px 9px !important;
+  margin: 0 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  border-radius: 7px !important;
+  color: white !important;
+
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+
+  flex: none !important;
+  cursor: pointer !important;
+
+  position: relative !important;
+  z-index: 1000 !important;
+}
+
+.admin-action-buttons .admin-btn-success {
+  background-color: #10b981 !important;
+  border: 1px solid #059669 !important;
+  color: #ffffff !important;
+}
+
+.admin-action-buttons .admin-btn-warning {
+  background-color: #f59e0b !important;
+  border: 1px solid #d97706 !important;
+  color: #ffffff !important;
+}
+
+.admin-action-buttons .admin-btn-danger {
+  background-color: #ef4444 !important;
+  border: 1px solid #dc2626 !important;
+  color: #ffffff !important;
+}
+
+.admin-action-buttons .admin-btn-success:hover {
+  background-color: #059669 !important;
+}
+
+.admin-action-buttons .admin-btn-warning:hover {
+  background-color: #d97706 !important;
+}
+
+.admin-action-buttons .admin-btn-danger:hover {
+  background-color: #dc2626 !important;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+  .admin-table table {
+    min-width: 1400px !important;
+  }
+
+  .admin-table th:last-child,
+  .admin-table td:last-child {
+    min-width: 215px !important;
+    width: 215px !important;
+  }
+
+  .admin-action-buttons {
+    min-width: 195px !important;
+    gap: 4px !important;
+  }
+
+  .admin-action-buttons .admin-btn {
+    display: inline-flex !important;
+    width: auto !important;
+    min-width: 60px !important;
+    height: 31px !important;
+
+    padding: 5px 7px !important;
+    margin: 0 !important;
+
+    font-size: 10px !important;
+  }
+}
+
+
+/* =====================================================
+   SMOOTH ADMIN TABLE HORIZONTAL SCROLL
+===================================================== */
+
+.admin-table-wrap {
+  width: 100% !important;
+  max-width: 100% !important;
+
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+
+  scroll-behavior: smooth;
+
+  /* Improves trackpad and touch scrolling */
+  -webkit-overflow-scrolling: touch;
+
+  /* Prevents the complete page from moving sideways */
+  overscroll-behavior-x: contain;
+
+  /* Keeps horizontal movement smooth */
+  scroll-snap-type: none;
+
+  /* Makes the scrollbar easier to use */
+  scrollbar-width: thin;
+  scrollbar-color: #d946ef #f3e8ff;
+
+  cursor: grab;
+}
+
+/* Show grabbing cursor while interacting */
+.admin-table-wrap:active {
+  cursor: grabbing;
+}
+
+/* Chrome, Edge and other Chromium browsers */
+
+.admin-table-wrap::-webkit-scrollbar {
+  height: 12px;
+}
+
+.admin-table-wrap::-webkit-scrollbar-track {
+  background: #f3e8ff;
+  border-radius: 20px;
+  margin: 0 10px;
+}
+
+.admin-table-wrap::-webkit-scrollbar-thumb {
+  min-width: 80px;
+
+  background: linear-gradient(
+    90deg,
+    #ec4899,
+    #a855f7
+  );
+
+  border: 2px solid #f3e8ff;
+  border-radius: 20px;
+}
+
+.admin-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    90deg,
+    #db2777,
+    #9333ea
+  );
+}
+
+/* Keep the wide table stable while scrolling */
+
+.admin-table {
+  width: max-content !important;
+  min-width: 100% !important;
+}
+
+.admin-table table {
+  width: max-content !important;
+  min-width: 1500px !important;
+  table-layout: auto;
+}
+
+/* Improve scrolling on mobile */
+
+@media (max-width: 768px) {
+
+  .admin-table-wrap {
+    overflow-x: auto !important;
+
+    scroll-behavior: smooth;
+
+    -webkit-overflow-scrolling: touch;
+
+    overscroll-behavior-x: contain;
+
+    touch-action: pan-x pan-y;
+
+    padding-bottom: 5px;
+  }
+
+  .admin-table-wrap::-webkit-scrollbar {
+    height: 9px;
+  }
 }

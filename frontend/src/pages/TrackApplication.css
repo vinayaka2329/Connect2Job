@@ -440,6 +440,15 @@
     padding: 28px 20px;
   }
 
+  .input-icon {
+    font-size: 15px;
+    left: 14px;
+  }
+
+  .input-group input {
+    padding: 13px 14px 13px 42px;
+  }
+
   .app-card {
     padding: 22px 18px;
   }
@@ -472,8 +481,13 @@
   }
 
   .input-group input {
-    padding: 12px 14px 12px 42px;
+    padding: 12px 14px 12px 44px;
     font-size: 15px;
+  }
+
+  .input-icon {
+    font-size: 14px;
+    left: 14px;
   }
 
   .track-btn {

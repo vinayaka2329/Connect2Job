@@ -87,7 +87,7 @@ export default function TrackApplication() {
             <div className="form-group">
               <label>Email Address</label>
               <div className="input-group">
-                <span className="input-icon">✉️</span>
+                <span className="input-icon"></span>
                 <input
                   type="email"
                   placeholder="Enter your email address"

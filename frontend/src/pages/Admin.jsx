@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { api } from '../services/api';
 import './Admin.css';
+import AnimatedCounter from '../components/AnimatedCounter';
 
 const initialJobTemplate = {
   title: '',
@@ -39,14 +40,23 @@ export default function Admin() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Search / Filter state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+
+  // Cover letter modal
+  const [selectedCoverLetter, setSelectedCoverLetter] = useState(null);
+  const [showCoverLetterModal, setShowCoverLetterModal] = useState(false);
+
   const [showAllRows, setShowAllRows] = useState({
-    applications: false,
-    users: false,
-    pendingJobs: false,
-    postedJobs: false,
-    contacts: false,
-    subscribers: false,
+    applications: true,
+    users: true,
+    pendingJobs: true,
+    postedJobs: true,
+    contacts: true,
+    subscribers: true,
   });
+
 
   const [dashboardData, setDashboardData] = useState({
     applications: [],
@@ -301,19 +311,21 @@ export default function Admin() {
 
     switch (activeTable) {
       case 'applications':
-        headers = ['Applicant Name', 'Company', 'Job Title', 'Email', 'Phone', 'Resume Name', 'Resume Link', 'Date', 'Status'];
+        headers = ['Applicant Name', 'Company', 'Job Title', 'Email', 'Phone', 'Cover Letter', 'Resume Name', 'Resume Link', 'Date', 'Status'];
         rows = data.map((item) => [
           item.applicantName || item.name || '',
           item.company || '',
           item.jobTitle || '',
           item.applicantEmail || item.email || '',
           item.applicantPhone || item.phone || '',
+          item.coverLetter || '',
           item.resumeName || '',
           item.resumeUrl || '',
           item.appliedDate || item.createdAt || '',
           item.status || 'Pending',
         ]);
         break;
+
       case 'contacts':
         headers = ['Name', 'Email', 'Subject', 'Message', 'Date'];
         rows = data.map((item) => [
@@ -555,6 +567,27 @@ export default function Admin() {
   const applicationsCount = applications.length;
   const subscribersCount = subscribers.length;
   const usersCount = users.length;
+  const pendingCount = dashboardData.pendingJobs?.length || 0;
+
+  // Compute filtered table items based on search + status filter
+  const filteredTableItems = useMemo(() => {
+    let items = tableItems;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      items = items.filter((item) =>
+        (item.applicantName || item.name || '').toLowerCase().includes(q) ||
+        (item.applicantEmail || item.email || '').toLowerCase().includes(q) ||
+        (item.jobTitle || item.title || '').toLowerCase().includes(q) ||
+        (item.company || '').toLowerCase().includes(q)
+      );
+    }
+    if (activeTable === 'applications' && statusFilter !== 'all') {
+      items = items.filter(
+        (item) => (item.status || 'pending').toLowerCase() === statusFilter
+      );
+    }
+    return items;
+  }, [tableItems, searchQuery, statusFilter, activeTable]);
 
   return (
     <section className="admin-page">
@@ -699,37 +732,42 @@ export default function Admin() {
           <div className="admin-stats" data-aos="fade-up" data-aos-delay="100">
             <div className="admin-stat-card">
               <div className="admin-stat-icon"><i className="fas fa-briefcase"></i></div>
-              <div className="admin-stat-number">{applicationsCount}</div>
+              <div className="admin-stat-number"><AnimatedCounter value={applicationsCount} /></div>
               <div className="admin-stat-label">Applications</div>
             </div>
             <div className="admin-stat-card">
               <div className="admin-stat-icon"><i className="fas fa-building"></i></div>
-              <div className="admin-stat-number">{dashboardData.companies}</div>
+              <div className="admin-stat-number"><AnimatedCounter value={dashboardData.companies} /></div>
               <div className="admin-stat-label">Companies</div>
             </div>
             <div className="admin-stat-card">
               <div className="admin-stat-icon"><i className="fas fa-users"></i></div>
-              <div className="admin-stat-number">{dashboardData.candidates}</div>
+              <div className="admin-stat-number"><AnimatedCounter value={dashboardData.candidates} /></div>
               <div className="admin-stat-label">Candidates</div>
             </div>
             <div className="admin-stat-card">
-              <div className="admin-stat-icon"><i className="fas fa-briefcase"></i></div>
-              <div className="admin-stat-number">{jobs.length}</div>
-              <div className="admin-stat-label">Posted Jobs</div>
+              <div className="admin-stat-icon"><i className="fas fa-check-circle"></i></div>
+              <div className="admin-stat-number"><AnimatedCounter value={jobs.length} /></div>
+              <div className="admin-stat-label">Active Jobs</div>
+            </div>
+            <div className="admin-stat-card admin-stat-card--warning">
+              <div className="admin-stat-icon"><i className="fas fa-clock"></i></div>
+              <div className="admin-stat-number"><AnimatedCounter value={pendingCount} /></div>
+              <div className="admin-stat-label">Pending Jobs</div>
             </div>
             <div className="admin-stat-card">
               <div className="admin-stat-icon"><i className="fas fa-envelope"></i></div>
-              <div className="admin-stat-number">{contactsCount}</div>
+              <div className="admin-stat-number"><AnimatedCounter value={contactsCount} /></div>
               <div className="admin-stat-label">Messages</div>
             </div>
             <div className="admin-stat-card">
               <div className="admin-stat-icon"><i className="fas fa-newspaper"></i></div>
-              <div className="admin-stat-number">{subscribersCount}</div>
+              <div className="admin-stat-number"><AnimatedCounter value={subscribersCount} /></div>
               <div className="admin-stat-label">Subscribers</div>
             </div>
             <div className="admin-stat-card">
               <div className="admin-stat-icon"><i className="fas fa-user"></i></div>
-              <div className="admin-stat-number">{usersCount}</div>
+              <div className="admin-stat-number"><AnimatedCounter value={usersCount} /></div>
               <div className="admin-stat-label">Users</div>
             </div>
           </div>
@@ -747,17 +785,50 @@ export default function Admin() {
                 <button type="button" className={activeTable === 'subscribers' ? 'admin-tab-active' : ''} onClick={() => switchTable('subscribers')}>Subscribers</button>
               </div>
             </div>
+
+            {/* Search & Filter Bar */}
+            <div className="admin-search-bar">
+              <div className="admin-search-input-wrap">
+                <i className="fas fa-search admin-search-icon"></i>
+                <input
+                  type="text"
+                  placeholder="Search by name, email, job title, company..."
+                  value={searchQuery}
+                  onChange={(e) => { setSearchQuery(e.target.value); }}
+                  className="admin-search-input"
+                />
+                {searchQuery && (
+                  <button className="admin-search-clear" onClick={() => setSearchQuery('')}>
+                    <i className="fas fa-times"></i>
+                  </button>
+                )}
+              </div>
+              {activeTable === 'applications' && (
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="admin-status-select"
+                >
+                  <option value="all">All Statuses</option>
+                  <option value="pending">Pending</option>
+                  <option value="accepted">Accepted</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              )}
+            </div>
+
             <div className="admin-table-wrap">
               <div className="admin-table">
                 {loading ? (
                   <div className="admin-loading-state">
-                    <p>Loading data...</p>
+                    <div className="admin-loading-spinner"></div>
+                    <p>Loading dashboard data...</p>
                   </div>
-                ) : tableItems.length === 0 ? (
+                ) : filteredTableItems.length === 0 ? (
                   <div className="admin-empty-state">
                     <div className="admin-empty-icon">📭</div>
-                    <h3>No records found</h3>
-                    <p>There is no data for the selected table yet.</p>
+                    <h3>{searchQuery ? 'No results found' : 'No records found'}</h3>
+                    <p>{searchQuery ? `No records match "${searchQuery}"` : 'There is no data for the selected table yet.'}</p>
                   </div>
                 ) : (
                   <table>
@@ -765,8 +836,8 @@ export default function Admin() {
                       <tr>
                         {activeTable === 'applications' && (
                           <>
-                            <th>Logo</th><th>Applicant</th><th>Company</th><th>Email</th>
-                            <th>Phone</th><th>Resume</th><th>Date</th><th>Status</th><th>Actions</th>
+                            <th>Logo</th><th>Applicant</th><th>Job Title</th><th>Company</th><th>Email</th>
+                            <th>Phone</th><th>Cover Letter</th><th>Resume</th><th>Date</th><th>Status</th><th>Actions</th>
                           </>
                         )}
                         {activeTable === 'postedjobs' && (
@@ -799,7 +870,9 @@ export default function Admin() {
                     </thead>
                     <tbody>
                       {activeTable === 'users' ? (
-                        getVisibleData("users", users).map((user) => {
+                        getVisibleData("users", users.filter(u => !searchQuery || [
+                          u.name, u.email
+                        ].some(f => (f || '').toLowerCase().includes(searchQuery.toLowerCase())))).map((user) => {
                           const applicationCount = applications.filter(
                             (app) => app.applicantEmail === user.email
                           ).length;
@@ -840,7 +913,7 @@ export default function Admin() {
                                 : activeTable === "contacts" ? "contacts"
                                   : activeTable === "subscribers" ? "subscribers"
                                     : "",
-                          tableItems
+                          filteredTableItems
                         ).map((item, index) => (
                           <tr key={item._id || item.id || index}>
                             {activeTable === 'applications' && (
@@ -853,9 +926,20 @@ export default function Admin() {
                                   />
                                 </td>
                                 <td>{item.applicantName || item.name || 'Unknown'}</td>
+                                <td>{item.jobTitle || '—'}</td>
                                 <td>{item.company || '—'}</td>
                                 <td>{item.applicantEmail || item.email || '—'}</td>
-                                <td>{item.applicantPhone || '—'}</td>
+                                <td>{item.applicantPhone || item.phone || '—'}</td>
+                                <td>
+                                  {item.coverLetter ? (
+                                    <button
+                                      className="admin-btn admin-btn-cover"
+                                      onClick={() => { setSelectedCoverLetter({ name: item.applicantName || item.name || 'Applicant', text: item.coverLetter }); setShowCoverLetterModal(true); }}
+                                    >
+                                      📄 View
+                                    </button>
+                                  ) : <span className="admin-no-cover">—</span>}
+                                </td>
                                 <td>
                                   {item.resumeUrl ? (
                                     <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -880,14 +964,17 @@ export default function Admin() {
                                   </span>
                                 </td>
                                 <td>
-                                  {(item.status || 'Pending').toLowerCase() === 'pending' && (
-                                    <>
-                                      <button className="admin-btn admin-btn-success" onClick={() => handleAcceptApplication(item._id)}>Accept</button>
-                                      <button className="admin-btn admin-btn-warning" onClick={() => handleRejectApplication(item._id)} style={{ marginLeft: '8px' }}>Reject</button>
-                                    </>
-                                  )}
-                                  <button className="admin-btn admin-btn-danger" onClick={() => handleDeleteApplication(item._id)} style={{ marginLeft: '8px' }}>Delete</button>
+                                  <div className="admin-action-buttons">
+                                    {(item.status || 'Pending').toLowerCase() === 'pending' && (
+                                      <>
+                                        <button className="admin-btn admin-btn-success" onClick={() => handleAcceptApplication(item._id)}>Accept</button>
+                                        <button className="admin-btn admin-btn-warning" onClick={() => handleRejectApplication(item._id)}>Reject</button>
+                                      </>
+                                    )}
+                                    <button className="admin-btn admin-btn-danger" onClick={() => handleDeleteApplication(item._id)}>Delete</button>
+                                  </div>
                                 </td>
+
                               </>
                             )}
                             {activeTable === 'postedjobs' && (
@@ -1004,6 +1091,34 @@ export default function Admin() {
           </div>
         </div>
       </div>
+
+      {/* ===== COVER LETTER MODAL ===== */}
+      {showCoverLetterModal && selectedCoverLetter && (
+        <div
+          className="modal-overlay"
+          style={{ zIndex: 200000 }}
+          onClick={() => setShowCoverLetterModal(false)}
+        >
+          <div
+            className="admin-cover-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="admin-cover-modal-header">
+              <h3>📄 Cover Letter — {selectedCoverLetter.name}</h3>
+              <button
+                className="admin-cover-modal-close"
+                onClick={() => setShowCoverLetterModal(false)}
+                aria-label="Close cover letter"
+              >
+                <i className="fas fa-times"></i>
+              </button>
+            </div>
+            <div className="admin-cover-modal-body">
+              <pre className="admin-cover-text">{selectedCoverLetter.text}</pre>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
-}
+}

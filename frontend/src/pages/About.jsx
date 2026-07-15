@@ -2,6 +2,8 @@
 import { Link } from 'react-router-dom';
 import { aboutItems, aboutStats, aboutWhy } from '../data/siteData';
 import './About.css';
+import AnimatedCounter from '../components/AnimatedCounter';
+
 
 export default function About() {
   return (
@@ -44,7 +46,7 @@ export default function About() {
             <div className="about-stats">
               {aboutStats.map((stat, index) => (
                 <div key={index} className="about-stat" data-aos="zoom-in" data-aos-delay={100 + index * 100}>
-                  <h2 className="counter">{stat.value}</h2>
+                  <h2 className="counter"><AnimatedCounter value={stat.value} /></h2>
                   <p>{stat.label}</p>
                 </div>
               ))}

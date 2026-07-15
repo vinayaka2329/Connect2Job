@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import { serviceCards } from "../data/siteData";
 import "./Services.css";
+import AnimatedCounter from "../components/AnimatedCounter";
+import boyMascot from "../../images/c2j boy.png";
+import girlMascot from "../../images/c2j girl.png";
+
 
 export default function Services() {
   return (
@@ -9,6 +13,14 @@ export default function Services() {
       {/* ================= HERO ================= */}
 
       <section className="services-hero" data-aos="fade-up">
+
+        {/* Decorative Mascots */}
+        {/* <div className="hero-mascot mascot-left">
+          <img src={boyMascot} alt="" className="mascot-image" />
+        </div>
+        <div className="hero-mascot mascot-right">
+          <img src={girlMascot} alt="" className="mascot-image" />
+        </div> */}
 
         <span className="hero-badge">
           ✨ Premium Recruitment Solutions
@@ -28,17 +40,17 @@ export default function Services() {
         <div className="hero-stats">
 
           <div>
-            <h2>10K+</h2>
+            <h2><AnimatedCounter value="10K+" /></h2>
             <span>Jobs</span>
           </div>
 
           <div>
-            <h2>5K+</h2>
+            <h2><AnimatedCounter value="5K+" /></h2>
             <span>Companies</span>
           </div>
 
           <div>
-            <h2>25K+</h2>
+            <h2><AnimatedCounter value="25K+" /></h2>
             <span>Candidates</span>
           </div>
 

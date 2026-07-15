@@ -2,6 +2,8 @@ import "./Home.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import heroImage from "../../images/anime.png";
+import AnimatedCounter from "../components/AnimatedCounter";
+
 
 export default function Home() {
   const navigate = useNavigate();
@@ -49,17 +51,17 @@ export default function Home() {
 
             <div className="hero-stats">
               <div>
-                <h2>10K+</h2>
+                <h2><AnimatedCounter value="10K+" /></h2>
                 <p>Jobs</p>
               </div>
 
               <div>
-                <h2>5K+</h2>
+                <h2><AnimatedCounter value="5K+" /></h2>
                 <p>Companies</p>
               </div>
 
               <div>
-                <h2>25K+</h2>
+                <h2><AnimatedCounter value="25K+" /></h2>
                 <p>Candidates</p>
               </div>
             </div>
@@ -77,12 +79,12 @@ export default function Home() {
             <img src={heroImage} alt="Connect2Job" />
 
             <div className="floating-card top">
-              <h3>10K+</h3>
+              <h3><AnimatedCounter value="10K+" /></h3>
               <p>Jobs Available</p>
             </div>
 
             <div className="floating-card bottom">
-              <h3>5K+</h3>
+              <h3><AnimatedCounter value="5K+" /></h3>
               <p>Companies Hiring</p>
             </div>
           </motion.div>

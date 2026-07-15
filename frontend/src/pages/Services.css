@@ -7,7 +7,74 @@
   margin: 0 auto;
   padding: 125px 0 80px;
   text-align: center;
+  position: relative; /* anchor mascots */
+  overflow: visible;
 }
+
+/* ===========================
+   HERO MASCOTS
+=========================== */
+
+@keyframes mascotFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-12px) rotate(2deg); }
+  66%       { transform: translateY(-6px) rotate(-1.5deg); }
+}
+
+.hero-mascot {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mascot-left {
+  left: -200px;
+}
+
+.mascot-right {
+  right: -200px;
+}
+
+.mascot-image {
+  width: 170px;
+  height: auto;
+  object-fit: contain;
+  animation: mascotFloat 5s ease-in-out infinite;
+  filter: drop-shadow(0 12px 28px rgba(124, 58, 237, 0.12));
+}
+
+.mascot-right .mascot-image {
+  animation-delay: -2.5s;
+  transform-origin: bottom center;
+}
+
+@media (max-width: 1400px) {
+  .mascot-left  { left: -120px; }
+  .mascot-right { right: -120px; }
+  .mascot-image { width: 130px; }
+}
+
+@media (max-width: 1100px) {
+  .hero-mascot {
+    opacity: 0.45;
+  }
+  .mascot-left  { left: -60px; }
+  .mascot-right { right: -60px; }
+  .mascot-image { width: 100px; }
+}
+
+@media (max-width: 768px) {
+  .hero-mascot {
+    opacity: 0.3;
+  }
+  .mascot-left  { left: -30px; }
+  .mascot-right { right: -30px; }
+  .mascot-image { width: 75px; }
+}
+
+
 
 .hero-badge {
   display: inline-flex;
@@ -47,35 +114,73 @@
 .hero-stats {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 28px;
   flex-wrap: wrap;
   margin-top: 60px;
 }
 
 .hero-stats div {
-  width: 170px;
-  background: #fff;
-  padding: 30px;
-  border-radius: 25px;
-  border: 1px solid rgba(236, 72, 153, 0.12);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06);
-  transition: 0.35s;
+  width: 220px;
+  background: #ffffff;
+  border: 1px solid #f0f0f0;
+  border-radius: 24px;
+  padding: 35px 20px;
+  text-align: center;
+  transition: 0.35s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-stats div::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #ec4899, #7c3aed);
+  transform: scaleX(0);
+  transition: 0.4s ease;
+  transform-origin: left;
+}
+
+.hero-stats div:hover::after {
+  transform: scaleX(1);
 }
 
 .hero-stats div:hover {
   transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(236, 72, 153, 0.15);
+  border-color: rgba(236, 72, 153, 0.3);
 }
 
 .hero-stats h2 {
-  font-size: 2.4rem;
-  color: #7c3aed;
+  font-size: 2.8rem;
   font-weight: 800;
+  color: #7c3aed;
+  margin-bottom: 6px;
+  transition: 0.3s ease;
+}
+
+.hero-stats div:hover h2 {
+  background: linear-gradient(135deg, #7c3aed, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scale(1.05);
 }
 
 .hero-stats span {
-  color: #6b7280;
+  font-size: 15px;
+  color: #64748b;
   font-weight: 600;
+  transition: 0.3s ease;
 }
+
+.hero-stats div:hover span {
+  color: #1e293b;
+}
+
 
 /* ===========================
    SERVICES GRID
@@ -166,7 +271,7 @@
 
 .service-card-custom:hover .service-number {
   transform: scale(1.15);
-  color: rgba(236, 72, 153, 0.18);
+  color: rgba(124, 58, 237, 0.22); /* visible purple tint on hover */
 }
 
 .service-card-custom h3 {
@@ -748,3 +853,170 @@ transform:scale(1.25);
 
 }
 
+
+
+/* =====================================================
+   SERVICES PAGE — LARGE COUNTERS + CENTER ALIGNMENT
+===================================================== */
+
+/* Keep all three cards centered */
+
+.services-hero .hero-stats {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  flex-direction: row !important;
+
+  width: 100% !important;
+  max-width: 760px !important;
+
+  gap: 18px !important;
+
+  margin: 45px auto 0 !important;
+}
+
+/* Equal-sized stat cards */
+
+.services-hero .hero-stats > div {
+  flex: 1 1 0 !important;
+
+  width: 100% !important;
+  max-width: 220px !important;
+  min-width: 0 !important;
+  min-height: 145px !important;
+
+  padding: 28px 15px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+
+  text-align: center !important;
+}
+
+/* Large purple number */
+
+.services-hero .hero-stats > div > h2 {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+
+  width: 100% !important;
+
+  margin: 0 0 12px !important;
+
+  font-size: 40px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+
+  color: #7c3aed !important;
+
+  text-align: center !important;
+}
+
+/* Force AnimatedCounter inner element to use the same size */
+
+.services-hero .hero-stats > div > h2 *,
+.services-hero .hero-stats > div > h2 span {
+  display: inline-block !important;
+
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+
+  color: inherit !important;
+
+  text-align: center !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Labels: Jobs, Companies and Candidates */
+
+.services-hero .hero-stats > div > p,
+.services-hero .hero-stats > div > span {
+  display: block !important;
+
+  width: 100% !important;
+
+  margin: 0 !important;
+
+  font-size: 13px !important;
+  font-weight: 600 !important;
+
+  color: #64748b !important;
+
+  text-align: center !important;
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .services-hero .hero-stats {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+
+    gap: 12px !important;
+
+    max-width: 620px !important;
+  }
+
+  .services-hero .hero-stats > div {
+    max-width: none !important;
+    min-height: 120px !important;
+
+    padding: 20px 8px !important;
+  }
+
+  .services-hero .hero-stats > div > h2 {
+    font-size: 31px !important;
+  }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+  .services-hero .hero-stats {
+    display: grid !important;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 8px !important;
+
+    width: 100% !important;
+
+    margin: 30px auto 0 !important;
+  }
+
+  .services-hero .hero-stats > div {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+
+    min-height: 105px !important;
+
+    padding: 16px 4px !important;
+
+    border-radius: 16px !important;
+  }
+
+  .services-hero .hero-stats > div > h2 {
+    margin-bottom: 9px !important;
+
+    font-size: 25px !important;
+  }
+
+  .services-hero .hero-stats > div > p,
+  .services-hero .hero-stats > div > span {
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+  }
+}

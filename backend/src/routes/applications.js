@@ -12,6 +12,15 @@ const uploadResume = require("../utils/uploadResume");
 // @access  Public
 router.post("/", upload.single("resume"), async (req, res) => {
   try {
+    // ── Phone validation ──────────────────────────────────────────────
+    const rawPhone = (req.body.phone || req.body.applicantPhone || "").replace(/\D/g, "");
+    if (!rawPhone || rawPhone.length !== 10) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide a valid 10-digit Indian mobile number.",
+      });
+    }
+
     // Prevent duplicate applications
     const existingApplication = await Application.findOne({
       applicantEmail: req.body.applicantEmail,
@@ -36,7 +45,8 @@ router.post("/", upload.single("resume"), async (req, res) => {
 
     const application = await Application.create({
       ...req.body,
-      userId: userId,  // ✅ NEW: Link application to user account
+      applicantPhone: rawPhone, // store cleaned 10-digit number
+      userId: userId,            // ✅ NEW: Link application to user account
       logo: req.body.logo || "",
       logoUrl: req.body.logoUrl || "",
       resumeName: req.file ? req.file.originalname : "",

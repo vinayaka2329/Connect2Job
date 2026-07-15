@@ -2,9 +2,14 @@
    FOOTER - PREMIUM STYLES
 ======================================== */
 
+/* ── Footer logo size tokens ── */
+:root {
+  --footer-logo-width: 160px;
+}
+
 .footer {
-  margin-top: 120px;
-  padding: 80px 2rem 40px;
+  margin-top: 80px; /* reduced from 120px */
+  padding: 60px 2rem 25px; /* reduced bottom padding */
   background: linear-gradient(
     180deg,
     #fff8fd 0%,
@@ -47,7 +52,7 @@
 }
 
 .footer-container {
-  max-width: 1350px;
+  max-width: 1200px; /* Aligns perfectly with the 1200px main content width */
   margin: 0 auto;
   position: relative;
   z-index: 1;
@@ -61,8 +66,8 @@
   display: grid;
   grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
   gap: 50px;
-  align-items: flex-start;
-  padding-bottom: 50px;
+  align-items: start; /* all columns start at the same top */
+  padding-bottom: 30px; /* reduced excess bottom gap */
   border-bottom: 1px solid rgba(236, 72, 153, 0.08);
 }
 
@@ -81,16 +86,18 @@
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  margin-bottom: 18px;
+  margin-bottom: -40px;
+  margin-left: -8px; /* Offset the logo's inner whitespace to align with text */
   transition: transform 0.3s ease;
 }
+
 
 .footer-logo:hover {
   transform: scale(1.02);
 }
 
 .footer-brand-logo {
-  width: 220px;
+  width: var(--footer-logo-width, 240px); /* increased size */
   height: auto;
   object-fit: contain;
   display: block;
@@ -582,7 +589,7 @@
 /* Mobile */
 @media (max-width: 480px) {
   .footer {
-    margin-top: 60px;
+    margin-top: 0px;
     padding: 35px 1rem 20px;
     border-radius: 24px 24px 0 0;
   }
@@ -677,12 +684,12 @@
 /* Extra small devices */
 @media (max-width: 360px) {
   .footer {
-    padding: 25px 0.75rem 15px;
+    padding: 0px 0.75rem 15px;
     border-radius: 20px 20px 0 0;
   }
 
   .footer-brand-logo {
-    width: 130px;
+    width: 180px;
   }
 
   .footer-links h4,
@@ -1108,5 +1115,126 @@
 
   .newsletter-content p {
     font-size: 12px;
+  }
+}
+
+
+/* =====================================================
+   FINAL FOOTER ALIGNMENT FIX
+   Desktop only — keeps mobile responsiveness unchanged
+===================================================== */
+
+@media (min-width: 1025px) {
+
+  /* Reduce unnecessary footer height */
+
+  .footer {
+    padding-top: 42px !important;
+    padding-bottom: 18px !important;
+  }
+
+  /* Keep all four columns in one straight row */
+
+  .footer-grid {
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(290px, 1.45fr)
+      minmax(150px, 0.85fr)
+      minmax(190px, 1fr)
+      minmax(240px, 1.15fr) !important;
+
+    column-gap: 55px !important;
+
+    align-items: start !important;
+
+    padding-bottom: 20px !important;
+  }
+
+  /* First Connect2Job column */
+
+  .footer-about {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+
+    padding: 0 !important;
+  }
+
+  /* Increase logo size */
+
+  .footer-logo {
+    display: flex !important;
+    align-items: center !important;
+
+    width: 235px !important;
+    height: 52px !important;
+
+    margin: 0 0 18px 0 !important;
+
+    overflow: visible !important;
+  }
+
+  .footer-brand-logo {
+    display: block !important;
+
+    width: 235px !important;
+    max-width: none !important;
+
+    height: auto !important;
+
+    object-fit: contain !important;
+  }
+
+  /* Reduce gap below the logo */
+
+  .footer-about p {
+    max-width: 300px !important;
+
+    margin: 0 0 18px !important;
+
+    font-size: 14px !important;
+    line-height: 1.7 !important;
+  }
+
+  /* Keep social icons closer */
+
+  .social-links {
+    margin: 0 !important;
+    gap: 12px !important;
+  }
+
+  /* Align the remaining three columns equally */
+
+  .footer-links,
+  .footer-contact {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* All headings begin on exactly the same line */
+
+  .footer-links h4,
+  .footer-contact h4 {
+    min-height: 42px !important;
+
+    margin: 0 0 14px !important;
+    padding: 0 0 10px !important;
+
+    line-height: 1.2 !important;
+  }
+
+  /* Keep links aligned */
+
+  .footer-links ul,
+  .footer-contact ul {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    gap: 12px !important;
   }
 }

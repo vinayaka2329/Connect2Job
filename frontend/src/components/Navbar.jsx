@@ -34,7 +34,10 @@ export default function Navbar() {
       <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
 
         <Link to="/" className="logo" onClick={closeMenu}>
-          <img src={logo} alt="Connect2Job" className="brand-logo" />
+          {/* Desktop logo */}
+          <img src={logo} alt="Connect2Job" className="logo-desktop" />
+          {/* Mobile logo */}
+          <img src={logo} alt="Connect2Job" className="logo-mobile" />
         </Link>
 
         <nav className="nav-links">

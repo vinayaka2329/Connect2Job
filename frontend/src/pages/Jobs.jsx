@@ -7,6 +7,8 @@ import { api, API_URL } from '../services/api';
 const IMAGE_BASE_URL = API_URL.replace("/api", "");
 import { createApplication } from '../services/applicationService';
 import './Jobs.css';
+import AnimatedCounter from '../components/AnimatedCounter';
+
 // ============================================
 // CONSTANTS & KEYS
 // ============================================
@@ -140,6 +142,7 @@ export default function Jobs() {
   // Form states
   const [applicationMessage, setApplicationMessage] = useState('');
   const [applicationStatus, setApplicationStatus] = useState('');
+  const [phoneError, setPhoneError] = useState('');
   const [applicationForm, setApplicationForm] = useState({
     name: '',
     email: '',
@@ -148,6 +151,15 @@ export default function Jobs() {
     resume: null,
     cover: ''
   });
+
+  const handlePhoneBlur = () => {
+    if (applicationForm.phone && applicationForm.phone.length < 10) {
+      setPhoneError('Please enter a valid 10-digit mobile number.');
+    } else {
+      setPhoneError('');
+    }
+  };
+
   const [postJobForm, setPostJobForm] = useState({
     title: "",
     company: "",
@@ -329,6 +341,7 @@ export default function Jobs() {
     });
     setApplicationStatus('');
     setApplicationMessage('');
+    setPhoneError('');
     setShowApplyModal(true);
   };
 
@@ -385,9 +398,10 @@ export default function Jobs() {
       return;
     }
 
-    if (!phoneRegex.test(phone.replace(/[^0-9]/g, ''))) {
+    if (phone.replace(/\D/g, '').length !== 10) {
       setApplicationStatus('error');
-      setApplicationMessage('Please enter a valid 10-digit phone number.');
+      setApplicationMessage('Please enter a valid 10-digit mobile number.');
+      setPhoneError('Please enter a valid 10-digit mobile number.');
       setSubmitting(false);
       return;
     }
@@ -615,6 +629,14 @@ if (selectedJob?.logoUrl) {
     // ✅ FIX 2: Use _id from MongoDB, fallback to id
     const jobKey = job._id || job.id || `${job.company}-${job.title}`;
 
+    const rawRequirements = job.requirements;
+    let reqList = [];
+    if (Array.isArray(rawRequirements)) {
+      reqList = rawRequirements.filter(Boolean);
+    } else if (typeof rawRequirements === 'string' && rawRequirements.trim()) {
+      reqList = rawRequirements.split(/[,\n]/).map(r => r.trim()).filter(Boolean);
+    }
+
     return (
       <div
         key={jobKey}
@@ -688,16 +710,28 @@ if (selectedJob?.logoUrl) {
         </div>
 
         {/* Tags */}
-
         <div className="job-tags">
-
           {(job.tags || []).map((tag) => (
             <span key={tag}>
               {tag}
             </span>
           ))}
-
         </div>
+
+        {/* Requirements Display */}
+        {reqList.length > 0 && (
+          <div className="job-card-requirements">
+            <span className="requirements-label">Requirements:</span>
+            <ul className="requirements-list">
+              {reqList.slice(0, 3).map((req, idx) => (
+                <li key={idx}>{req}</li>
+              ))}
+            </ul>
+            {reqList.length > 3 && (
+              <span className="more-requirements">+{reqList.length - 3} more</span>
+            )}
+          </div>
+        )}
 
         {/* Footer */}
 
@@ -782,17 +816,17 @@ if (selectedJob?.logoUrl) {
         <div className="hero-stats">
 
           <div>
-            <h2>{visibleCount}+</h2>
+            <h2><AnimatedCounter value={`${visibleCount}+`} /></h2>
             <span>Available Jobs</span>
           </div>
 
           <div>
-            <h2>500+</h2>
+            <h2><AnimatedCounter value="500+" /></h2>
             <span>Companies</span>
           </div>
 
           <div>
-            <h2>{favoriteJobs.length}</h2>
+            <h2><AnimatedCounter value={favoriteJobs.length} /></h2>
             <span>Favorites</span>
           </div>
 
@@ -1166,10 +1200,27 @@ if (selectedJob?.logoUrl) {
                   <label>Phone *</label>
                   <input
                     type="tel"
+                    inputMode="numeric"
+                    maxLength={10}
+                    pattern="[0-9]{10}"
                     value={applicationForm.phone}
-                    onChange={(e) => setApplicationForm({ ...applicationForm, phone: e.target.value })}
+                    onChange={(e) => {
+                      const numericValue = e.target.value.replace(/\D/g, "").slice(0, 10);
+                      setApplicationForm({ ...applicationForm, phone: numericValue });
+                      if (numericValue.length === 10) {
+                        setPhoneError('');
+                      }
+                    }}
+                    onBlur={handlePhoneBlur}
+                    aria-invalid={!!phoneError}
+                    aria-describedby={phoneError ? "phone-error" : undefined}
                     required
                   />
+                  {phoneError && (
+                    <span id="phone-error" className="error-message" style={{ color: '#dc2626', fontSize: '12px', marginTop: '4px', display: 'block' }}>
+                      {phoneError}
+                    </span>
+                  )}
                 </div>
                 <div className="form-group">
                   <label>Resume *</label>
