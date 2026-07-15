@@ -1652,11 +1652,11 @@
   }
   .floating-card.top {
     top: 5%;
-    left: -5%;
+    left: ;
   }
   .floating-card.bottom {
     bottom: 5%;
-    right: -5%;
+    right: ;
   }
 }
 
@@ -2065,7 +2065,7 @@
   }
 
   .hero-right .floating-card.top {
-    top: 10% !important;
+    top: 4% !important;
 
     left: 8px !important;
     right: auto !important;
@@ -2075,7 +2075,7 @@
     right: 8px !important;
     left: auto !important;
 
-    bottom: 10% !important;
+    bottom: 4% !important;
   }
 
   .hero-right .floating-card h3,
