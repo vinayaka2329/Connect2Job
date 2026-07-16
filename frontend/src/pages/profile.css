@@ -304,7 +304,7 @@ gap:6px;
 @media (max-width: 1024px) and (min-width: 500px) {
   .app-main.auth-profile-main {
     padding-top: 110px;
-    padding-bottom: 110px;
+    padding-bottom: 250px;
   }
 
   .profile-page {
