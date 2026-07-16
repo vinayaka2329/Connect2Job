@@ -235,3 +235,59 @@
 .auth-footer span:hover{
     color:#ec4899;
 }
+
+/* ===========================
+   FIX: MOBILE DESKTOP SITE MODE
+   Targets only when Desktop Site is enabled on mobile
+   (viewport width between 500-1024px on small screens)
+=========================== */
+
+@media (max-width: 1024px) and (min-width: 500px) and (max-height: 900px) {
+  .auth-page {
+    min-height: auto;
+    padding: 30px 20px;
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+
+  .auth-card {
+    padding: 35px 30px;
+    margin: 0 auto;
+  }
+
+  .auth-card h1 {
+    font-size: 32px;
+  }
+}
+
+/* Additional fix for very small mobile Desktop Site mode */
+@media (max-width: 1024px) and (min-width: 500px) and (max-height: 800px) {
+  .auth-page {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .auth-card {
+    padding: 25px 20px;
+  }
+
+  .auth-card h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+  }
+
+  .auth-card form {
+    gap: 15px;
+    margin-top: 25px;
+  }
+
+  .auth-card input {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  .auth-card button {
+    padding: 13px;
+    font-size: 15px;
+  }
+}
