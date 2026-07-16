@@ -25,6 +25,33 @@
 
     #fafaff;
 
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.auth-card{
+    position:relative;
+    z-index:1;
+}
+
+.auth-mascot{
+    position:absolute;
+    bottom:32px;
+    width:clamp(130px, 15vw, 230px);
+    height:auto;
+    object-fit:contain;
+    pointer-events:none;
+    user-select:none;
+}
+
+.auth-mascot-left{
+    left:clamp(20px, 8vw, 150px);
+}
+
+.auth-mascot-right{
+    right:clamp(20px, 8vw, 150px);
 }
 
 /* ===========================
@@ -190,6 +217,10 @@
 
 @media(max-width:768px){
 
+.auth-mascot{
+    display:none;
+}
+
 .auth-card{
 
     padding:35px 25px;
@@ -249,9 +280,8 @@
 
   .auth-page {
     min-height: auto;
-    padding: 20px;
+    padding: 32px 20px 40px;
     align-items: flex-start;
-    padding-top: 20px;
   }
 
   .auth-card {
@@ -294,4 +324,93 @@
     padding: 13px;
     font-size: 15px;
   }
+}
+
+/* ============================================================
+   AUTH ROUTES — MATCH THE HOME PAGE'S NORMAL DOCUMENT FLOW
+   ============================================================ */
+
+.app-main.auth-profile-main {
+    padding-top: 0;
+}
+
+.auth-page {
+    width: 95%;
+    max-width: 1400px;
+    min-height: 0;
+    margin: 0 auto;
+    padding: clamp(32px, 4vw, 64px) clamp(20px, 3vw, 40px) clamp(48px, 5vw, 80px);
+    display: block;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: #ffffff;
+}
+
+.auth-card {
+    width: min(100%, 470px);
+    min-width: 0;
+    margin: 0 auto;
+    padding: clamp(28px, 3vw, 45px);
+    position: relative;
+    z-index: 1;
+}
+
+.auth-mascot {
+    display: block;
+    position: absolute;
+    top: 50%;
+    bottom: auto;
+    width: clamp(135px, 16vw, 240px);
+    height: auto;
+    transform: translateY(-50%);
+    filter: drop-shadow(0 20px 35px rgba(124, 58, 237, 0.16));
+    z-index: 2;
+}
+
+.auth-mascot-left {
+    left: clamp(12px, 7vw, 130px);
+}
+
+.auth-mascot-right {
+    right: clamp(12px, 7vw, 130px);
+}
+
+@media (max-width: 1000px) {
+    .auth-mascot {
+        width: clamp(88px, 14vw, 130px);
+    }
+
+    .auth-mascot-left { left: 16px; }
+    .auth-mascot-right { right: 16px; }
+}
+
+@media (max-width: 620px) {
+    .auth-page {
+        width: 100%;
+        padding: 28px 16px 24px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 16px;
+        row-gap: 18px;
+    }
+
+    .auth-card {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        max-width: 470px;
+        width: 100%;
+        z-index: 3;
+    }
+
+    .auth-mascot {
+        position: static;
+        width: clamp(64px, 22vw, 92px);
+        transform: none;
+        justify-self: center;
+        align-self: end;
+    }
+
+    .auth-mascot-left { grid-column: 1; grid-row: 2; }
+    .auth-mascot-right { grid-column: 2; grid-row: 2; }
 }

@@ -22,6 +22,7 @@ function AppContent() {
   const { toast } = useAppContext();
   const location = useLocation();
   const isAuthOrProfileRoute = ["/login", "/register", "/profile"].includes(location.pathname);
+  const isAuthRoute = ["/login", "/register"].includes(location.pathname);
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true, offset: 100 });
@@ -53,7 +54,7 @@ function AppContent() {
     <div className={`app-shell${isAuthOrProfileRoute ? " auth-profile-route" : ""}`}>
       <Navbar />
 
-      <TrustedCompanies className={isAuthOrProfileRoute ? "auth-profile-route" : ""} />
+      <TrustedCompanies className={isAuthRoute ? "auth-page-route" : ""} />
       
       <main className={`app-main${isAuthOrProfileRoute ? " auth-profile-main" : ""}`}>
         <Routes>

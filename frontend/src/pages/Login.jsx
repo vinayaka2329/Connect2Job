@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
+import boyCharacter from "../../images/c2j boy.png";
+import girlCharacter from "../../images/c2j girl.png";
 import "./Login.css";
 
 export default function Login() {
@@ -58,6 +60,8 @@ export default function Login() {
 
     <div className="auth-page">
 
+      <img className="auth-mascot auth-mascot-left" src={boyCharacter} alt="" aria-hidden="true" />
+
       <div className="auth-card">
 
         <>
@@ -107,6 +111,8 @@ export default function Login() {
         </form>
 
       </div>
+
+      <img className="auth-mascot auth-mascot-right" src={girlCharacter} alt="" aria-hidden="true" />
 
     </div>
 

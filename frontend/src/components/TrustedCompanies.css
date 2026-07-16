@@ -5,8 +5,6 @@
 .trusted-companies {
   width: 100%;
   background: #ffffff;
-  border-top: 1px solid #f2f2f2;
-  border-bottom: 1px solid #f2f2f2;
   padding: 10px 0;
   position: relative;
   z-index: 10;
@@ -274,11 +272,5 @@
     width: 100%;
     flex-wrap: wrap;
     justify-content: center;
-  }
-}
-
-@media (min-width: 500px) and (max-width: 1024px) {
-  .trusted-companies.auth-profile-route {
-    display: none;
   }
 }
