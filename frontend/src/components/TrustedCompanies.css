@@ -177,8 +177,8 @@
   }
 
   .trusted-logo-image {
-    height: 136px;
-    max-width: 120px;
+    height: 152px;
+    max-width: 250px;
     opacity: 0.85;
   }
 }
@@ -221,8 +221,8 @@
   }
 
   .trusted-logo-image {
-    height: 108px;
-    max-width: 120px;
+    height: 152px;
+    max-width: 250px;
     opacity: 0.8;
   }
 }
