@@ -28,10 +28,10 @@
 ========================= */
 
 .hero-section {
-  min-height: min(100vh, 850px);
+  min-height: min(100vh, 560px);
   display: flex;
   align-items: center;
-  padding: 120px 0 40px;
+  padding: 10px 0 40px;
   position: relative;
   overflow: hidden;
 }
@@ -469,6 +469,7 @@
 
 .why-section {
   display: grid;
+  text-align: center;
   grid-template-columns: 1fr 1fr;
   gap: 70px;
   align-items: center;
@@ -603,6 +604,7 @@
 
 .testimonial-section {
   padding: 80px 0;
+  text-align: center;
 }
 
 .testimonial-header {
@@ -966,7 +968,7 @@
 @media (max-width: 992px) {
   .hero-section {
     min-height: auto;
-    padding: 110px 0 40px;
+    padding: 10px 0 40px;
   }
   
   .hero-container {
@@ -1085,7 +1087,7 @@
 /* Tablet Portrait (768px) */
 @media (max-width: 768px) {
   .hero-section {
-    padding: 110px 0 30px;
+    padding: 10px 0 30px;
   }
   
   .hero-container {
@@ -1351,7 +1353,7 @@
 /* Mobile Large (576px) */
 @media (max-width: 576px) {
   .hero-section {
-    padding: 110px 0 10px;
+    padding: 10px 0 10px;
     min-height: auto;
   }
   
@@ -1556,7 +1558,7 @@
 /* Mobile Small (400px) */
 @media (max-width: 400px) {
   .hero-section {
-    padding: 110px 0 20px;
+    padding: 10px 0 20px;
   }
   
   .hero-left h1 {
@@ -2126,3 +2128,139 @@
 
 
 
+/* =====================================================
+   CENTER "WHY CHOOSE US" TAG — DESKTOP/LAPTOP
+===================================================== */
+
+.why-section .why-left .section-tag {
+  display: table !important;
+  width: auto !important;
+  margin: 0 auto 20px auto !important;
+  text-align: center !important;
+  float: none !important;
+}
+
+.why-section .why-left {
+  text-align: center !important;
+}
+
+/* keep the paragraph/list left-aligned again if needed */
+.why-section .why-left h2,
+.why-section .why-left p {
+  text-align: left !important;
+}
+
+/* =====================================================
+   CENTER "TESTIMONIALS" TAG — DESKTOP/LAPTOP
+===================================================== */
+
+.testimonial-section .testimonial-header {
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+
+.testimonial-section .testimonial-header .section-tag {
+  display: table !important;
+  width: auto !important;
+  margin: 0 auto 20px auto !important;
+  text-align: center !important;
+  float: none !important;
+}
+
+.testimonial-section .testimonial-header h2 {
+  text-align: center !important;
+}
+
+.testimonial-section .rating-box {
+  margin: 0 auto !important;
+}
+
+/* =====================================================
+   MOBILE — CENTER TESTIMONIALS TAG
+===================================================== */
+
+@media (max-width: 768px) {
+  .testimonial-header {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .testimonial-header .section-tag {
+    margin: 0 auto 15px auto !important;
+  }
+
+  .testimonial-header h2 {
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .testimonial-header .section-tag {
+    margin: 0 auto 12px auto !important;
+  }
+}
+
+
+/* =====================================================
+   WHY CHOOSE US TAG — FORCE CENTER
+===================================================== */
+
+.why-section .why-left {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.why-section .why-left .section-tag {
+  align-self: center !important;
+  margin: 0 0 20px 0 !important;
+}
+
+.why-section .why-left h2,
+.why-section .why-left p,
+.why-section .why-left .why-list {
+  align-self: stretch !important;
+  text-align: left !important;
+}
+
+/* =====================================================
+   TESTIMONIALS TAG — FORCE CENTER
+===================================================== */
+
+.testimonial-section .testimonial-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.testimonial-section .testimonial-header .section-tag {
+  align-self: center !important;
+  margin: 0 0 20px 0 !important;
+}
+
+.testimonial-section .testimonial-header h2 {
+  align-self: center !important;
+  text-align: center !important;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+  .testimonial-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .testimonial-header .section-tag {
+    align-self: center !important;
+  }
+}

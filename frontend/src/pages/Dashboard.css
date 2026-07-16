@@ -2,7 +2,7 @@
 
 .dashboard-container {
   max-width: 1200px;
-  margin: 120px auto;
+  margin: 10px auto;
   padding: 20px;
   min-height: 60vh;
 }
@@ -349,7 +349,7 @@
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .dashboard-container {
-    margin: 100px auto;
+    margin: 30px auto;
     padding: 16px;
   }
 

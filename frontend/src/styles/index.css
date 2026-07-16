@@ -69,7 +69,40 @@ img {
 
 
 
+/* ============================================================
+   MINIMAL FIX - Moving Logos Background
+   ============================================================ */
 
+/* Ensure app shell has proper stacking context */
+/* .app-shell {
+  position: relative;
+  isolation: isolate;
+} */
+
+/* Main content - above logos */
+/* .app-main {
+  position: relative;
+  z-index: 1;
+} */
+
+/* Navbar - above everything */
+/* .navbar,
+.navbar-wrapper,
+nav {
+  position: relative;
+  z-index: 1000;
+} */
+
+/* Footer - above logos */
+/* footer {
+  position: relative;
+  z-index: 1;
+} */
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  /* Adjust logo container for mobile if needed */
+}
 
 
 

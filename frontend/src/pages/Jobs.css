@@ -23,7 +23,7 @@ body {
   padding: 0 20px 40px;
   position: relative;
   overflow: hidden;
-  padding-top: 110px; /* Increased to clear fixed navbar (74px height + 20px top offset + safe gap) */
+  padding-top: 10px; /* Increased to clear fixed navbar (74px height + 20px top offset + safe gap) */
 }
 
 /* ============================================
@@ -1485,7 +1485,7 @@ body {
 @media (max-width: 768px) {
   .page-wrapper {
     padding: 0 12px 30px;
-    padding-top: 100px;
+    padding-top: 10px;
   }
 
   .jobs-hero {
@@ -1852,7 +1852,7 @@ body {
    ============================================ */
 @media (max-width: 480px) {
   .page-wrapper {
-    padding-top: 100px;
+    padding-top: 10px;
   }
 
   .jobs-hero h1 {

@@ -1,0 +1,278 @@
+/* =====================================================
+   TRUSTED COMPANIES - PREMIUM MARQUEE
+===================================================== */
+
+.trusted-companies {
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  padding: 10px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.trusted-container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* =====================================================
+   HEADING WITH ACCENT LINE
+===================================================== */
+
+.trusted-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #444;
+  letter-spacing: 1.5px;
+  text-align: center;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+  padding: 0 20px;
+  padding-top: 120px;
+}
+
+.trusted-heading-wrapper {
+  text-align: center;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.trusted-heading-wrapper::before,
+.trusted-heading-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ddd);
+}
+
+.trusted-heading-wrapper::before {
+  left: 0;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, transparent, #ddd);
+}
+
+.trusted-heading-wrapper::after {
+  right: 0;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, #ddd, transparent);
+}
+
+/* =====================================================
+   MARQUEE WRAPPER
+===================================================== */
+
+.trusted-marquee-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* =====================================================
+   MARQUEE TRACK
+===================================================== */
+
+.trusted-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 70px;
+  width: max-content;
+  animation: trustedMarqueeScroll 40s linear infinite;
+  will-change: transform;
+}
+
+/* =====================================================
+   LOGO ITEMS
+===================================================== */
+
+.trusted-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 70px;
+  padding: 0 10px;
+  transition: transform 0.3s ease;
+  cursor: default;
+}
+
+/* =====================================================
+   LOGO IMAGES
+===================================================== */
+
+.trusted-logo-image {
+  height: 152px;
+  width: auto;
+  max-width: 250px;
+  object-fit: contain;
+  opacity: 0.9;
+  filter: none;
+  transition: all 0.3s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* =====================================================
+   HOVER EFFECTS
+===================================================== */
+
+.trusted-logo-item:hover {
+  transform: scale(1.08);
+}
+
+.trusted-logo-item:hover .trusted-logo-image {
+  opacity: 1;
+}
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes trustedMarqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* =====================================================
+   TABLET VIEW
+===================================================== */
+
+@media (max-width: 992px) {
+  .trusted-companies {
+    padding: 10px 0;
+  }
+
+  .trusted-container {
+    max-width: 960px;
+  }
+
+  .trusted-heading {
+    font-size: 18px;
+    letter-spacing: 1.2px;
+    padding-top: 110px;
+  }
+
+  .trusted-heading-wrapper::before,
+  .trusted-heading-wrapper::after {
+    width: 40px;
+  }
+
+  .trusted-marquee-track {
+    gap: 55px;
+  }
+
+  .trusted-logo-item {
+    height: 60px;
+  }
+
+  .trusted-logo-image {
+    height: 136px;
+    max-width: 120px;
+    opacity: 0.85;
+  }
+}
+
+/* =====================================================
+   MOBILE VIEW
+===================================================== */
+
+@media (max-width: 768px) {
+  .trusted-companies {
+    padding: 8px 0;
+    padding-top: 10px;
+  }
+
+  .trusted-container {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+
+  .trusted-heading {
+    font-size: 15px;
+    letter-spacing: 1px;
+    padding: 0 10px;
+    padding-top: 110px;
+  }
+
+  .trusted-heading-wrapper::before,
+  .trusted-heading-wrapper::after {
+    width: 25px;
+  }
+
+  .trusted-marquee-track {
+    gap: 40px;
+    animation-duration: 35s;
+  }
+
+  .trusted-logo-item {
+    height: 50px;
+    padding: 0 8px;
+  }
+
+  .trusted-logo-image {
+    height: 108px;
+    max-width: 120px;
+    opacity: 0.8;
+  }
+}
+
+/* =====================================================
+   SMALL MOBILE VIEW
+===================================================== */
+
+@media (max-width: 480px) {
+  .trusted-heading {
+    font-size: 13px;
+    letter-spacing: 0.8px;
+    padding-top: 100px;
+  }
+
+  .trusted-heading-wrapper::before,
+  .trusted-heading-wrapper::after {
+    width: 15px;
+  }
+
+  .trusted-marquee-track {
+    gap: 30px;
+    animation-duration: 30s;
+  }
+
+  .trusted-logo-item {
+    height: 45px;
+    padding: 0 5px;
+  }
+
+  .trusted-logo-item:hover {
+    transform: scale(1.05);
+  }
+
+  .trusted-logo-image {
+    height: 83px;
+    max-width: 165px;
+  }
+}
+
+/* =====================================================
+   REDUCED MOTION ACCESSIBILITY
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .trusted-marquee-track {
+    animation: none;
+    gap: 30px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

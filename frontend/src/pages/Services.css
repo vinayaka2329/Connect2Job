@@ -5,7 +5,7 @@
 .services-hero {
   width: min(900px, 92%);
   margin: 0 auto;
-  padding: 125px 0 80px;
+  padding: 35px 0 80px;
   text-align: center;
   position: relative; /* anchor mascots */
   overflow: visible;
@@ -373,7 +373,7 @@
 
 @media (max-width: 768px) {
   .services-hero {
-    padding: 120px 0 60px;
+    padding: 20px 0 60px;
   }
 
   .hero-stats {
@@ -414,7 +414,7 @@
 
 @media (max-width: 480px) {
   .services-hero {
-    padding: 100px 0 60px;
+    padding: 10px 0 60px;
   }
   .services-hero h1 {
     font-size: 2.5rem;
