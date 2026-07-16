@@ -816,17 +816,17 @@ if (selectedJob?.logoUrl) {
         <div className="hero-stats">
 
           <div>
-            <h2><AnimatedCounter value={`${visibleCount}+`} /></h2>
+            <h2><AnimatedCounter value={`${visibleCount}+`} ready={!loading} animateOnValueChange={false} /></h2>
             <span>Available Jobs</span>
           </div>
 
           <div>
-            <h2><AnimatedCounter value="500+" /></h2>
+            <h2><AnimatedCounter value="500+" ready={!loading} animateOnValueChange={false} /></h2>
             <span>Companies</span>
           </div>
 
           <div>
-            <h2><AnimatedCounter value={favoriteJobs.length} /></h2>
+            <h2><AnimatedCounter value={favoriteJobs.length} ready={!loading} animateOnValueChange={false} /></h2>
             <span>Favorites</span>
           </div>
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function AnimatedCounter({ value }) {
+export default function AnimatedCounter({ value, animateOnValueChange = true, ready = true }) {
   const [count, setCount] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
   const elementRef = useRef(null);
@@ -28,12 +28,22 @@ export default function AnimatedCounter({ value }) {
 
   useEffect(() => {
     if (prevValueRef.current !== value) {
+      const { target } = parseValue(value);
+
+      if (hasAnimated && !animateOnValueChange) {
+        setCount(target);
+        prevValueRef.current = value;
+        return;
+      }
+
       setHasAnimated(false);
       prevValueRef.current = value;
     }
-  }, [value]);
+  }, [value, hasAnimated, animateOnValueChange]);
 
   useEffect(() => {
+    if (!ready) return;
+
     const { target } = parseValue(value);
 
     // Reduced motion support
@@ -91,7 +101,7 @@ export default function AnimatedCounter({ value }) {
     }
 
     return () => observer.disconnect();
-  }, [value, hasAnimated]);
+  }, [value, hasAnimated, ready]);
 
   const { prefix, suffix } = parseValue(value);
   const formattedVal = count.toLocaleString();
