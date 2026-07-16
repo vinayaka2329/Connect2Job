@@ -1,13 +1,15 @@
 import "./Navbar.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Menu, X, User, ArrowRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 import logo from "../../images/image.png";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navbarRef = useRef(null);
+  const mobileMenuRef = useRef(null);
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -27,11 +29,27 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleOutsidePointerDown = (event) => {
+      const clickedNavbar = navbarRef.current?.contains(event.target);
+      const clickedMenu = mobileMenuRef.current?.contains(event.target);
+
+      if (!clickedNavbar && !clickedMenu) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", handleOutsidePointerDown);
+    return () => document.removeEventListener("pointerdown", handleOutsidePointerDown);
+  }, [menuOpen]);
+
   const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
-      <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <header ref={navbarRef} className={`navbar ${scrolled ? "scrolled" : ""}`}>
 
         <Link to="/" className="logo" onClick={closeMenu}>
           {/* Desktop logo */}
@@ -147,7 +165,7 @@ export default function Navbar() {
       </header>
 
       {menuOpen && (
-        <div className="mobile-menu">
+        <div ref={mobileMenuRef} className="mobile-menu">
 
           <NavLink to="/" onClick={closeMenu}>Home</NavLink>
           <NavLink to="/jobs" onClick={closeMenu}>Jobs</NavLink>
