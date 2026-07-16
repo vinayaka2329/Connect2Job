@@ -21,6 +21,7 @@ import TrustedCompanies from "./components/TrustedCompanies";
 function AppContent() {
   const { toast } = useAppContext();
   const location = useLocation();
+  const isAuthOrProfileRoute = ["/login", "/register", "/profile"].includes(location.pathname);
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true, offset: 100 });
@@ -49,12 +50,12 @@ function AppContent() {
   }, [location.pathname]);
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell${isAuthOrProfileRoute ? " auth-profile-route" : ""}`}>
       <Navbar />
 
-      <TrustedCompanies />
+      <TrustedCompanies className={isAuthOrProfileRoute ? "auth-profile-route" : ""} />
       
-      <main className="app-main">
+      <main className={`app-main${isAuthOrProfileRoute ? " auth-profile-main" : ""}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

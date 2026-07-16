@@ -177,7 +177,7 @@
   }
 
   .trusted-logo-image {
-    height: 152px;
+    height: 132px;
     max-width: 250px;
     opacity: 0.85;
   }
@@ -221,7 +221,7 @@
   }
 
   .trusted-logo-image {
-    height: 152px;
+    height: 138px;
     max-width: 250px;
     opacity: 0.8;
   }
@@ -274,5 +274,11 @@
     width: 100%;
     flex-wrap: wrap;
     justify-content: center;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 1024px) {
+  .trusted-companies.auth-profile-route {
+    display: none;
   }
 }

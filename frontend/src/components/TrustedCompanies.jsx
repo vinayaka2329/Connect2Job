@@ -1,7 +1,7 @@
 import React from 'react';
 import './TrustedCompanies.css';
 
-const TrustedCompanies = () => {
+const TrustedCompanies = ({ className = "" }) => {
   // List of company logos
   const logos = [
     { id: 1, name: 'TCS', src: '/images/tcs.png' },
@@ -21,14 +21,14 @@ const TrustedCompanies = () => {
     { id: 15, name: 'Dell', src: '/images/dell.png' },
     { id: 16, name: 'Deloitte', src: '/images/deloitte.png' },
     { id: 17, name: 'EY', src: '/images/ey.png' },
-    { id: 18, name: 'TCS', src: '/images/tcs2.png' }
+    // { id: 18, name: 'TCS', src: '/images/tcs2.png' }
   ];
 
   // Duplicate logos for seamless infinite scroll
   const doubledLogos = [...logos, ...logos];
 
   return (
-    <section className="trusted-companies">
+    <section className={`trusted-companies ${className}`.trim()}>
       <div className="trusted-container">
         <div className="trusted-heading-wrapper">
           <h2 className="trusted-heading">Trusted by Leading Companies</h2>
