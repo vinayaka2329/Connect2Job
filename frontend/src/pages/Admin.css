@@ -765,7 +765,7 @@
 ====================================================== */
 @media (max-width: 768px) {
     .admin-page {
-        padding: 120px 0 40px;
+        padding: 10px 0 40px;
         min-height: auto;
     }
 

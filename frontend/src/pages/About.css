@@ -528,7 +528,7 @@
 
 @media (max-width: 768px) {
   .about-page {
-    padding-top: 10px;
+    padding-top: 0px;
   }
   
   .page-hero {

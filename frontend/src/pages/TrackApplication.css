@@ -425,7 +425,7 @@
 
 @media (max-width: 768px) {
   .track-page {
-    padding: 20px 16px 60px;
+    padding: 0px 16px 60px;
   }
 
   .track-hero h1 {

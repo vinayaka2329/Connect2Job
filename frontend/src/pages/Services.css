@@ -414,7 +414,7 @@
 
 @media (max-width: 480px) {
   .services-hero {
-    padding: 10px 0 60px;
+    padding: 0px 0 60px;
   }
   .services-hero h1 {
     font-size: 2.5rem;

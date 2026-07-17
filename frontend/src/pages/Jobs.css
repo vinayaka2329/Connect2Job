@@ -1852,7 +1852,7 @@ body {
    ============================================ */
 @media (max-width: 480px) {
   .page-wrapper {
-    padding-top: 10px;
+    padding-top: 0px;
   }
 
   .jobs-hero h1 {
