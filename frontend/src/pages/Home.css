@@ -1558,7 +1558,7 @@
 /* Mobile Small (400px) */
 @media (max-width: 400px) {
   .hero-section {
-    padding: 10px 0 20px;
+    padding: 0px 0 20px;
   }
   
   .hero-left h1 {

@@ -38,7 +38,7 @@
 .trusted-heading-wrapper {
   text-align: center;
   position: relative;
-  margin-bottom: 12px;
+  margin-bottom: 0px;
 }
 
 .trusted-heading-wrapper::before,
@@ -256,8 +256,8 @@
   }
 
   .trusted-logo-image {
-    height: 83px;
-    max-width: 165px;
+    height: 210px;
+    max-width: 145px;
   }
 }
 
