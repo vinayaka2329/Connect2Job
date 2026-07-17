@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Mail,
   MapPin,
@@ -14,6 +14,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 import { useAppContext } from "../context/AppContext";
+import { useAuth } from "../context/AuthContext";
 import { api } from "../services/api";
 import footerLogo from "../../images/image.png";
 import boyCharacter from "../../images/c2j boy.png";
@@ -30,10 +31,18 @@ const socialLinks = [
 
 export default function Footer() {
   const { showToast } = useAppContext();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
 
   const handleSubscribe = async (event) => {
     event.preventDefault();
+
+    if (!isAuthenticated) {
+      showToast("Please login to subscribe.", "warning");
+      navigate("/login");
+      return;
+    }
 
     if (!email.trim()) {
       showToast("Please enter an email address", "error");

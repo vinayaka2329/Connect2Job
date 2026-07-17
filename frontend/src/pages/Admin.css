@@ -6,12 +6,20 @@
    PAGE SECTION
 ====================================================== */
 .admin-page {
-    padding: 120px 0 60px;
+    padding: 40px 0 60px;
     background: #f8fafc;
     min-height: auto;
     height: auto;
     position: relative;
     overflow: visible !important;
+}
+
+.admin-page [data-aos],
+.admin-page .aos-init,
+.admin-page .aos-animate {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
 }
 
 .admin-page .container {
@@ -1527,5 +1535,167 @@
 
   .admin-table-wrap::-webkit-scrollbar {
     height: 9px;
+  }
+}
+
+/* =====================================================
+   FINAL ALIGNMENT PASS - COMPACT ADAPTIVE TABLES
+===================================================== */
+
+.admin-table-container {
+  overflow: hidden !important;
+}
+
+.admin-table-header {
+  gap: 12px !important;
+  padding: 16px 22px !important;
+}
+
+.admin-search-bar {
+  padding: 14px 22px !important;
+}
+
+.admin-table-wrap {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+}
+
+.admin-table {
+  width: 100% !important;
+  min-width: 100% !important;
+  overflow: visible !important;
+}
+
+.admin-table table {
+  width: 100% !important;
+  min-width: 0 !important;
+  table-layout: auto !important;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 10px 12px !important;
+  line-height: 1.35 !important;
+}
+
+.admin-table th {
+  font-size: 0.72rem !important;
+}
+
+.admin-table td {
+  font-size: 0.84rem !important;
+}
+
+.admin-table-applications .admin-table table {
+  min-width: 1260px !important;
+}
+
+.admin-table-pendingjobs .admin-table table {
+  min-width: 1040px !important;
+}
+
+.admin-table-users .admin-table table {
+  min-width: 980px !important;
+}
+
+.admin-table-postedjobs .admin-table table,
+.admin-table-contacts .admin-table table {
+  min-width: 860px !important;
+}
+
+.admin-table-subscribers .admin-table table {
+  min-width: 0 !important;
+}
+
+.admin-table th:last-child,
+.admin-table td:last-child {
+  width: auto !important;
+  min-width: 0 !important;
+  white-space: nowrap !important;
+}
+
+.admin-table-applications .admin-table th:last-child,
+.admin-table-applications .admin-table td:last-child {
+  min-width: 205px !important;
+  width: 205px !important;
+}
+
+.admin-table-pendingjobs .admin-table th:last-child,
+.admin-table-pendingjobs .admin-table td:last-child {
+  min-width: 210px !important;
+  width: 210px !important;
+}
+
+.admin-action-buttons {
+  gap: 5px !important;
+  min-width: 0 !important;
+  width: max-content !important;
+}
+
+.admin-action-buttons .admin-btn,
+.admin-table td .admin-btn,
+.admin-resume-btn,
+.admin-delete-btn {
+  min-height: 30px !important;
+  padding: 5px 9px !important;
+  font-size: 0.7rem !important;
+  border-radius: 8px !important;
+  white-space: nowrap !important;
+}
+
+.admin-company-logo,
+.admin-user-avatar {
+  width: 34px !important;
+  height: 34px !important;
+}
+
+.admin-status-badge,
+.admin-role-badge {
+  padding: 3px 10px !important;
+  font-size: 0.66rem !important;
+}
+
+.admin-table td:nth-child(3),
+.admin-table td:nth-child(4),
+.admin-table td:nth-child(5) {
+  max-width: 220px;
+}
+
+.admin-table td {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 768px) {
+  .admin-table-header,
+  .admin-search-bar {
+    padding: 14px 16px !important;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 8px 10px !important;
+  }
+
+  .admin-table-applications .admin-table table {
+    min-width: 1160px !important;
+  }
+
+  .admin-table-pendingjobs .admin-table table {
+    min-width: 980px !important;
+  }
+
+  .admin-table-users .admin-table table {
+    min-width: 900px !important;
+  }
+
+  .admin-table-postedjobs .admin-table table,
+  .admin-table-contacts .admin-table table {
+    min-width: 780px !important;
+  }
+
+  .admin-table-subscribers .admin-table table {
+    min-width: 560px !important;
   }
 }

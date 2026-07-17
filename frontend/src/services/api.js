@@ -16,6 +16,11 @@ const handleResponse = async (response) => {
 };
 
 export const api = {
+  get: async (path) => {
+    const response = await fetch(`${API_URL}${path}`);
+    return handleResponse(response);
+  },
+
   // =========================
   // CONTACTS
   // =========================

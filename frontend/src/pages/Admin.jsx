@@ -591,8 +591,8 @@ export default function Admin() {
 
   return (
     <section className="admin-page">
-      <div className="admin-container" data-aos="fade-up">
-        <div className="admin-dashboard" data-aos="fade-up">
+      <div className="admin-container">
+        <div className="admin-dashboard">
           <div className="admin-header">
             <div>
               <h1>📊 <span className="admin-highlight">Admin</span> Dashboard</h1>
@@ -729,7 +729,7 @@ export default function Admin() {
           </div>
 
           {/* ===== STATS ===== */}
-          <div className="admin-stats" data-aos="fade-up" data-aos-delay="100">
+          <div className="admin-stats">
             <div className="admin-stat-card">
               <div className="admin-stat-icon"><i className="fas fa-briefcase"></i></div>
               <div className="admin-stat-number"><AnimatedCounter value={applicationsCount} /></div>
@@ -773,7 +773,7 @@ export default function Admin() {
           </div>
 
           {/* ===== TABLE ===== */}
-          <div className="admin-table-container" data-aos="fade-up" data-aos-delay="200">
+          <div className={`admin-table-container admin-table-${activeTable}`}>
             <div className="admin-table-header">
               <h3 id="tableTitle">{sectionTitle}</h3>
               <div className="admin-table-tabs">
@@ -1121,4 +1121,4 @@ export default function Admin() {
       )}
     </section>
   );
-}
+}
