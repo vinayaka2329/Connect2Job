@@ -292,7 +292,7 @@
   .auth-card {
     padding: 35px 30px !important;
     margin: 0 auto !important;
-    transform: translateY(-40px) !important;
+    transform: translateY(-90px) !important;
     z-index: 10 !important;
     position: relative !important;
   }
@@ -307,16 +307,16 @@
     display: block !important;
     position: absolute !important;
     top: 50% !important;
-    transform: translateY(-50%) translateY(-40px) !important;
+    transform: translateY(-50%) translateY(-90px) !important;
     z-index: 0 !important;
   }
 
   .auth-mascot-left {
-    left: 20px !important;
+    left: calc(50% - 595px) !important; /* perfectly aligned next to card with 10px gap, no overlap */
   }
 
   .auth-mascot-right {
-    right: 20px !important;
+    right: calc(50% - 595px) !important; /* perfectly aligned next to card with 10px gap, no overlap */
   }
 
   /* Trusted Companies overrides ONLY for login & register page */
@@ -356,7 +356,7 @@
 
   .auth-card {
     padding: 25px 20px !important;
-    transform: translateY(-20px) !important;
+    transform: translateY(-75px) !important;
   }
 
   .auth-card h1 {
@@ -377,11 +377,20 @@
   .auth-card button {
     padding: 13px !important;
     font-size: 15px !important;
+    margin-top: 5px !important;
   }
 
   .auth-mascot {
     width: 280px !important;
-    transform: translateY(-50%) translateY(-20px) !important;
+    transform: translateY(-50%) translateY(-75px) !important;
+  }
+
+  .auth-mascot-left {
+    left: calc(50% - 525px) !important;
+  }
+
+  .auth-mascot-right {
+    right: calc(50% - 525px) !important;
   }
 }
 
