@@ -274,3 +274,33 @@
     justify-content: center;
   }
 }
+
+/* =====================================================
+   AUTH ROUTE OVERRIDES
+   When TrustedCompanies renders on /login or /register,
+   the .trusted-heading padding-top (used as navbar spacer
+   on regular pages) must be removed — auth pages handle
+   navbar clearance via the fixed navbar height directly.
+===================================================== */
+
+.trusted-companies.auth-page-route .trusted-heading {
+  padding-top: 0;
+}
+
+@media (max-width: 992px) {
+  .trusted-companies.auth-page-route .trusted-heading {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .trusted-companies.auth-page-route .trusted-heading {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .trusted-companies.auth-page-route .trusted-heading {
+    padding-top: 0;
+  }
+}
