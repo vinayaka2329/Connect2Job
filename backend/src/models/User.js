@@ -24,6 +24,19 @@ const UserSchema = new mongoose.Schema(
       enum: ["user", "employer", "admin"],
       default: "user",
     },
+    // === NEW FIELDS ===
+    phone: {
+      type: String,
+      default: "",
+    },
+    location: {
+      type: String,
+      default: "",
+    },
+    // resume: {
+    //   type: String,       // URL or file path – set elsewhere
+    //   default: "",
+    // },
   },
   {
     timestamps: true,

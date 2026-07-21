@@ -26,7 +26,7 @@
 
 // //   const handleSubmit = async (event) => {
 // //     event.preventDefault();
-    
+
 // //     // Validate required fields
 // //     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
 // //       showToast('Please fill in all required fields.', 'error');
@@ -52,7 +52,7 @@
 
 // //     try {
 // //       console.log('📤 Sending contact data:', contactData);
-      
+
 // //       const response = await api.sendContact(contactData);
 // //       console.log('✅ Response received:', response);
 
@@ -120,7 +120,7 @@
 // //                 Send a <span className="highlight">Message</span>
 // //               </h2>
 // //               <p className="form-subtitle">Fill out the form below and we'll respond as soon as possible.</p>
-              
+
 // //               <form onSubmit={handleSubmit}>
 // //                 <div className="form-row">
 // //                   <div className="form-group">
@@ -235,7 +235,7 @@
 
 //   const handleSubmit = async (event) => {
 //     event.preventDefault();
-    
+
 //     // Validate required fields
 //     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
 //       showToast('Please fill in all required fields.', 'error');
@@ -261,7 +261,7 @@
 
 //     try {
 //       console.log('📤 Sending contact data:', contactData);
-      
+
 //       const response = await api.sendContact(contactData);
 //       console.log('✅ Response received:', response);
 
@@ -341,7 +341,7 @@
 //               <p className="form-subtitle">
 //                 Have a question, need hiring assistance, or want to post a job? We're here to help.
 //               </p>
-              
+
 //               <form onSubmit={handleSubmit}>
 //                 <div className="form-row">
 //                   <div className="form-group">
@@ -468,7 +468,7 @@
 //     </>
 //   );
 
-  
+
 // }
 
 // src/pages/Contact.jsx
@@ -485,13 +485,13 @@ export default function Contact() {
   const { showToast } = useAppContext();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  
-  const [form, setForm] = useState({ 
-    name: '', 
-    email: '', 
-    phone: '', 
+
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
     subject: '',
-    message: '' 
+    message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -502,14 +502,14 @@ export default function Contact() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     // ✅ PROTECTED: Check authentication before submitting
     if (!isAuthenticated) {
       showToast("Please login to send a message.", "warning");
       navigate("/login");
       return;
     }
-    
+
     // Validate required fields
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       showToast('Please fill in all required fields.', 'error');
@@ -535,7 +535,7 @@ export default function Contact() {
 
     try {
       console.log('📤 Sending contact data:', contactData);
-      
+
       const response = await api.sendContact(contactData);
       console.log('✅ Response received:', response);
 
@@ -585,9 +585,29 @@ export default function Contact() {
                   <div className="icon-box">
                     <i className={item.icon} />
                   </div>
+
                   <div className="detail-text">
                     <h4>{item.label}</h4>
-                    <p>{item.value}</p>
+
+                    {item.label === "Email" ? (
+                      <a
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=hr@connect2future.com&su=Inquiry%20from%20Connect2Job%20Website"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="contact-email-link"
+                      >
+                        {item.value}
+                      </a>
+                    ) : item.label === "Phone" ? (
+                      <a
+                        href="tel:+917019045849"
+                        className="contact-phone-link"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p>{item.value}</p>
+                    )}
                   </div>
                 </div>
               ))}
@@ -612,7 +632,7 @@ export default function Contact() {
               <p className="form-subtitle">
                 Have a question, need hiring assistance, or want to post a job? We're here to help.
               </p>
-              
+
               <form onSubmit={handleSubmit}>
                 <div className="form-row">
                   <div className="form-group">
@@ -674,8 +694,8 @@ export default function Contact() {
                   />
                 </div>
 
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className="contact-submit-btn"
                   disabled={isSubmitting}
                 >

@@ -2,6 +2,8 @@
 export const API_URL =
   import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
+const TOKEN_KEY = "connect2job_token"; // ← consistent with authService
+
 const handleResponse = async (response) => {
   const data = await response.json().catch(() => ({}));
 
@@ -17,7 +19,31 @@ const handleResponse = async (response) => {
 
 export const api = {
   get: async (path) => {
-    const response = await fetch(`${API_URL}${path}`);
+    const token = localStorage.getItem(TOKEN_KEY);
+    const headers = {};
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+    const response = await fetch(`${API_URL}${path}`, { headers });
+    return handleResponse(response);
+  },
+
+  put: async (path, data) => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    console.log("Token being sent:", token);
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    const response = await fetch(`${API_URL}${path}`, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify(data),
+    });
+
     return handleResponse(response);
   },
 
@@ -31,9 +57,9 @@ export const api = {
 
   sendContact: async (contactData) => {
     const response = await fetch(`${API_URL}/contacts`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(contactData),
     });
@@ -42,12 +68,9 @@ export const api = {
   },
 
   deleteContact: async (id) => {
-    const response = await fetch(
-      `${API_URL}/contacts/${id}`,
-      {
-        method: 'DELETE',
-      }
-    );
+    const response = await fetch(`${API_URL}/contacts/${id}`, {
+      method: "DELETE",
+    });
 
     return handleResponse(response);
   },
@@ -100,19 +123,16 @@ export const api = {
 
   deleteJob: async (id) => {
     const response = await fetch(`${API_URL}/jobs/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
 
     return handleResponse(response);
   },
 
   approveJob: async (id) => {
-    const response = await fetch(
-      `${API_URL}/jobs/${id}/approve`,
-      {
-        method: 'PUT',
-      }
-    );
+    const response = await fetch(`${API_URL}/jobs/${id}/approve`, {
+      method: "PUT",
+    });
 
     return handleResponse(response);
   },
@@ -126,39 +146,30 @@ export const api = {
   },
 
   deleteApplication: async (id) => {
-    const response = await fetch(
-      `${API_URL}/applications/${id}`,
-      {
-        method: 'DELETE',
-      }
-    );
+    const response = await fetch(`${API_URL}/applications/${id}`, {
+      method: "DELETE",
+    });
 
     return handleResponse(response);
   },
 
   applyForJob: async (applicationData) => {
-    const response = await fetch(
-      `${API_URL}/applications`,
-      {
-        method: 'POST',
-        body: applicationData,
-      }
-    );
+    const response = await fetch(`${API_URL}/applications`, {
+      method: "POST",
+      body: applicationData,
+    });
 
     return handleResponse(response);
   },
 
   updateApplicationStatus: async (id, status) => {
-    const response = await fetch(
-      `${API_URL}/applications/${id}/status`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status }),
-      }
-    );
+    const response = await fetch(`${API_URL}/applications/${id}/status`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status }),
+    });
 
     return handleResponse(response);
   },
@@ -179,17 +190,14 @@ export const api = {
     return handleResponse(response);
   },
 
-  //=============DELETE USER===========//
-  //=============DELETE USER===========//
-deleteUser: async (id, force = false) => {
-  const response = await fetch(
-    `${API_URL}/auth/users/${id}?force=${force}`,
-    {
-      method: "DELETE",
-    }
-  );
+  deleteUser: async (id, force = false) => {
+    const response = await fetch(
+      `${API_URL}/auth/users/${id}?force=${force}`,
+      {
+        method: "DELETE",
+      }
+    );
 
-  return handleResponse(response);
-},
-
+    return handleResponse(response);
+  },
 };

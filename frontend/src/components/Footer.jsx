@@ -111,7 +111,17 @@ export default function Footer() {
             <ul>
               <li><MapPin size={18} /> Mysuru, India</li>
               <li><Phone size={18} /> +91 70190 45849</li>
-              <li><Mail size={18} /> hr@connect2future.com</li>
+              <li>
+                <Mail size={18} />
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=hr@connect2future.com&su=Inquiry%20from%20Connect2Job%20Website"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-email"
+                >
+                  hr@connect2future.com
+                </a>
+              </li>
             </ul>
           </div>
         </div>

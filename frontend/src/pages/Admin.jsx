@@ -57,7 +57,6 @@ export default function Admin() {
     subscribers: true,
   });
 
-
   const [dashboardData, setDashboardData] = useState({
     applications: [],
     postedJobs: [],
@@ -354,9 +353,10 @@ export default function Admin() {
         ]);
         break;
       case 'users':
-        headers = ['Name', 'Email', 'Role', 'Joined Date'];
+        headers = ['Name', 'Email', 'Phone', 'Location', 'Role', 'Joined Date'];
         rows = data.map((item) => [
-          item.name || '', item.email || '', item.role || 'User',
+          item.name || '', item.email || '', item.phone || '', item.location || '',
+          item.role || 'User',
           item.createdAt ? new Date(item.createdAt).toLocaleDateString() : '',
         ]);
         break;
@@ -574,12 +574,24 @@ export default function Admin() {
     let items = tableItems;
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
-      items = items.filter((item) =>
-        (item.applicantName || item.name || '').toLowerCase().includes(q) ||
-        (item.applicantEmail || item.email || '').toLowerCase().includes(q) ||
-        (item.jobTitle || item.title || '').toLowerCase().includes(q) ||
-        (item.company || '').toLowerCase().includes(q)
-      );
+      items = items.filter((item) => {
+        // For users table we search in name, email, phone, location
+        if (activeTable === 'users') {
+          return (
+            (item.name || '').toLowerCase().includes(q) ||
+            (item.email || '').toLowerCase().includes(q) ||
+            (item.phone || '').toLowerCase().includes(q) ||
+            (item.location || '').toLowerCase().includes(q)
+          );
+        }
+        // For other tables
+        return (
+          (item.applicantName || item.name || '').toLowerCase().includes(q) ||
+          (item.applicantEmail || item.email || '').toLowerCase().includes(q) ||
+          (item.jobTitle || item.title || '').toLowerCase().includes(q) ||
+          (item.company || '').toLowerCase().includes(q)
+        );
+      });
     }
     if (activeTable === 'applications' && statusFilter !== 'all') {
       items = items.filter(
@@ -792,7 +804,7 @@ export default function Admin() {
                 <i className="fas fa-search admin-search-icon"></i>
                 <input
                   type="text"
-                  placeholder="Search by name, email, job title, company..."
+                  placeholder="Search by name, email, phone, location..."
                   value={searchQuery}
                   onChange={(e) => { setSearchQuery(e.target.value); }}
                   className="admin-search-input"
@@ -862,17 +874,25 @@ export default function Admin() {
                         )}
                         {activeTable === 'users' && (
                           <>
-                            <th>Profile</th><th>Full Name</th><th>Email</th><th>Applications</th>
-                            <th>Resume</th><th>Role</th><th>Registered</th><th>Action</th>
+                            {/* */}
+                            <th>Profile</th><th>Full Name</th><th>Email</th><th>Phone</th><th>Location</th>
+                            <th>Applications</th><th>Resume</th><th>Role</th><th>Registered</th><th>Action</th>
                           </>
                         )}
                       </tr>
                     </thead>
                     <tbody>
                       {activeTable === 'users' ? (
-                        getVisibleData("users", users.filter(u => !searchQuery || [
-                          u.name, u.email
-                        ].some(f => (f || '').toLowerCase().includes(searchQuery.toLowerCase())))).map((user) => {
+                        getVisibleData("users", users.filter(u => {
+                          if (!searchQuery) return true;
+                          const q = searchQuery.toLowerCase();
+                          return (
+                            (u.name || '').toLowerCase().includes(q) ||
+                            (u.email || '').toLowerCase().includes(q) ||
+                            (u.phone || '').toLowerCase().includes(q) ||
+                            (u.location || '').toLowerCase().includes(q)
+                          );
+                        })).map((user) => {
                           const applicationCount = applications.filter(
                             (app) => app.applicantEmail === user.email
                           ).length;
@@ -889,6 +909,8 @@ export default function Admin() {
                               </td>
                               <td>{user.name || 'Unknown'}</td>
                               <td>{user.email || '—'}</td>
+                              <td>{user.phone || '—'}</td>          {/* NEW */}
+                              <td>{user.location || '—'}</td>       {/* NEW */}
                               <td><strong>{applicationCount}</strong></td>
                               <td>{hasResume ? "✅ Yes" : "❌ No"}</td>
                               <td>
@@ -974,7 +996,6 @@ export default function Admin() {
                                     <button className="admin-btn admin-btn-danger" onClick={() => handleDeleteApplication(item._id)}>Delete</button>
                                   </div>
                                 </td>
-
                               </>
                             )}
                             {activeTable === 'postedjobs' && (

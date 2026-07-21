@@ -7,7 +7,7 @@ const Application = require("../models/Application");
 // ===== REGISTER =====
 router.post("/register", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, phone, location } = req.body;
 
     // Validate required fields
     if (!name || !email || !password) {
@@ -26,11 +26,13 @@ router.post("/register", async (req, res) => {
       });
     }
 
-    // Create user
+    // Create user – role defaults to "user" (defined in schema)
     const user = await User.create({
       name,
       email,
       password,
+      phone: phone || "",
+      location: location || "",
     });
 
     // Generate token
@@ -48,6 +50,9 @@ router.post("/register", async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        phone: user.phone,
+        location: user.location,
+        createdAt: user.createdAt,
       },
     });
   } catch (error) {
@@ -64,7 +69,6 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validate required fields
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -72,7 +76,6 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // Find user with password included (since select: false)
     const user = await User.findOne({ email }).select('+password');
     
     if (!user) {
@@ -82,7 +85,6 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // Check password
     const isMatch = await user.matchPassword(password);
     
     if (!isMatch) {
@@ -92,7 +94,6 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // Generate token
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
@@ -107,6 +108,9 @@ router.post("/login", async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        phone: user.phone,
+        location: user.location,
+        createdAt: user.createdAt,
       },
     });
   } catch (error) {
@@ -149,6 +153,9 @@ router.get("/me", protect, async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        phone: user.phone,
+        location: user.location,
+        createdAt: user.createdAt,
       },
     });
   } catch (error) {
@@ -174,7 +181,6 @@ router.get("/users", async (req, res) => {
     });
   } catch (error) {
     console.error("Get users error:", error);
-
     res.status(500).json({
       success: false,
       message: "Failed to fetch users",
@@ -194,15 +200,12 @@ router.delete("/users/:id", async (req, res) => {
       });
     }
 
-    // Check whether user has applications
     const applicationCount = await Application.countDocuments({
       applicantEmail: user.email,
     });
 
-    // Step 1: Read the force parameter
     const force = req.query.force === "true";
 
-    // Step 2: Replace the block with force check
     if (applicationCount > 0 && !force) {
       return res.status(409).json({
         success: false,
@@ -212,14 +215,9 @@ router.delete("/users/:id", async (req, res) => {
       });
     }
 
-    // Step 3: Before deleting - keep application history but unlink it
     await Application.updateMany(
       { applicantEmail: user.email },
-      {
-        $set: {
-          userId: null,
-        },
-      }
+      { $set: { userId: null } }
     );
 
     await User.findByIdAndDelete(req.params.id);
@@ -230,11 +228,45 @@ router.delete("/users/:id", async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
       success: false,
       message: "Server error",
     });
+  }
+});
+
+// ===== UPDATE USER PROFILE =====
+router.put("/update", protect, async (req, res) => {
+  try {
+    const { phone, location } = req.body;
+    const userId = req.user.id; // from protect middleware
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    // Update only provided fields (allow empty strings)
+    if (phone !== undefined) user.phone = phone;
+    if (location !== undefined) user.location = location;
+
+    await user.save();
+
+    res.json({
+      success: true,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        phone: user.phone,
+        location: user.location,
+        createdAt: user.createdAt,
+      },
+    });
+  } catch (error) {
+    console.error("Update user error:", error);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 });
 

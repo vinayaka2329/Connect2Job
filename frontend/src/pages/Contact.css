@@ -546,3 +546,17 @@
     padding: 20px;
   }
 }
+
+.contact-email-link,
+.contact-phone-link {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.contact-email-link:hover,
+.contact-phone-link:hover {
+  color: #ec4899; /* Connect2Job pink */
+  text-decoration: underline;
+}
