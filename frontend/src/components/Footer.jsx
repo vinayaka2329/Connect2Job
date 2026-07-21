@@ -25,7 +25,7 @@ const socialLinks = [
   { label: "Facebook", icon: FaFacebookF, href: "#" },
   { label: "Twitter", icon: FaTwitter, href: "#" },
   { label: "LinkedIn", icon: FaLinkedinIn, href: "https://www.linkedin.com/company/connect2future/" },
-  { label: "Instagram", icon: FaInstagram, href: "https://www.instagram.com/_connect2future__?utm_source=qr" },
+  { label: "Instagram", icon: FaInstagram, href: "https://www.instagram.com/the_c2f_?igsh=cDVhMTN1bmcwZzFo" },
   { label: "YouTube", icon: FaYoutube, href: "#" },
 ];
 
