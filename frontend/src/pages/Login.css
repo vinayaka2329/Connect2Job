@@ -312,11 +312,11 @@
   }
 
   .auth-mascot-left {
-    left: calc(58% - 525px) !important; /* perfectly aligned next to card with 10px gap, no overlap */
+    left: calc(54% - 525px) !important; /* perfectly aligned next to card with 10px gap, no overlap */
   }
 
   .auth-mascot-right {
-    right: calc(61% - 525px) !important; /* perfectly aligned next to card with 10px gap, no overlap */
+    right: calc(58% - 525px) !important; /* perfectly aligned next to card with 10px gap, no overlap */
   }
 
   /* Trusted Companies overrides ONLY for login & register page */
