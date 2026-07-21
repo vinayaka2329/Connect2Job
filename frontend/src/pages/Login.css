@@ -1,245 +1,416 @@
 /* ===========================
    LOGIN PAGE
-   =========================== */
+=========================== */
 
-.auth-page {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  background:
-    radial-gradient(circle at top right, rgba(236,72,153,.12), transparent 35%),
-    radial-gradient(circle at bottom left, rgba(124,58,237,.12), transparent 35%),
+.auth-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:0px;
+
+    background:
+    radial-gradient(circle at top right,
+    rgba(236,72,153,.12),
+    transparent 35%),
+
+    radial-gradient(circle at bottom left,
+    rgba(124,58,237,.12),
+    transparent 35%),
+
     #fafaff;
-  position: relative;
-  overflow: hidden;
+
+    position:relative;
+
+    overflow:hidden;
+
 }
 
-.auth-card {
-  position: relative;
-  z-index: 1;
+.auth-card{
+    position:relative;
+    z-index:1;
 }
 
-.auth-mascot {
-  position: absolute;
-  bottom: 32px;
-  width: clamp(130px, 15vw, 230px);
-  height: auto;
-  object-fit: contain;
-  pointer-events: none;
-  user-select: none;
+.auth-mascot{
+    position:absolute;
+    bottom:32px;
+    width:clamp(130px, 15vw, 230px);
+    height:auto;
+    object-fit:contain;
+    pointer-events:none;
+    user-select:none;
 }
 
-.auth-mascot-left {
-  left: clamp(20px, 8vw, 150px);
+.auth-mascot-left{
+    left:clamp(20px, 8vw, 150px);
 }
 
-.auth-mascot-right {
-  right: clamp(20px, 8vw, 150px);
+.auth-mascot-right{
+    right:clamp(20px, 8vw, 150px);
 }
 
 /* ===========================
    CARD
-   =========================== */
+=========================== */
 
-.auth-card {
-  width: 100%;
-  max-width: 470px;
-  background: #fff;
-  border-radius: 28px;
-  padding: 45px;
-  box-shadow: 0 25px 60px rgba(0,0,0,.08);
-  border: 1px solid rgba(124,58,237,.08);
+.auth-card{
+
+    width:100%;
+
+    max-width:470px;
+
+    background:#fff;
+
+    border-radius:28px;
+
+    padding:45px;
+
+    box-shadow:
+    0 25px 60px rgba(0,0,0,.08);
+
+    border:1px solid rgba(124,58,237,.08);
+
 }
 
 /* ===========================
    TITLE
-   =========================== */
+=========================== */
 
-.auth-card h1 {
-  text-align: center;
-  font-size: 42px;
-  margin-bottom: 10px;
-  color: #1f2937;
-  font-weight: 800;
+.auth-card h1{
+
+    text-align:center;
+
+    font-size:42px;
+
+    margin-bottom:10px;
+
+    color:#1f2937;
+
+    font-weight:800;
+
 }
 
-.auth-card h1::after {
-  content: "";
-  display: block;
-  width: 70px;
-  height: 4px;
-  margin: 15px auto 0;
-  border-radius: 20px;
-  background: linear-gradient(90deg, #7c3aed, #ec4899);
+.auth-card h1::after{
+
+    content:"";
+
+    display:block;
+
+    width:70px;
+
+    height:4px;
+
+    margin:15px auto 0;
+
+    border-radius:20px;
+
+    background:linear-gradient(90deg,#7c3aed,#ec4899);
+
 }
 
 /* ===========================
    FORM
-   =========================== */
+=========================== */
 
-.auth-card form {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  margin-top: 40px;
+.auth-card form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:22px;
+
+    margin-top:40px;
+
 }
 
 /* ===========================
    INPUTS
-   =========================== */
+=========================== */
 
-.auth-card input {
-  width: 100%;
-  padding: 16px 18px;
-  border-radius: 14px;
-  border: 2px solid #ececec;
-  outline: none;
-  font-size: 15px;
-  transition: .3s;
-  background: #fff;
+.auth-card input{
+
+    width:100%;
+
+    padding:16px 18px;
+
+    border-radius:14px;
+
+    border:2px solid #ececec;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    background:#fff;
+
 }
 
-.auth-card input:focus {
-  border-color: #7c3aed;
-  box-shadow: 0 0 0 5px rgba(124,58,237,.12);
+.auth-card input:focus{
+
+    border-color:#7c3aed;
+
+    box-shadow:
+    0 0 0 5px rgba(124,58,237,.12);
+
 }
 
 /* ===========================
    BUTTON
-   =========================== */
+=========================== */
 
-.auth-card button {
-  width: 100%;
-  padding: 16px;
-  border: none;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #7c3aed, #ec4899);
-  color: #fff;
-  font-size: 17px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: .35s;
+.auth-card button{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#7c3aed,#ec4899);
+
+    color:#fff;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.35s;
+
 }
 
-.auth-card button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 35px rgba(124,58,237,.35);
+.auth-card button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 18px 35px rgba(124,58,237,.35);
+
 }
 
-.auth-card button:disabled {
-  opacity: .7;
-  cursor: not-allowed;
+/* ===========================
+   DISABLED
+=========================== */
+
+.auth-card button:disabled{
+
+    opacity:.7;
+
+    cursor:not-allowed;
+
 }
 
 /* ===========================
    RESPONSIVE
-   =========================== */
+=========================== */
 
-@media (max-width: 768px) {
-  .auth-mascot {
-    display: none;
-  }
+@media(max-width:768px){
 
-  .auth-card {
-    padding: 35px 25px;
-  }
-
-  .auth-card h1 {
-    font-size: 34px;
-  }
+.auth-mascot{
+    display:none;
 }
 
-.auth-subtitle {
-  text-align: center;
-  color: #6b7280;
-  margin-top: 10px;
-  margin-bottom: 25px;
-  font-size: 15px;
+.auth-card{
+
+    padding:35px 25px;
+
 }
 
-.auth-footer {
-  margin-top: 25px;
-  text-align: center;
-  color: #6b7280;
-  font-size: 15px;
+.auth-card h1{
+
+    font-size:34px;
+
 }
 
-.auth-footer span {
-  color: #7c3aed;
-  font-weight: 700;
-  cursor: pointer;
-  transition: .3s;
 }
 
-.auth-footer span:hover {
-  color: #ec4899;
+.auth-subtitle{
+
+    text-align:center;
+
+    color:#6b7280;
+
+    margin-top:10px;
+
+    margin-bottom:25px;
+
+    font-size:15px;
+
+}
+
+.auth-footer{
+    margin-top:25px;
+    text-align:center;
+    color:#6b7280;
+    font-size:15px;
+}
+
+.auth-footer span{
+    color:#7c3aed;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.auth-footer span:hover{
+    color:#ec4899;
 }
 
 /* ===========================
-   FIX: REDUCE BOTTOM GAP ON DESKTOP
-   =========================== */
+   FIX: MOBILE DESKTOP SITE MODE
+   Targets only when Desktop Site is enabled on mobile
+   (viewport width between 500-1024px on small screens)
+=========================== */
 
-@media (min-width: 1024px) {
-  .auth-page {
-    padding-bottom: clamp(20px, 2.5vw, 40px) !important;
+@media (max-width: 1024px) and (min-width: 500px) {
+  .app-main.auth-profile-main {
+    padding-top: 110px;
   }
-}
 
-/* ===========================
-   MOBILE / TABLET OPTIMISATIONS
-   =========================== */
-
-@media (max-width: 576px) {
   .auth-page {
-    padding: 20px 12px !important;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: auto;
+    padding: 32px 20px 40px;
+    align-items: flex-start;
   }
 
   .auth-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 28px 20px !important;
-    border-radius: 24px !important;
-    margin: 0 !important;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
+    padding: 35px 30px;
+    margin: 0 auto;
   }
 
   .auth-card h1 {
-    font-size: 1.8rem !important;
-    margin-bottom: 6px !important;
+    font-size: 32px;
+  }
+}
+
+/* Additional fix for very small mobile Desktop Site mode */
+@media (max-width: 1024px) and (min-width: 500px) and (max-height: 800px) {
+  .auth-page {
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 
-  .auth-subtitle {
-    font-size: 0.9rem !important;
-    margin-bottom: 20px !important;
+  .auth-card {
+    padding: 25px 20px;
   }
 
-  .auth-card input,
-  .auth-card select {
-    padding: 14px 16px !important;
-    font-size: 1rem !important;
-    border-radius: 14px !important;
-    margin-bottom: 14px !important;
+  .auth-card h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+  }
+
+  .auth-card form {
+    gap: 15px;
+    margin-top: 25px;
+  }
+
+  .auth-card input {
+    padding: 12px 16px;
+    font-size: 14px;
   }
 
   .auth-card button {
-    padding: 14px !important;
-    font-size: 1rem !important;
-    border-radius: 14px !important;
-    margin-top: 6px !important;
+    padding: 13px;
+    font-size: 15px;
   }
+}
 
-  .auth-footer {
-    font-size: 0.9rem !important;
-    margin-top: 16px !important;
-  }
+/* ============================================================
+   AUTH ROUTES — MATCH THE HOME PAGE'S NORMAL DOCUMENT FLOW
+   ============================================================ */
 
-  .auth-mascot {
-    display: none !important;
-  }
+.app-main.auth-profile-main {
+    padding-top: 0;
+}
+
+.auth-page {
+    width: 95%;
+    max-width: 1400px;
+    min-height: 0;
+    margin: 0 auto;
+    padding: clamp(32px, 4vw, 64px) clamp(20px, 3vw, 40px) clamp(48px, 5vw, 80px);
+    display: block;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: #ffffff;
+}
+
+.auth-card {
+    width: min(100%, 470px);
+    min-width: 0;
+    margin: 0 auto;
+    padding: clamp(28px, 3vw, 45px);
+    position: relative;
+    z-index: 1;
+}
+
+.auth-mascot {
+    display: block;
+    position: absolute;
+    top: 50%;
+    bottom: auto;
+    width: clamp(135px, 16vw, 240px);
+    height: auto;
+    transform: translateY(-50%);
+    filter: drop-shadow(0 20px 35px rgba(124, 58, 237, 0.16));
+    z-index: 2;
+}
+
+.auth-mascot-left {
+    left: clamp(12px, 7vw, 130px);
+}
+
+.auth-mascot-right {
+    right: clamp(12px, 7vw, 130px);
+}
+
+@media (max-width: 1000px) {
+    .auth-mascot {
+        width: clamp(88px, 14vw, 130px);
+    }
+
+    .auth-mascot-left { left: 16px; }
+    .auth-mascot-right { right: 16px; }
+}
+
+@media (max-width: 620px) {
+    .auth-page {
+        width: 100%;
+        padding: 28px 16px 24px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 16px;
+        row-gap: 18px;
+    }
+
+    .auth-card {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        max-width: 470px;
+        width: 100%;
+        z-index: 3;
+    }
+
+    .auth-mascot {
+        position: static;
+        width: clamp(64px, 22vw, 92px);
+        transform: none;
+        justify-self: center;
+        align-self: end;
+    }
+
+    .auth-mascot-left { grid-column: 1; grid-row: 2; }
+    .auth-mascot-right { grid-column: 2; grid-row: 2; }
 }
