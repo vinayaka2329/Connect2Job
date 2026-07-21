@@ -275,54 +275,113 @@
 
 @media (max-width: 1024px) and (min-width: 500px) {
   .app-main.auth-profile-main {
-    padding-top: 110px;
+    padding-top: 0 !important;
   }
 
   .auth-page {
-    min-height: auto;
-    padding: 32px 20px 40px;
-    align-items: flex-start;
+    min-height: calc(100vh - 280px) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    background: transparent !important;
   }
 
   .auth-card {
-    padding: 35px 30px;
-    margin: 0 auto;
+    padding: 35px 30px !important;
+    margin: 0 auto !important;
+    transform: translateY(-40px) !important;
+    z-index: 10 !important;
+    position: relative !important;
   }
 
   .auth-card h1 {
-    font-size: 32px;
+    font-size: 32px !important;
+  }
+
+  .auth-mascot {
+    width: 350px !important;
+    height: auto !important;
+    display: block !important;
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) translateY(-40px) !important;
+    z-index: 0 !important;
+  }
+
+  .auth-mascot-left {
+    left: 20px !important;
+  }
+
+  .auth-mascot-right {
+    right: 20px !important;
+  }
+
+  /* Trusted Companies overrides ONLY for login & register page */
+  .trusted-companies.auth-page-route {
+    padding: 25px 0 !important;
+  }
+
+  .trusted-companies.auth-page-route .trusted-heading {
+    font-size: 22px !important;
+    letter-spacing: 1.5px !important;
+    padding-top: 105px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .trusted-companies.auth-page-route .trusted-logo-item {
+    height: 85px !important;
+  }
+
+  .trusted-companies.auth-page-route .trusted-logo-image {
+    height: 180px !important;
+    max-width: 280px !important;
+    opacity: 0.95 !important;
   }
 }
 
 /* Additional fix for very small mobile Desktop Site mode */
 @media (max-width: 1024px) and (min-width: 500px) and (max-height: 800px) {
   .auth-page {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    min-height: calc(100vh - 280px) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+    position: relative !important;
   }
 
   .auth-card {
-    padding: 25px 20px;
+    padding: 25px 20px !important;
+    transform: translateY(-20px) !important;
   }
 
   .auth-card h1 {
-    font-size: 28px;
-    margin-bottom: 5px;
+    font-size: 28px !important;
+    margin-bottom: 5px !important;
   }
 
   .auth-card form {
-    gap: 15px;
-    margin-top: 25px;
+    gap: 15px !important;
+    margin-top: 25px !important;
   }
 
   .auth-card input {
-    padding: 12px 16px;
-    font-size: 14px;
+    padding: 12px 16px !important;
+    font-size: 14px !important;
   }
 
   .auth-card button {
-    padding: 13px;
-    font-size: 15px;
+    padding: 13px !important;
+    font-size: 15px !important;
+  }
+
+  .auth-mascot {
+    width: 280px !important;
+    transform: translateY(-50%) translateY(-20px) !important;
   }
 }
 
