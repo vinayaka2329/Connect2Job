@@ -163,3 +163,48 @@ nav {
     padding-left: 0 !important;
     padding-right: 0 !important;
 } */
+
+/* ============================================================
+   AUTH PAGES – REMOVE BOTTOM GAP & FULL CENTER
+   ============================================================ */
+
+/* Force auth shell to fill viewport */
+.app-shell.auth-profile-route {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make main content area flex and centered */
+.app-shell.auth-profile-route .app-main.auth-profile-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  min-height: 0 !important;
+}
+
+/* Override auth-page to fill the flex container */
+.app-shell.auth-profile-route .auth-page {
+  flex: 1;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin: 0;
+  width: 100%;
+}
+
+/* Remove any extra spacing from TrustedCompanies on auth pages */
+.app-shell.auth-profile-route .auth-page-route {
+  margin-bottom: 0 !important;
+  padding-bottom: 4px !important;
+}
+
+/* Ensure the card is centered and no extra gap */
+.app-shell.auth-profile-route .auth-page .auth-card {
+  margin: 0 auto;
+}
