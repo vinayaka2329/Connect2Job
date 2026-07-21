@@ -21,8 +21,12 @@ import TrustedCompanies from "./components/TrustedCompanies";
 function AppContent() {
   const { toast } = useAppContext();
   const location = useLocation();
-  const isAuthOrProfileRoute = ["/login", "/register", "/profile"].includes(location.pathname);
+  
+  // Only hide footer on login/register
   const isAuthRoute = ["/login", "/register"].includes(location.pathname);
+  
+  // For shell class (still used for auth/profile styling)
+  const isAuthOrProfileRoute = ["/login", "/register", "/profile"].includes(location.pathname);
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true, offset: 100 });
@@ -54,6 +58,7 @@ function AppContent() {
     <div className={`app-shell${isAuthOrProfileRoute ? " auth-profile-route" : ""}`}>
       <Navbar />
 
+      {/* TrustedCompanies – ALWAYS visible */}
       <TrustedCompanies className={isAuthRoute ? "auth-page-route" : ""} />
       
       <main className={`app-main${isAuthOrProfileRoute ? " auth-profile-main" : ""}`}>
@@ -73,7 +78,8 @@ function AppContent() {
         </Routes>
       </main>
 
-      <Footer />
+      {/* Footer – only hidden on login/register */}
+      {!isAuthRoute && <Footer />}
       
       {toast && <Toast toast={toast} />}
     </div>
