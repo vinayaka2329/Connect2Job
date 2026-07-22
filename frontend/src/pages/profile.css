@@ -500,6 +500,12 @@
   }
 }
 
+@media (max-width: 1024px) and (min-width: 500px) {
+  .profile-page {
+    min-height: auto !important;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-content {
     flex-direction: column;
