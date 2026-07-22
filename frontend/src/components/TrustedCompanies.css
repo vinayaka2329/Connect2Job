@@ -32,7 +32,7 @@
   position: relative;
   display: inline-block;
   padding: 0 20px;
-  padding-top: 120px;
+  padding-top: 110px;
 }
 
 .trusted-heading-wrapper {
@@ -80,7 +80,7 @@
 .trusted-marquee-track {
   display: flex;
   align-items: center;
-  gap: 70px;
+  gap: 0px;
   width: max-content;
   animation: trustedMarqueeScroll 40s linear infinite;
   will-change: transform;
