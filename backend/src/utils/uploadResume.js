@@ -1,23 +1,39 @@
+// utils/uploadResume.js
 const cloudinary = require("../config/cloudinary");
 const streamifier = require("streamifier");
 
-/**
- * Uploads a PDF buffer to Cloudinary as an 'image' resource type with PDF format.
- * This avoids the 401 raw file delivery settings on Cloudinary free accounts.
- * 
- * @param {Object} file - Multer file object
- * @returns {Promise<Object>} Object containing secure_url and public_id
- */
 const uploadResume = (file) => {
   return new Promise((resolve, reject) => {
+    const mimeType = file.mimetype;
+    let resourceType = "raw";
+    let format = null;
+
+    if (mimeType === "application/pdf") {
+      resourceType = "image";
+      format = "pdf";
+    } else if (
+      mimeType === "application/msword" ||
+      mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
+      resourceType = "raw";
+      const ext = file.originalname.split('.').pop().toLowerCase();
+      format = ext; // 'doc' or 'docx'
+    } else {
+      return reject(new Error("Unsupported file type. Please upload PDF or Word document."));
+    }
+
+    const uploadOptions = {
+      folder: "Connect2Job/resumes",
+      resource_type: resourceType,
+      use_filename: true,
+      unique_filename: true,
+    };
+    if (format) uploadOptions.format = format;
+
     const uploadStream = cloudinary.uploader.upload_stream(
-      {
-        folder: "Connect2Job/resumes",
-        resource_type: "image", // Bypasses the 401 Raw security policy
-        format: "pdf",          // Ensures it stays/delivers as a PDF
-      },
+      uploadOptions,
       (error, result) => {
-        if (error) return reject(error);
+        if (error) return reject(new Error("Cloudinary upload failed: " + (error.message || "Invalid file.")));
         resolve(result);
       }
     );

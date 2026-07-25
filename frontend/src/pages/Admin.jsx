@@ -489,12 +489,25 @@ export default function Admin() {
     }
   };
 
+  // ===== UPDATED: View Resume – preview Word docs in Google Docs Viewer =====
   const handleViewResume = (application) => {
     if (!application.resumeUrl) {
       showToast("Resume URL not available", "error");
       return;
     }
-    window.open(application.resumeUrl, "_blank", "noopener,noreferrer");
+
+    const url = application.resumeUrl;
+    const fileName = application.resumeName || '';
+    const isWord = /\.(doc|docx)$/i.test(fileName) || url.includes('.doc');
+
+    if (isWord) {
+      // Open Word documents in Google Docs Viewer
+      const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
+      window.open(viewerUrl, "_blank", "noopener,noreferrer");
+    } else {
+      // PDF and other files open directly
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
   };
 
   const handleDownloadResume = async (application) => {
@@ -909,8 +922,8 @@ export default function Admin() {
                               </td>
                               <td>{user.name || 'Unknown'}</td>
                               <td>{user.email || '—'}</td>
-                              <td>{user.phone || '—'}</td>          {/* NEW */}
-                              <td>{user.location || '—'}</td>       {/* NEW */}
+                              <td>{user.phone || '—'}</td>
+                              <td>{user.location || '—'}</td>
                               <td><strong>{applicationCount}</strong></td>
                               <td>{hasResume ? "✅ Yes" : "❌ No"}</td>
                               <td>

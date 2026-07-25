@@ -37,16 +37,24 @@ router.post("/", upload.single("resume"), async (req, res) => {
 
     let uploadedResume = null;
     if (req.file) {
-      uploadedResume = await uploadResume(req.file);
+      try {
+        uploadedResume = await uploadResume(req.file);
+      } catch (fileError) {
+        // Handle file upload/processing errors (e.g., unsupported type, corrupt file)
+        return res.status(400).json({
+          success: false,
+          message: fileError.message,
+        });
+      }
     }
 
-    // ✅ NEW: Get userId from request headers or body
+    // Get userId from request headers or body
     const userId = req.body.userId || req.headers['x-user-id'] || null;
 
     const application = await Application.create({
       ...req.body,
       applicantPhone: rawPhone, // store cleaned 10-digit number
-      userId: userId,            // ✅ NEW: Link application to user account
+      userId: userId,
       logo: req.body.logo || "",
       logoUrl: req.body.logoUrl || "",
       resumeName: req.file ? req.file.originalname : "",
@@ -63,21 +71,19 @@ router.post("/", upload.single("resume"), async (req, res) => {
     console.error("Upload error:", error);
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Internal server error",
     });
   }
 });
 
 // =======================================
-// GET APPLICATION STATUS BY EMAIL (Old)
+// GET APPLICATION STATUS BY EMAIL
 // =======================================
 router.get('/status/:email', async (req, res) => {
   try {
     const applications = await Application.find({
       applicantEmail: req.params.email,
-    }).sort({
-      createdAt: -1,
-    });
+    }).sort({ createdAt: -1 });
 
     res.json({
       success: true,
@@ -95,14 +101,11 @@ router.get('/status/:email', async (req, res) => {
 // =======================================
 // GET ALL APPLICATIONS BY USER ID
 // =======================================
-// ✅ NEW: Fetch all applications linked to a user account (regardless of email used)
 router.get('/user/:userId', async (req, res) => {
   try {
     const applications = await Application.find({
       userId: req.params.userId,
-    }).sort({
-      createdAt: -1,
-    });
+    }).sort({ createdAt: -1 });
 
     res.json({
       success: true,
@@ -118,7 +121,7 @@ router.get('/user/:userId', async (req, res) => {
 });
 
 // @route   GET /api/applications
-// @desc    Get all applications
+// @desc    Get all applications (Admin)
 // @access  Private (Admin)
 router.get('/', async (req, res) => {
   try {
@@ -135,25 +138,19 @@ router.get('/', async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const application = await Application.findById(req.params.id);
-
     if (!application) {
-      return res.status(404).json({
-        message: "Application not found",
-      });
+      return res.status(404).json({ message: "Application not found" });
     }
-
-    // ✅ FIXED: Allow deletion of all application statuses (Pending, Accepted, Rejected)
 
     // Delete the resume file from Cloudinary if it exists
     if (application.resumePublicId) {
       try {
-        // Attempt raw deletion (for old uploads)
+        // Attempt raw deletion (for Word documents)
         await cloudinary.uploader.destroy(application.resumePublicId, {
           resource_type: "raw",
           type: "upload",
         });
-
-        // Attempt image deletion (for new uploads)
+        // Attempt image deletion (for PDFs)
         await cloudinary.uploader.destroy(application.resumePublicId, {
           resource_type: "image",
           type: "upload",
@@ -163,7 +160,6 @@ router.delete("/:id", async (req, res) => {
       }
     }
 
-    // Delete the application from database
     await Application.findByIdAndDelete(req.params.id);
 
     res.json({
@@ -171,9 +167,7 @@ router.delete("/:id", async (req, res) => {
       message: "Application and resume deleted successfully",
     });
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -183,20 +177,17 @@ router.delete("/:id", async (req, res) => {
 router.put('/:id/status', async (req, res) => {
   try {
     const { status } = req.body;
-
     const application = await Application.findByIdAndUpdate(
       req.params.id,
       { status },
       { new: true }
     );
-
     if (!application) {
       return res.status(404).json({
         success: false,
         message: 'Application not found',
       });
     }
-
     res.json({
       success: true,
       data: application,
