@@ -19,6 +19,7 @@ export default function Register() {
   });
 
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,10 +38,38 @@ export default function Register() {
         [name]: value,
       });
     }
+
+    // Clear email error when user starts typing
+    if (name === "email") {
+      setEmailError("");
+    }
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      setEmailError("Email is required.");
+      return false;
+    } else if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email address (e.g., name@domain.com).");
+      return false;
+    } else {
+      setEmailError("");
+      return true;
+    }
+  };
+
+  const handleEmailBlur = () => {
+    validateEmail(formData.email);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate email before submission
+    if (!validateEmail(formData.email)) {
+      return;
+    }
 
     // Validate phone: if not empty, must be exactly 10 digits
     if (formData.phone && formData.phone.length !== 10) {
@@ -90,14 +119,19 @@ export default function Register() {
             required
           />
 
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+          <div className="form-group-with-error">
+            <input
+              name="email"
+              type="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              onBlur={handleEmailBlur}
+              className={emailError ? "input-error" : ""}
+              required
+            />
+            {emailError && <span className="error-message">{emailError}</span>}
+          </div>
 
           <input
             name="password"
