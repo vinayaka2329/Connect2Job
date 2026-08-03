@@ -20,10 +20,10 @@ export default function Toast({ toast }) {
   if (!toast || !isVisible) return null;
 
   const icons = {
-    success: '✅',
+    success: '',
     error: '❌',
     warning: '⚠️',
-    info: 'ℹ️',
+    info: '',
   };
 
   const icon = icons[toast.type] || 'ℹ️';
