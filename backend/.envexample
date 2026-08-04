@@ -3,7 +3,7 @@ PORT=5000
 NODE_ENV=development
 
 # MongoDB
-MONGODB_URI=mongodb+srv://connect2job:Vinaygowda1234%24@cluster0.xfehlly.mongodb.net/connect2job?retryWrites=true&w=majority&appName=Cluster0
+MONGODB_URI=
 
 # JWT
 JWT_SECRET=your_super_secret_jwt_key_change_this
@@ -13,6 +13,6 @@ JWT_EXPIRE=7d
 CLIENT_URL=https://connect2-job.vercel.app
 
 #Cloudinary
-CLOUDINARY_CLOUD_NAME=bmwzhjnm
-CLOUDINARY_API_KEY=823523386794876
-CLOUDINARY_API_SECRET=mPr-dMlHxjqN0VfLPPoPKXunQDE
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
